@@ -1,8 +1,8 @@
 "use client";
 
+import { SignOutButton } from "@clerk/nextjs";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { signOut } from "next-auth/react";
 
 import { cn } from "@/utils/cn";
 
@@ -53,13 +53,14 @@ export function AdminShell({
 
         <div className="mt-auto border-t border-silver-50/10 pt-6">
           <p className="text-xs text-silver-50/50">{userLabel}</p>
-          <button
-            type="button"
-            onClick={() => signOut({ redirectTo: "/admin/login" })}
-            className="mt-3 w-full rounded-md border border-silver-50/15 px-3 py-2 text-xs uppercase tracking-[0.18em] text-silver-50/70 transition hover:border-silver-50/30 hover:text-silver-50"
-          >
-            Sair
-          </button>
+          <SignOutButton redirectUrl="/admin/login">
+            <button
+              type="button"
+              className="mt-3 w-full rounded-md border border-silver-50/15 px-3 py-2 text-xs uppercase tracking-[0.18em] text-silver-50/70 transition hover:border-silver-50/30 hover:text-silver-50"
+            >
+              Sair
+            </button>
+          </SignOutButton>
         </div>
       </aside>
 

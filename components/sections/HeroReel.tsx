@@ -30,7 +30,7 @@ export function HeroReel() {
 
       <div
         aria-hidden
-        className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_center,_rgba(5,5,5,0.2)_0%,_rgba(5,5,5,0.85)_75%)]"
+        className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_center,rgba(247,247,245,0.2)_0%,rgba(247,247,245,0.85)_75%)]"
       />
       <div
         aria-hidden

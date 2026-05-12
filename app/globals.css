@@ -1,56 +1,67 @@
 @import "tailwindcss";
 
+/*
+ * Light theme — off-white + white surfaces.
+ * Token NAMES kept for backwards compatibility with existing classes
+ * (bg-ink, text-silver-50, etc.). Values inverted from the previous
+ * dark cinematic palette: "ink" tones became light surfaces; "silver"
+ * tones became dark text.
+ */
+
 @theme {
-  --color-ink: #050505;
-  --color-ink-soft: #0a0a0a;
-  --color-graphite: #111111;
-  --color-graphite-soft: #1a1a1a;
-  --color-graphite-medium: #242424;
-  --color-charcoal: #2f2f2f;
-  --color-silver-50: #f4f4f3;
-  --color-silver-100: #d9d9d6;
-  --color-silver-200: #a8a8a4;
-  --color-silver-300: #777774;
-  --color-silver-400: #4d4d4b;
+  /* Page surfaces (light) */
+  --color-ink: #f7f7f5;             /* paper — page bg */
+  --color-ink-soft: #ffffff;        /* surface — cards / nav */
+  --color-graphite: #efefec;        /* panel */
+  --color-graphite-soft: #e7e7e3;
+  --color-graphite-medium: #d9d9d4;
+  --color-charcoal: #8a8a85;        /* muted accent */
+
+  /* Foreground (dark, used as text) */
+  --color-silver-50: #1a1a1a;       /* primary text */
+  --color-silver-100: #2a2a28;
+  --color-silver-200: #555552;
+  --color-silver-300: #7a7a76;
+  --color-silver-400: #a8a8a3;
 
   --font-display: var(--font-display);
   --font-sans: var(--font-sans);
 }
 
 :root {
-  --background: #050505;
-  --foreground: #f4f4f3;
+  --background: #f7f7f5;
+  --foreground: #1a1a1a;
 
-  --ink: #050505;
-  --ink-soft: #0a0a0a;
-  --graphite: #111111;
-  --graphite-soft: #1a1a1a;
-  --graphite-medium: #242424;
-  --charcoal: #2f2f2f;
+  --ink: #f7f7f5;
+  --ink-soft: #ffffff;
+  --graphite: #efefec;
+  --graphite-soft: #e7e7e3;
+  --graphite-medium: #d9d9d4;
+  --charcoal: #8a8a85;
 
-  --silver-50: #f4f4f3;
-  --silver-100: #d9d9d6;
-  --silver-200: #a8a8a4;
-  --silver-300: #777774;
-  --silver-400: #4d4d4b;
+  --silver-50: #1a1a1a;
+  --silver-100: #2a2a28;
+  --silver-200: #555552;
+  --silver-300: #7a7a76;
+  --silver-400: #a8a8a3;
 
-  --overlay-glass: rgba(5, 5, 5, 0.55);
-  --overlay-deep: rgba(5, 5, 5, 0.78);
+  --overlay-glass: rgba(255, 255, 255, 0.65);
+  --overlay-deep: rgba(255, 255, 255, 0.82);
   --overlay-veil: linear-gradient(
     180deg,
-    rgba(5, 5, 5, 0) 0%,
-    rgba(5, 5, 5, 0.35) 60%,
-    rgba(5, 5, 5, 0.92) 100%
+    rgba(247, 247, 245, 0) 0%,
+    rgba(247, 247, 245, 0.35) 60%,
+    rgba(247, 247, 245, 0.95) 100%
   );
 
-  --hairline: rgba(244, 244, 243, 0.08);
-  --hairline-strong: rgba(244, 244, 243, 0.16);
+  --hairline: rgba(26, 26, 26, 0.08);
+  --hairline-strong: rgba(26, 26, 26, 0.16);
 
-  --text-soft: rgba(244, 244, 243, 0.72);
-  --text-muted: rgba(244, 244, 243, 0.5);
-  --text-faint: rgba(244, 244, 243, 0.32);
+  --text-soft: rgba(26, 26, 26, 0.72);
+  --text-muted: rgba(26, 26, 26, 0.5);
+  --text-faint: rgba(26, 26, 26, 0.32);
 
-  --shadow-cinematic: 0 30px 80px -20px rgba(0, 0, 0, 0.6);
+  --shadow-cinematic: 0 30px 80px -20px rgba(0, 0, 0, 0.15);
 
   --navbar-height: 88px;
   --container-width: 1440px;
@@ -63,7 +74,7 @@
 
 html {
   background: var(--background);
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 body {

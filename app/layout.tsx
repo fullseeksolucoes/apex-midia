@@ -1,3 +1,4 @@
+import { ClerkProvider } from "@clerk/nextjs";
 import type { Metadata } from "next";
 import { Inter, Instrument_Serif } from "next/font/google";
 
@@ -49,11 +50,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="pt-BR"
-      className={`${sans.variable} ${display.variable} antialiased`}
-    >
-      <body className="min-h-screen bg-ink text-silver-50">{children}</body>
-    </html>
+    <ClerkProvider>
+      <html
+        lang="pt-BR"
+        className={`${sans.variable} ${display.variable} antialiased`}
+      >
+        <body className="min-h-screen bg-ink text-silver-50">{children}</body>
+      </html>
+    </ClerkProvider>
   );
 }

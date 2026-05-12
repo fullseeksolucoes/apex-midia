@@ -2,7 +2,7 @@
 
 Site institucional + painel admin da Apex Mídias.
 
-Stack: Next.js 16 (App Router), TypeScript, Tailwind 4, tRPC v11, Prisma 7 (Neon), Auth.js v5, UploadThing v7.
+Stack: Next.js 16 (App Router), TypeScript, Tailwind 4, tRPC v11, Prisma 7 (Neon), Clerk, UploadThing v7.
 
 ## Setup local
 
@@ -25,10 +25,13 @@ cp .env.example .env
 | Variável | O que é |
 | --- | --- |
 | `DATABASE_URL` | Connection string **pooled** do Neon ([console](https://console.neon.tech)) |
-| `AUTH_SECRET` | `openssl rand -base64 32` |
-| `ADMIN_EMAIL` | E-mail do único usuário admin |
-| `ADMIN_PASSWORD_HASH` | Hash bcrypt da senha — gere com `npm run auth:hash -- 'sua-senha'` |
+| `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY` | Publishable key do app no [dashboard Clerk](https://dashboard.clerk.com) → API Keys |
+| `CLERK_SECRET_KEY` | Secret key do app no Clerk |
+| `NEXT_PUBLIC_CLERK_SIGN_IN_URL` | `/admin/login` (já default no `.env.example`) |
+| `NEXT_PUBLIC_CLERK_SIGN_IN_FALLBACK_REDIRECT_URL` | `/admin/dashboard` |
 | `UPLOADTHING_TOKEN` | Token do app no [painel UploadThing](https://uploadthing.com/dashboard) |
+
+Crie seu usuário admin no [dashboard do Clerk](https://dashboard.clerk.com) → Users → Add User (e-mail + senha).
 
 ### 3. Banco de dados
 
@@ -60,16 +63,16 @@ npm run dev
 
 ```text
 app/
+  layout.tsx             # raiz: ClerkProvider + fontes
   (public)/              # rotas públicas (home, sobre, portfolio, contato)
   admin/
-    layout.tsx           # providers (tRPC, sessão)
-    login/               # tela de login (sem chrome)
+    layout.tsx           # providers (tRPC) + estilos UploadThing
+    login/               # /admin/login com <SignIn /> do Clerk
     (authed)/            # rotas autenticadas (sidebar)
       dashboard/
       projects/          # lista, /new, /[id]
   api/
     trpc/[trpc]/         # endpoint tRPC
-    auth/[...nextauth]/  # endpoint Auth.js
     uploadthing/         # endpoint UploadThing
 prisma/
   schema.prisma          # modelo de dados
@@ -77,11 +80,10 @@ prisma/
   generated/             # cliente Prisma gerado (gitignored)
 prisma.config.ts         # config CLI (datasource, migrations, seed)
 server/
-  trpc.ts                # init (publicProcedure, protectedProcedure)
+  trpc.ts                # init (publicProcedure, protectedProcedure via Clerk)
   routers/               # appRouter, portfolio, brands
 lib/
   db.ts                  # Prisma client singleton (Neon adapter)
-  auth.ts                # config Auth.js v5 (Credentials)
   trpc/
     client.tsx           # TRPCProvider + React Query
     server.ts            # caller server-side para RSC
@@ -90,17 +92,16 @@ lib/
   portfolio-schemas.ts   # Zod schemas (validação de inputs admin)
 services/                # API consumida pelas RSC públicas (lê do DB)
 content/projects.ts      # dados-semente (usados pelo seed)
-middleware.ts            # protege /admin/* com Auth.js
+middleware.ts            # clerkMiddleware (protege /admin/* exceto /login)
 ```
 
 ## Como o auth funciona
 
-- 1 usuário admin, definido por `ADMIN_EMAIL` + `ADMIN_PASSWORD_HASH` (bcrypt) no `.env`.
-- Login em `/admin/login` via Auth.js Credentials provider.
-- Sessão JWT (sem tabela `users` no DB).
-- Middleware bloqueia `/admin/*` exceto `/admin/login`.
-
-Para trocar a senha: `npm run auth:hash -- 'nova-senha'` e cole o hash em `ADMIN_PASSWORD_HASH`.
+- Autenticação gerida pelo [Clerk](https://clerk.com): sessão, cookies e UI.
+- Usuários criados manualmente no dashboard do Clerk (não há signup público).
+- `<SignIn />` embedded em `/admin/login` (componente do Clerk).
+- `clerkMiddleware` em [middleware.ts](middleware.ts) bloqueia `/admin/*` exceto `/admin/login` — redireciona pra login se não houver sessão.
+- tRPC `protectedProcedure` checa `ctx.session.userId` (vem do Clerk).
 
 ## Como o portfólio funciona
 
@@ -112,7 +113,8 @@ Para trocar a senha: `npm run auth:hash -- 'nova-senha'` e cole o hash em `ADMIN
 
 1. Conecte o repo na Vercel.
 2. Adicione as mesmas variáveis de ambiente do `.env` no projeto Vercel.
-3. No primeiro deploy, rode `prisma db push` (ou `prisma migrate deploy` se já houver migrations) apontando para a `DATABASE_URL` de produção. Em seguida, `npm run db:seed` se quiser popular.
+3. No Clerk: adicione a URL de produção como Allowed Origin e configure as redirect URLs.
+4. No primeiro deploy, rode `prisma db push` (ou `prisma migrate deploy` se já houver migrations) apontando para a `DATABASE_URL` de produção. Em seguida, `npm run db:seed` se quiser popular.
 
 `postinstall` regenera o cliente Prisma a cada build.
 

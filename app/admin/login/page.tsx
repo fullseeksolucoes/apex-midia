@@ -1,22 +1,15 @@
+import { auth } from "@clerk/nextjs/server";
+import { SignIn } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 
-import { auth } from "@/lib/auth";
+export default async function AdminLoginPage() {
+  const { userId } = await auth();
+  if (userId) redirect("/admin/dashboard");
 
-import { LoginForm } from "./login-form";
-
-export default async function AdminLoginPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ callbackUrl?: string; error?: string }>;
-}) {
-  const session = await auth();
-  if (session?.user) redirect("/admin/dashboard");
-
-  const params = await searchParams;
   return (
     <main className="flex min-h-screen items-center justify-center px-6">
-      <div className="w-full max-w-md">
-        <div className="mb-10 text-center">
+      <div className="w-full max-w-md space-y-10">
+        <div className="text-center">
           <p className="font-display text-3xl tracking-tight text-silver-50">
             Apex Mídias
           </p>
@@ -24,9 +17,17 @@ export default async function AdminLoginPage({
             Painel admin
           </p>
         </div>
-        <LoginForm
-          callbackUrl={params.callbackUrl ?? "/admin/dashboard"}
-          initialError={params.error}
+
+        <SignIn
+          routing="hash"
+          fallbackRedirectUrl="/admin/dashboard"
+          signUpUrl="/admin/login"
+          appearance={{
+            elements: {
+              rootBox: "mx-auto",
+              card: "bg-ink-soft shadow-none border border-(--hairline-strong)",
+            },
+          }}
         />
       </div>
     </main>
