@@ -1,17 +1,46 @@
 import type { Metadata } from "next";
-import { Geist } from "next/font/google";
+import { Inter, Instrument_Serif } from "next/font/google";
+
+import { copy } from "@/lib/i18n";
 
 import "./globals.css";
 
-const geist = Geist({
+const sans = Inter({
   subsets: ["latin"],
-  variable: "--font-geist",
+  variable: "--font-sans",
+  display: "swap",
+});
+
+const display = Instrument_Serif({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-display",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Apex Mídias",
+  metadataBase: new URL("https://apexmidias.com"),
+  title: {
+    default: `${copy.brand.name} — ${copy.brand.tagline}`,
+    template: `%s · ${copy.brand.name}`,
+  },
   description:
-    "Produtora audiovisual premium especializada em storytelling cinematográfico, campanhas visuais e direção criativa.",
+    "Estúdio audiovisual de filmes de marca, comerciais, moda, música e curtas. Direção, produção e pós cinematográfica.",
+  applicationName: copy.brand.name,
+  openGraph: {
+    type: "website",
+    locale: "pt_BR",
+    siteName: copy.brand.name,
+    title: `${copy.brand.name} — ${copy.brand.tagline}`,
+    description: copy.brand.tagline,
+    url: "https://apexmidias.com",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${copy.brand.name} — ${copy.brand.tagline}`,
+    description: copy.brand.tagline,
+  },
+  robots: { index: true, follow: true },
 };
 
 export default function RootLayout({
@@ -20,17 +49,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR" className={`${geist.variable} antialiased`}>
-      <body
-        className="
-          min-h-screen
-          bg-background
-          text-graphite
-          font-sans
-        "
-      >
-        {children}
-      </body>
+    <html
+      lang="pt-BR"
+      className={`${sans.variable} ${display.variable} antialiased`}
+    >
+      <body className="min-h-screen bg-ink text-silver-50">{children}</body>
     </html>
   );
 }
