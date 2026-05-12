@@ -1,0 +1,96 @@
+// Apex Mídias — admin database schema
+// docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client"
+  output   = "./generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum ProjectCategory {
+  BRAND
+  FASHION
+  SHORT_FILM
+  COMMERCIAL
+  MUSIC
+}
+
+enum MediaType {
+  IMAGE
+  VIDEO
+}
+
+enum MediaAspect {
+  WIDE
+  TALL
+  SQUARE
+}
+
+enum MediaSlot {
+  COVER
+  HERO
+  GALLERY
+}
+
+model Project {
+  id        String          @id @default(cuid())
+  slug      String          @unique
+  title     String
+  client    String
+  year      Int
+  category  ProjectCategory
+  excerpt   String
+  brief     String
+  featured  Boolean         @default(false)
+  order     Int             @default(0)
+  createdAt DateTime        @default(now())
+  updatedAt DateTime        @updatedAt
+
+  media   ProjectMedia[]
+  credits ProjectCredit[]
+
+  @@index([category])
+  @@index([featured])
+}
+
+model ProjectMedia {
+  id        String       @id @default(cuid())
+  projectId String
+  project   Project      @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  slot      MediaSlot
+  type      MediaType
+  src       String
+  poster    String?
+  caption   String?
+  width     Int
+  height    Int
+  aspect    MediaAspect?
+  order     Int          @default(0)
+
+  @@index([projectId])
+}
+
+model ProjectCredit {
+  id        String  @id @default(cuid())
+  projectId String
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  role      String
+  name      String
+  order     Int     @default(0)
+
+  @@index([projectId])
+}
+
+model Brand {
+  id        String   @id @default(cuid())
+  name      String
+  logo      String
+  width     Int
+  height    Int
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
