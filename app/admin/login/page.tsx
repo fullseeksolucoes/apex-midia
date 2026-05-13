@@ -1,6 +1,7 @@
 import { auth } from "@clerk/nextjs/server";
-import { SignIn } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
+
+import { LoginForm } from "@/components/admin/LoginForm";
 
 export default async function AdminLoginPage() {
   const { userId } = await auth();
@@ -18,17 +19,9 @@ export default async function AdminLoginPage() {
           </p>
         </div>
 
-        <SignIn
-          routing="hash"
-          fallbackRedirectUrl="/admin/dashboard"
-          signUpUrl="/admin/login"
-          appearance={{
-            elements: {
-              rootBox: "mx-auto",
-              card: "bg-ink-soft shadow-none border border-(--hairline-strong)",
-            },
-          }}
-        />
+        <div className="rounded-2xl border border-(--hairline-strong) bg-ink-soft p-8 shadow-(--shadow-cinematic)">
+          <LoginForm />
+        </div>
       </div>
     </main>
   );
