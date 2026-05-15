@@ -19,7 +19,7 @@ export function AboutHero() {
       />
       <div
         aria-hidden
-        className="absolute inset-0 -z-10 bg-gradient-to-b from-ink/50 via-ink/30 to-ink/95"
+        className="absolute inset-0 -z-10 bg-linear-to-b from-ink/50 via-ink/30 to-ink/95"
       />
 
       <Container size="wide" className="relative pb-20 pt-40 md:pb-28 md:pt-48">
@@ -27,7 +27,7 @@ export function AboutHero() {
           <span className="text-[11px] uppercase tracking-[0.32em] text-silver-200">
             {copy.sobre.hero.eyebrow}
           </span>
-          <h1 className="font-display text-5xl leading-[1] text-silver-50 md:text-8xl lg:text-[8.5rem]">
+          <h1 className="font-display text-5xl leading-none text-silver-50 md:text-8xl lg:text-[8.5rem]">
             {copy.sobre.hero.title}
           </h1>
           <p className="max-w-2xl text-base text-silver-100 md:text-lg">

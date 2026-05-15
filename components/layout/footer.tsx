@@ -19,7 +19,7 @@ const navLinks = [
 
 export function Footer() {
   return (
-    <footer className="relative mt-32 border-t border-(--hairline) bg-ink pt-24 pb-10">
+    <footer       className="relative mt-20 border-t border-(--hairline) bg-ink pt-20 pb-8">
       <Container size="wide">
         <div className="grid gap-16 md:grid-cols-[1.4fr_1fr_1fr]">
           <div>
@@ -29,7 +29,7 @@ export function Footer() {
                 alt={copy.brand.name}
                 width={72}
                 height={48}
-                className="brightness-0 invert"
+                // className="brightness-0 invert"
               />
             </Link>
             <p className="mt-6 max-w-md font-display text-3xl leading-[1.1] text-silver-50">
@@ -46,7 +46,7 @@ export function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-sm text-silver-100 transition-colors duration-300 hover:text-silver-50"
+                    className="text-sm text-silver-100 transition-colors duration-300 hover:text-accent"
                   >
                     {link.label}
                   </Link>
@@ -63,7 +63,7 @@ export function Footer() {
               <li>
                 <a
                   href={`mailto:${copy.contato.direct.email}`}
-                  className="text-sm text-silver-100 hover:text-silver-50"
+                  className="text-sm text-silver-100 hover:text-accent"
                 >
                   {copy.contato.direct.email}
                 </a>
@@ -81,7 +81,7 @@ export function Footer() {
                     href={s.href}
                     target="_blank"
                     rel="noreferrer"
-                    className="text-[11px] uppercase tracking-[0.24em] text-silver-200 transition-colors duration-300 hover:text-silver-50"
+                    className="text-[11px] uppercase tracking-[0.24em] text-silver-200 transition-colors duration-300 hover:text-accent"
                   >
                     {s.label}
                   </a>
@@ -100,7 +100,7 @@ export function Footer() {
             <Link
               href="https://www.fullseek.com.br/"
               target="_blank"
-              className="text-silver-100 hover:text-silver-50"
+              className="text-silver-100 hover:text-accent"
             >
               FullSeek
             </Link>

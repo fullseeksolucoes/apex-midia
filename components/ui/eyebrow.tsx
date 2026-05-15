@@ -10,7 +10,7 @@ export function Eyebrow({ children, className }: EyebrowProps) {
     <span
       className={cn(
         "inline-flex items-center gap-2 text-[10px] font-medium uppercase tracking-[0.32em] text-silver-200",
-        "before:block before:h-px before:w-8 before:bg-silver-200/60",
+        "before:block before:h-px before:w-8 before:bg-accent/60",
         className,
       )}
     >

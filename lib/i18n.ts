@@ -34,6 +34,13 @@ export const copy = {
       eyebrow: "Sobre",
       title: "Cinema como linguagem comercial.",
       body: "Um coletivo enxuto de diretores, produtores e finalizadores dedicados a campanhas, filmes de marca e narrativas editoriais de alto valor de produção.",
+      bodyExtra:
+        "Every frame is built with intention — combining storytelling, atmosphere and visual precision to create films that feel timeless and emotionally grounded.",
+      stats: [
+        { value: "8+", label: "Anos de Experiência" },
+        { value: "120+", label: "Projetos Entregues" },
+        { value: "15", label: "Parceiros Criativos" },
+      ],
       cta: "Conhecer o estúdio",
     },
     selectedWork: {
@@ -148,7 +155,8 @@ export const copy = {
       successTitle: "Mensagem recebida.",
       successBody: "Entraremos em contato em breve. Obrigado pela confiança.",
       errorTitle: "Não foi possível enviar.",
-      errorBody: "Tente novamente em instantes ou escreva diretamente para contato@apexmidias.com.",
+      errorBody:
+        "Tente novamente em instantes ou escreva diretamente para contato@apexmidias.com.",
       required: "Campo obrigatório",
       invalidEmail: "Informe um e-mail válido",
       types: {

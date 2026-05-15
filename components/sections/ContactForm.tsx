@@ -23,7 +23,9 @@ export function ContactForm() {
             <h2 className="font-display text-4xl leading-[1.05] text-silver-50 md:text-6xl">
               {copy.contato.form.successTitle}
             </h2>
-            <p className="text-lg text-silver-200">{copy.contato.form.successBody}</p>
+            <p className="text-lg text-silver-200">
+              {copy.contato.form.successBody}
+            </p>
             <button
               type="button"
               onClick={reset}
@@ -126,11 +128,14 @@ export function ContactForm() {
               id="contact-project"
               value={payload.projectType}
               onChange={(e) =>
-                setField("projectType", e.target.value as typeof payload.projectType)
+                setField(
+                  "projectType",
+                  e.target.value as typeof payload.projectType,
+                )
               }
               className={cn(
                 fieldBase,
-                "mt-3 appearance-none bg-[length:10px_10px] bg-[right_center] bg-no-repeat pr-8",
+                "mt-3 appearance-none bg-size-[10px_10px] bg-position-[right_center] bg-no-repeat pr-8",
               )}
               style={{
                 backgroundImage:

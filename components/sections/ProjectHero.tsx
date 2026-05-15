@@ -13,7 +13,7 @@ export function ProjectHero({ project }: ProjectHeroProps) {
   return (
     <section
       aria-label={copy.a11y.sectionProjectHero}
-      className="relative isolate flex min-h-[88svh] w-full items-end overflow-hidden bg-ink"
+      className="relative isolate flex min-h-svh w-full items-end overflow-hidden bg-ink"
     >
       <Image
         src={project.hero.src}
@@ -26,10 +26,10 @@ export function ProjectHero({ project }: ProjectHeroProps) {
 
       <div
         aria-hidden
-        className="absolute inset-0 -z-10 bg-gradient-to-b from-ink/30 via-ink/10 to-ink/95"
+        className="absolute inset-0 -z-10 bg-gradient-to-b from-ink/50 via-ink/20 to-ink"
       />
 
-      <Container size="wide" className="relative pb-20 pt-40 md:pb-28 md:pt-48">
+      <Container size="wide" className="relative pb-20 pt-(--navbar-height) md:pb-28">
         <div className="flex flex-col gap-6">
           <Link
             href="/portfolio"

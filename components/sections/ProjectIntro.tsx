@@ -20,7 +20,7 @@ export function ProjectIntro({ project }: ProjectIntroProps) {
   return (
     <section
       aria-label={copy.a11y.sectionProjectIntro}
-      className="relative border-t border-(--hairline) py-24 md:py-40"
+      className="relative border-t border-(--hairline) py-24 md:py-32"
     >
       <Container size="wide">
         <div className="grid gap-16 md:grid-cols-12">

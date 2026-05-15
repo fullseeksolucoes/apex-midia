@@ -7,10 +7,10 @@ export function Manifesto() {
   return (
     <section
       aria-label={copy.a11y.sectionManifesto}
-      className="relative border-t border-(--hairline) py-32 md:py-48"
+      className="relative border-t border-(--hairline) py-20 md:py-32"
     >
       <Container size="reading">
-        <Reveal className="flex flex-col gap-10">
+        <Reveal className="flex flex-col gap-8">
           <Eyebrow>{copy.sobre.manifesto.eyebrow}</Eyebrow>
           <h2 className="font-display text-4xl leading-[1.1] text-silver-50 md:text-6xl">
             {copy.sobre.manifesto.title}

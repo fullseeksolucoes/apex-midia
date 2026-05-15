@@ -14,62 +14,26 @@ interface ProjectGridProps {
   projects: Project[];
 }
 
-const layoutFor = (idx: number) => {
-  const cycle = idx % 5;
-  switch (cycle) {
-    case 0:
-      return {
-        colSpan: "md:col-span-7",
-        aspect: "aspect-[16/10]",
-        offset: "",
-      };
-    case 1:
-      return {
-        colSpan: "md:col-span-5",
-        aspect: "aspect-[4/5]",
-        offset: "md:mt-20",
-      };
-    case 2:
-      return {
-        colSpan: "md:col-span-6",
-        aspect: "aspect-[4/3]",
-        offset: "",
-      };
-    case 3:
-      return {
-        colSpan: "md:col-span-6",
-        aspect: "aspect-[4/3]",
-        offset: "md:mt-24",
-      };
-    default:
-      return {
-        colSpan: "md:col-span-12",
-        aspect: "aspect-[16/9]",
-        offset: "",
-      };
-  }
-};
-
 export function ProjectGrid({ projects }: ProjectGridProps) {
   const { filter, setFilter, filterOptions, visible } = useProjectGrid(projects);
 
   return (
     <section
       aria-label={copy.a11y.sectionPortfolio}
-      className="relative pb-32 md:pb-48"
+      className="relative py-24 md:py-32"
     >
       <Container size="wide">
-        <div className="mb-16 flex flex-wrap items-center gap-x-6 gap-y-3 border-t border-(--hairline) pt-8">
+        <div className="mb-14 flex flex-wrap items-center gap-x-6 gap-y-3 border-t border-(--hairline) pt-8 md:mb-16">
           {filterOptions.map((opt) => (
             <button
               key={opt.value}
               type="button"
               onClick={() => setFilter(opt.value)}
               className={cn(
-                "text-[11px] uppercase tracking-[0.28em] transition-colors duration-300",
+                "cursor-pointer text-[11px] uppercase tracking-[0.28em] transition-colors duration-300",
                 filter === opt.value
-                  ? "text-silver-50"
-                  : "text-silver-300 hover:text-silver-100",
+                  ? "text-neutral-900"
+                  : "text-neutral-400 hover:text-neutral-600",
               )}
               aria-pressed={filter === opt.value}
             >
@@ -78,56 +42,50 @@ export function ProjectGrid({ projects }: ProjectGridProps) {
           ))}
         </div>
 
-        <ul className="grid gap-x-8 gap-y-20 md:grid-cols-12 md:gap-y-32">
-          {visible.map((project, idx) => {
-            const layout = layoutFor(idx);
-            return (
+        {visible.length === 0 ? (
+          <p className="py-24 text-center text-sm text-neutral-400">—</p>
+        ) : (
+          <div className="columns-1 gap-6 sm:columns-2 xl:columns-3">
+            {visible.map((project, idx) => (
               <Reveal
-                as="li"
                 key={project.slug}
-                delay={(idx % 3) * 80}
-                className={cn(layout.colSpan, layout.offset)}
+                delay={idx * 60}
+                className="mb-6 break-inside-avoid"
               >
                 <Link
                   href={`/portfolio/${project.slug}`}
                   className="group block"
                 >
-                  <div
-                    className={cn(
-                      "relative overflow-hidden bg-graphite",
-                      layout.aspect,
-                    )}
-                  >
+                  <div className="overflow-hidden rounded-[1.75rem] bg-neutral-100">
                     <Image
                       src={project.cover.src}
                       alt={`${project.title} — ${project.client}`}
-                      fill
-                      sizes="(min-width: 768px) 50vw, 100vw"
-                      className="object-cover transition-transform duration-[1200ms] ease-(--ease-cinema) group-hover:scale-[1.05]"
+                      width={project.cover.width}
+                      height={project.cover.height}
+                      className="h-auto w-full object-cover transition-transform duration-1600 ease-out group-hover:scale-[1.025]"
                     />
                   </div>
-                  <div className="mt-6 flex items-baseline justify-between gap-4">
-                    <h3 className="font-display text-2xl text-silver-50 md:text-3xl">
-                      {project.title}
-                    </h3>
-                    <span className="text-[10px] uppercase tracking-[0.32em] text-silver-300">
+
+                  <div className="mt-4 flex items-start justify-between gap-4">
+                    <div>
+                      <h3 className="font-display text-xl tracking-tight text-neutral-900 md:text-2xl">
+                        {project.title}
+                      </h3>
+
+                      <p className="mt-1 text-sm text-neutral-500">
+                        {project.client}
+                      </p>
+                    </div>
+
+                    <span className="pt-1 text-[10px] uppercase tracking-[0.24em] text-neutral-400">
                       {project.year}
                     </span>
                   </div>
-                  <p className="mt-2 text-sm text-silver-200">
-                    {project.client}
-                  </p>
                 </Link>
               </Reveal>
-            );
-          })}
-        </ul>
-
-        {visible.length === 0 ? (
-          <p className="py-24 text-center text-sm text-silver-300">
-            —
-          </p>
-        ) : null}
+            ))}
+          </div>
+        )}
       </Container>
     </section>
   );

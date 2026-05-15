@@ -34,7 +34,7 @@ export function HeroReel() {
       />
       <div
         aria-hidden
-        className="absolute inset-x-0 bottom-0 -z-10 h-2/3 bg-gradient-to-b from-transparent via-ink/40 to-ink"
+        className="absolute inset-x-0 bottom-0 -z-10 h-2/3 bg-linear-to-b from-transparent via-ink/40 to-ink"
       />
 
       <Container size="wide" className="relative pb-24 pt-40 md:pb-32 md:pt-48">
@@ -64,17 +64,21 @@ export function HeroReel() {
             <button
               type="button"
               onClick={togglePlay}
-              aria-label={isPlaying ? copy.home.hero.playPauseLabel : copy.home.hero.resumeLabel}
+              aria-label={
+                isPlaying
+                  ? copy.home.hero.playPauseLabel
+                  : copy.home.hero.resumeLabel
+              }
               className="group flex h-12 w-12 items-center justify-center rounded-full border border-(--hairline-strong) text-silver-50 transition-all duration-300 hover:bg-silver-50 hover:text-ink"
             >
-              <span aria-hidden className="flex gap-[3px]">
+              <span aria-hidden className="flex gap-0.75">
                 {isPlaying ? (
                   <>
-                    <span className="block h-3 w-[2px] bg-current" />
-                    <span className="block h-3 w-[2px] bg-current" />
+                    <span className="block h-3 w-0.5 bg-current" />
+                    <span className="block h-3 w-0.5 bg-current" />
                   </>
                 ) : (
-                  <span className="ml-[2px] block h-0 w-0 border-y-[6px] border-y-transparent border-l-[10px] border-l-current" />
+                  <span className="ml-0.5 block h-0 w-0 border-y-[6px] border-y-transparent border-l-10 border-l-current" />
                 )}
               </span>
             </button>

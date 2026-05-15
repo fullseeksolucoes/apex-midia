@@ -7,10 +7,10 @@ export function Methodology() {
   return (
     <section
       aria-label={copy.a11y.sectionMethodology}
-      className="relative border-t border-(--hairline) py-32 md:py-48"
+      className="relative border-t border-(--hairline) py-20 md:py-32"
     >
       <Container size="wide">
-        <div className="grid gap-16 md:grid-cols-12">
+        <div className="grid gap-10 md:grid-cols-12">
           <Reveal className="md:col-span-4">
             <Eyebrow>{copy.sobre.methodology.eyebrow}</Eyebrow>
             <h2 className="mt-8 font-display text-4xl leading-[1.05] text-silver-50 md:text-6xl">
@@ -24,7 +24,7 @@ export function Methodology() {
                 as="li"
                 key={step.number}
                 delay={idx * 100}
-                className="grid grid-cols-[auto_1fr] gap-x-8 gap-y-3 border-b border-(--hairline) py-10 last:border-b-0"
+                className="grid grid-cols-[auto_1fr] gap-x-8 gap-y-3 border-b border-(--hairline) py-8 last:border-b-0"
               >
                 <span className="font-display text-2xl text-silver-300 md:text-3xl">
                   {step.number}

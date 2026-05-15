@@ -11,85 +11,64 @@ export async function SelectedWork() {
   const projects = await getFeaturedProjects();
 
   return (
-    <section
-      aria-label={copy.a11y.sectionSelected}
-      className="relative py-32 md:py-48"
-    >
+    <section aria-label={copy.a11y.sectionSelected} className="py-24 md:py-32">
       <Container size="wide">
-        <Reveal className="mb-16 flex flex-col items-start justify-between gap-4 md:mb-24 md:flex-row md:items-end">
-          <div className="flex flex-col gap-6">
+        <Reveal className="mb-14 flex flex-col gap-6 md:mb-20 md:flex-row md:items-end md:justify-between">
+          <div className="max-w-2xl">
             <Eyebrow>{copy.home.selectedWork.eyebrow}</Eyebrow>
-            <h2 className="font-display text-4xl leading-[1.05] text-silver-50 md:text-6xl lg:text-7xl">
+
+            <h2 className="mt-6 font-display text-5xl leading-[0.95] tracking-tight text-neutral-900 md:text-7xl">
               {copy.home.selectedWork.title}
             </h2>
           </div>
+
           <Link
             href="/portfolio"
-            className="group inline-flex items-center gap-3 text-[11px] uppercase tracking-[0.32em] text-silver-200 hover:text-silver-50"
+            className="group inline-flex items-center gap-4 text-[11px] uppercase tracking-[0.28em] text-neutral-900 transition-colors duration-300 hover:text-neutral-500"
           >
-            <span className="block h-px w-10 bg-current transition-all duration-500 group-hover:w-16" />
+            <span className="h-px w-10 bg-current transition-all duration-500 group-hover:w-16" />
+
             {copy.home.selectedWork.cta}
           </Link>
         </Reveal>
 
-        <ul className="grid gap-x-8 gap-y-24 md:grid-cols-12">
-          {projects.map((project, idx) => {
-            const isWide = idx % 3 === 0;
-            const colSpan = isWide ? "md:col-span-12" : "md:col-span-6";
-            const offset = idx % 3 === 2 ? "md:col-start-7 md:mt-32" : "";
-            return (
-              <Reveal
-                as="li"
-                delay={(idx % 3) * 100}
-                key={project.slug}
-                className={`${colSpan} ${offset}`}
-              >
-                <Link
-                  href={`/portfolio/${project.slug}`}
-                  className="group block"
-                >
-                  <div
-                    className={`relative overflow-hidden bg-graphite ${
-                      isWide
-                        ? "aspect-[16/9]"
-                        : project.cover.aspect === "tall"
-                          ? "aspect-[4/5]"
-                          : "aspect-[4/3]"
-                    }`}
-                  >
-                    <Image
-                      src={project.cover.src}
-                      alt={`${project.title} — ${project.client}`}
-                      fill
-                      sizes={
-                        isWide
-                          ? "(min-width: 768px) 90vw, 100vw"
-                          : "(min-width: 768px) 45vw, 100vw"
-                      }
-                      className="object-cover transition-transform duration-[1200ms] ease-(--ease-cinema) group-hover:scale-[1.04]"
-                    />
-                    <div
-                      aria-hidden
-                      className="absolute inset-0 bg-gradient-to-t from-ink/70 via-ink/10 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-                    />
-                  </div>
+        <div className="columns-1 gap-6 sm:columns-2 xl:columns-3">
+          {projects.map((project, idx) => (
+            <Reveal
+              key={project.slug}
+              delay={idx * 60}
+              className="mb-6 break-inside-avoid"
+            >
+              <Link href={`/portfolio/${project.slug}`} className="group block">
+                <div className="overflow-hidden rounded-[1.75rem] bg-neutral-100">
+                  <Image
+                    src={project.cover.src}
+                    alt={`${project.title} — ${project.client}`}
+                    width={project.cover.width}
+                    height={project.cover.height}
+                    className="h-auto w-full object-cover transition-transform duration-1600 ease-out group-hover:scale-[1.025]"
+                  />
+                </div>
 
-                  <div className="mt-6 flex items-baseline justify-between gap-6">
-                    <h3 className="font-display text-2xl text-silver-50 md:text-3xl">
+                <div className="mt-4 flex items-start justify-between gap-4">
+                  <div>
+                    <h3 className="font-display text-xl tracking-tight text-neutral-900 md:text-2xl">
                       {project.title}
                     </h3>
-                    <span className="text-[10px] uppercase tracking-[0.32em] text-silver-300">
-                      {project.year}
-                    </span>
+
+                    <p className="mt-1 text-sm text-neutral-500">
+                      {project.client}
+                    </p>
                   </div>
-                  <p className="mt-2 text-sm text-silver-200">
-                    {project.client} · {project.excerpt}
-                  </p>
-                </Link>
-              </Reveal>
-            );
-          })}
-        </ul>
+
+                  <span className="pt-1 text-[10px] uppercase tracking-[0.24em] text-neutral-400">
+                    {project.year}
+                  </span>
+                </div>
+              </Link>
+            </Reveal>
+          ))}
+        </div>
       </Container>
     </section>
   );

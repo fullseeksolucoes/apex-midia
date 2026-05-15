@@ -1,8 +1,5 @@
-"use client";
-
 import type { ReactNode } from "react";
 
-import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { cn } from "@/utils/cn";
 
 interface MarqueeProps {
@@ -16,16 +13,6 @@ export function Marquee({
   speedSeconds = 50,
   className,
 }: MarqueeProps) {
-  const reduce = useReducedMotion();
-
-  if (reduce) {
-    return (
-      <div className={cn("flex flex-wrap items-center justify-center gap-12", className)}>
-        {children}
-      </div>
-    );
-  }
-
   return (
     <div className={cn("relative overflow-hidden", className)}>
       <div
@@ -42,6 +29,12 @@ export function Marquee({
         @keyframes apex-marquee {
           0% { transform: translateX(0); }
           100% { transform: translateX(-50%); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          [style*="--apex-marquee-duration"] {
+            animation-duration: var(--apex-marquee-duration) !important;
+            animation-iteration-count: infinite !important;
+          }
         }
       `}</style>
     </div>

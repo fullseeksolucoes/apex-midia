@@ -45,7 +45,7 @@ export function Navbar() {
                 width={60}
                 height={40}
                 priority
-                className="brightness-0 invert"
+                // className="brightness-0 invert"
               />
             </Link>
 
@@ -61,8 +61,8 @@ export function Navbar() {
                       className={cn(
                         "text-[11px] font-medium uppercase tracking-[0.28em] transition-colors duration-300",
                         active
-                          ? "text-silver-50"
-                          : "text-silver-200 hover:text-silver-50",
+                          ? "text-accent"
+                          : "text-silver-200 hover:text-accent",
                       )}
                     >
                       {link.label}

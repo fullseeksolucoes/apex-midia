@@ -22,10 +22,10 @@ export function CtaBlock({
   return (
     <section
       aria-label={ariaLabel}
-      className="relative py-32 md:py-48"
+      className="relative py-20 md:py-32"
     >
       <Container size="narrow">
-        <Reveal className="flex flex-col items-start gap-10">
+        <Reveal className="flex flex-col items-start gap-6">
           <Eyebrow>{eyebrow}</Eyebrow>
           <h2 className="font-display text-5xl leading-[1.05] text-silver-50 md:text-7xl lg:text-[6rem]">
             {title}
