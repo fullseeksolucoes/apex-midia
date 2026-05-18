@@ -66,17 +66,59 @@ export function AdminShell({
       </aside>
 
       <div className="flex flex-1 flex-col">
-        <header className="sticky top-0 z-20 flex items-center justify-between gap-4 border-b border-silver-50/10 bg-ink/85 px-6 py-4 backdrop-blur lg:px-10">
-          <Link href="/admin/dashboard" className="flex items-center gap-3 lg:hidden">
-            <span className="font-display text-lg tracking-tight text-silver-50">
-              Apex Mídias
-            </span>
-            <span className="text-[10px] uppercase tracking-[0.22em] text-silver-50/40">
-              Admin
-            </span>
-          </Link>
+        <header className="sticky top-0 z-20 border-b border-silver-50/10 bg-ink/85 backdrop-blur">
+          <div className="flex items-center justify-between gap-4 px-6 py-4 lg:px-10">
+            <Link
+              href="/admin/dashboard"
+              className="flex items-center gap-3 lg:hidden"
+            >
+              <span className="font-display text-lg tracking-tight text-silver-50">
+                Apex Mídias
+              </span>
+              <span className="text-[10px] uppercase tracking-[0.22em] text-silver-50/40">
+                Admin
+              </span>
+            </Link>
 
-          <nav className="hidden items-center gap-1 lg:flex">
+            <nav className="hidden items-center gap-1 lg:flex">
+              {NAV.map((item) => {
+                const active = pathname.startsWith(item.href);
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className={cn(
+                      "rounded-md px-3 py-1.5 text-xs uppercase tracking-[0.18em] transition",
+                      active
+                        ? "text-silver-50"
+                        : "text-silver-50/50 hover:text-silver-50",
+                    )}
+                  >
+                    {item.label}
+                  </Link>
+                );
+              })}
+            </nav>
+
+            <div className="flex items-center gap-3">
+              <Link
+                href="/"
+                className="rounded-md border border-silver-50/15 px-3 py-2 text-[11px] uppercase tracking-[0.18em] text-silver-50/70 transition hover:border-silver-50/30 hover:text-silver-50"
+              >
+                Voltar ao site
+              </Link>
+              <SignOutButton redirectUrl="/admin/login">
+                <button
+                  type="button"
+                  className="rounded-md px-3 py-2 text-[11px] uppercase tracking-[0.18em] text-silver-50/60 transition hover:text-silver-50 lg:hidden"
+                >
+                  Sair
+                </button>
+              </SignOutButton>
+            </div>
+          </div>
+
+          <nav className="flex items-center gap-1 overflow-x-auto border-t border-silver-50/10 px-6 py-2 lg:hidden">
             {NAV.map((item) => {
               const active = pathname.startsWith(item.href);
               return (
@@ -84,10 +126,10 @@ export function AdminShell({
                   key={item.href}
                   href={item.href}
                   className={cn(
-                    "rounded-md px-3 py-1.5 text-xs uppercase tracking-[0.18em] transition",
+                    "shrink-0 rounded-md px-3 py-1.5 text-xs uppercase tracking-[0.18em] transition",
                     active
-                      ? "text-silver-50"
-                      : "text-silver-50/50 hover:text-silver-50",
+                      ? "bg-silver-50/10 text-silver-50"
+                      : "text-silver-50/60 hover:text-silver-50",
                   )}
                 >
                   {item.label}
@@ -95,23 +137,6 @@ export function AdminShell({
               );
             })}
           </nav>
-
-          <div className="flex items-center gap-3">
-            <Link
-              href="/"
-              className="rounded-md border border-silver-50/15 px-3 py-2 text-[11px] uppercase tracking-[0.18em] text-silver-50/70 transition hover:border-silver-50/30 hover:text-silver-50"
-            >
-              Voltar ao site
-            </Link>
-            <SignOutButton redirectUrl="/admin/login">
-              <button
-                type="button"
-                className="rounded-md px-3 py-2 text-[11px] uppercase tracking-[0.18em] text-silver-50/60 transition hover:text-silver-50 lg:hidden"
-              >
-                Sair
-              </button>
-            </SignOutButton>
-          </div>
         </header>
 
         <main className="flex-1 px-6 py-10 lg:px-10">
