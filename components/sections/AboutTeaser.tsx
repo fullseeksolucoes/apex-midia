@@ -38,7 +38,7 @@ export function AboutTeaser() {
             </Reveal>
 
             <Reveal delay={80} className="mt-6">
-              <h2 className="max-w-3xl font-display text-5xl leading-[0.92] tracking-tight text-silver-50 md:text-7xl">
+              <h2 className="max-w-3xl font-display text-5xl font-light leading-[0.92] tracking-tight text-silver-50 md:text-7xl">
                 {copy.home.about.title}
               </h2>
             </Reveal>

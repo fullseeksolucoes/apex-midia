@@ -84,7 +84,7 @@ export function ContactForm() {
 
             <motion.h1
               variants={fadeUp}
-              className="font-display text-5xl leading-[0.92] text-silver-50 md:text-7xl lg:text-[6.5rem]"
+              className="font-display text-5xl font-light leading-[0.92] text-silver-50 md:text-7xl lg:text-[6.5rem]"
             >
               {copy.contato.hero.title}
             </motion.h1>

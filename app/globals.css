@@ -86,6 +86,11 @@ body {
   position: relative;
 }
 
+.font-display {
+  letter-spacing: -0.018em;
+  font-feature-settings: "ss01", "ss02";
+}
+
 body::after {
   content: "";
   position: fixed;

@@ -44,7 +44,7 @@ export function HeroReel() {
             <span className="text-[11px] font-medium uppercase tracking-[0.4em] text-silver-300">
               {copy.home.hero.eyebrow}
             </span>
-            <h1 className="font-display text-[3rem] leading-[0.94] text-silver-50 md:text-[5.5rem] lg:text-[7.5rem]">
+            <h1 className="font-display text-[3rem] font-light leading-[0.94] text-silver-50 md:text-[5.5rem] lg:text-[7.5rem]">
               {copy.home.hero.headline}
             </h1>
             <p className="max-w-xl text-base leading-relaxed text-silver-100 md:text-lg">

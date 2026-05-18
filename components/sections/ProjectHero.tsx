@@ -43,7 +43,7 @@ export function ProjectHero({ project }: ProjectHeroProps) {
             {project.client} · {project.year}
           </span>
 
-          <h1 className="font-display text-5xl leading-[1] text-silver-50 md:text-8xl lg:text-[9rem]">
+          <h1 className="font-display text-5xl font-light leading-[1] text-silver-50 md:text-8xl lg:text-[9rem]">
             {project.title}
           </h1>
         </div>

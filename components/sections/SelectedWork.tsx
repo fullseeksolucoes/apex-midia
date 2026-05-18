@@ -17,7 +17,7 @@ export async function SelectedWork() {
           <div className="max-w-2xl">
             <Eyebrow>{copy.home.selectedWork.eyebrow}</Eyebrow>
 
-            <h2 className="mt-6 font-display text-5xl leading-[0.92] tracking-tight text-silver-50 md:text-7xl">
+            <h2 className="mt-6 font-display text-5xl font-light leading-[0.92] tracking-tight text-silver-50 md:text-7xl">
               {copy.home.selectedWork.title}
             </h2>
           </div>
