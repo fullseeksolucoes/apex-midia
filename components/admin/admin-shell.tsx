@@ -9,6 +9,7 @@ import { cn } from "@/utils/cn";
 const NAV = [
   { href: "/admin/dashboard", label: "Painel" },
   { href: "/admin/projects", label: "Portfólio" },
+  { href: "/admin/contacts", label: "Contatos" },
 ];
 
 export function AdminShell({

@@ -3,12 +3,14 @@ import Link from "next/link";
 import { api } from "@/lib/trpc/server";
 
 export default async function AdminDashboardPage() {
-  const [projects, brands] = await Promise.all([
+  const [projects, brands, contactStats] = await Promise.all([
     api.portfolio.listAdmin(),
     api.brands.listAdmin(),
+    api.contact.stats(),
   ]);
 
   const featuredCount = projects.filter((p) => p.featured).length;
+  const newContacts = contactStats.byStatus.new ?? 0;
 
   return (
     <div className="space-y-10">
@@ -21,10 +23,11 @@ export default async function AdminDashboardPage() {
         </h1>
       </header>
 
-      <section className="grid gap-4 sm:grid-cols-3">
+      <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <Stat label="Projetos" value={projects.length} />
         <Stat label="Em destaque" value={featuredCount} />
         <Stat label="Brands" value={brands.length} />
+        <Stat label="Novos contatos" value={newContacts} />
       </section>
 
       <section className="space-y-4">
