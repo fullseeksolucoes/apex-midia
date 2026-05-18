@@ -1,8 +1,11 @@
 import { ClerkProvider } from "@clerk/nextjs";
 import type { Metadata } from "next";
 import { Inter, Instrument_Serif } from "next/font/google";
+import { Suspense } from "react";
 
+import { AttributionTracker } from "@/components/attribution-tracker";
 import { copy } from "@/lib/i18n";
+import { TRPCProvider } from "@/lib/trpc/client";
 
 import "./globals.css";
 
@@ -55,7 +58,14 @@ export default function RootLayout({
         lang="pt-BR"
         className={`${sans.variable} ${display.variable} antialiased`}
       >
-        <body className="min-h-screen bg-ink text-silver-50">{children}</body>
+        <body className="min-h-screen bg-ink text-silver-50">
+          <TRPCProvider>
+            <Suspense fallback={null}>
+              <AttributionTracker />
+            </Suspense>
+            {children}
+          </TRPCProvider>
+        </body>
       </html>
     </ClerkProvider>
   );
