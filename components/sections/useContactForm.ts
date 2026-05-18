@@ -4,6 +4,7 @@ import { useCallback, useState, type FormEvent } from "react";
 
 import { submit } from "@/services/contact";
 import { copy } from "@/lib/i18n";
+import { trpc } from "@/lib/trpc/client";
 import type { ContactPayload, ProjectType } from "@/types/contact";
 
 type FormStatus = "idle" | "submitting" | "success" | "error";
@@ -30,6 +31,7 @@ export function useContactForm() {
   const [payload, setPayload] = useState<ContactPayload>(initialPayload);
   const [errors, setErrors] = useState<FormErrors>({});
   const [status, setStatus] = useState<FormStatus>("idle");
+  const submitMutation = trpc.contact.submit.useMutation();
 
   const setField = useCallback(
     <K extends keyof ContactPayload>(key: K, value: ContactPayload[K]) => {
@@ -47,10 +49,12 @@ export function useContactForm() {
       if (Object.keys(next).length > 0) return;
 
       setStatus("submitting");
-      const result = await submit(payload);
+      const result = await submit(payload, (input) =>
+        submitMutation.mutateAsync(input),
+      );
       setStatus(result.status === "success" ? "success" : "error");
     },
-    [payload],
+    [payload, submitMutation],
   );
 
   const projectTypes: Array<{ value: ProjectType; label: string }> = [
