@@ -22,17 +22,19 @@ export function CtaBlock({
   return (
     <section
       aria-label={ariaLabel}
-      className="relative py-20 md:py-32"
+      className="relative py-24 md:py-40"
     >
       <Container size="narrow">
         <Reveal className="flex flex-col items-start gap-6">
           <Eyebrow>{eyebrow}</Eyebrow>
-          <h2 className="font-display text-5xl leading-[1.05] text-silver-50 md:text-7xl lg:text-[6rem]">
+          <h2 className="font-display text-5xl leading-[1.04] text-silver-50 md:text-7xl lg:text-[6rem]">
             {title}
           </h2>
-          <Button href={href} size="lg" variant="primary">
-            {cta}
-          </Button>
+          <div className="mt-4">
+            <Button href={href} size="lg" variant="primary">
+              {cta}
+            </Button>
+          </div>
         </Reveal>
       </Container>
     </section>

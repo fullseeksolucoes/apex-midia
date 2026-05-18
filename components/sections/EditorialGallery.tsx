@@ -42,14 +42,14 @@ export function EditorialGallery() {
           </h2>
         </div>
 
-        <div className="columns-1 gap-6 sm:columns-2 xl:columns-3">
+        <div className="columns-1 gap-8 sm:columns-2 xl:columns-3">
           {tiles.map((tile, idx) => (
             <Reveal
               key={tile.src}
               delay={idx * 60}
-              className="mb-6 break-inside-avoid"
+              className="mb-8 break-inside-avoid"
             >
-              <div className="overflow-hidden rounded-[1.75rem] bg-neutral-100">
+              <div className="overflow-hidden rounded-[1.75rem] bg-graphite shadow-(--shadow-lift)">
                 <Image
                   src={tile.src}
                   alt=""

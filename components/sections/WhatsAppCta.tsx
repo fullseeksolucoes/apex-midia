@@ -9,7 +9,7 @@ export function WhatsAppCta() {
   return (
     <section
       aria-label={copy.a11y.sectionWhatsapp}
-      className="relative py-32 md:py-48"
+      className="relative py-24 md:py-40"
     >
       <Container size="narrow">
         <Reveal className="flex flex-col items-start gap-8">

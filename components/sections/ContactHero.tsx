@@ -8,7 +8,7 @@ export function ContactHero() {
       <Container size="wide">
         <div className="flex flex-col gap-8">
           <Eyebrow>{copy.contato.hero.eyebrow}</Eyebrow>
-          <h1 className="font-display text-5xl leading-none text-silver-50 md:text-8xl lg:text-[9rem]">
+          <h1 className="font-display text-5xl leading-[0.95] text-silver-50 md:text-8xl lg:text-[9rem]">
             {copy.contato.hero.title}
           </h1>
           <p className="max-w-xl text-base text-silver-200 md:text-lg">

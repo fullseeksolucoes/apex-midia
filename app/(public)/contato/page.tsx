@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 
 import { ContactForm } from "@/components/sections/ContactForm";
-import { ContactHero } from "@/components/sections/ContactHero";
-import { WhatsAppCta } from "@/components/sections/WhatsAppCta";
 import { copy } from "@/lib/i18n";
 
 export const metadata: Metadata = {
@@ -11,11 +9,5 @@ export const metadata: Metadata = {
 };
 
 export default function ContatoPage() {
-  return (
-    <>
-      <ContactHero />
-      <ContactForm />
-      <WhatsAppCta />
-    </>
-  );
+  return <ContactForm />;
 }

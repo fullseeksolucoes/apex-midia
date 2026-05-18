@@ -24,32 +24,32 @@ export function RelatedProjects({ projects }: RelatedProjectsProps) {
           {copy.portfolio.detail.relatedTitle}
         </Eyebrow>
 
-        <div className="columns-1 gap-6 sm:columns-2 xl:columns-3">
+        <div className="columns-1 gap-8 sm:columns-2 xl:columns-3">
           {projects.map((project, idx) => (
             <Reveal
               key={project.slug}
               delay={idx * 60}
-              className="mb-6 break-inside-avoid"
+              className="mb-8 break-inside-avoid"
             >
               <Link
                 href={`/portfolio/${project.slug}`}
                 className="group block"
               >
-                <div className="overflow-hidden rounded-[1.75rem] bg-neutral-100">
+                <div className="overflow-hidden rounded-[1.75rem] bg-graphite shadow-(--shadow-lift) transition-shadow duration-500 group-hover:shadow-(--shadow-editorial)">
                   <Image
                     src={project.cover.src}
                     alt={`${project.title} — ${project.client}`}
                     width={project.cover.width}
                     height={project.cover.height}
-                    className="h-auto w-full object-cover transition-transform duration-1600 ease-out group-hover:scale-[1.025]"
+                    className="h-auto w-full object-cover transition-transform duration-(--duration-lift) ease-out group-hover:scale-[1.03]"
                   />
                 </div>
-                <div className="mt-4 flex items-start justify-between gap-4">
+                <div className="mt-5 flex items-start justify-between gap-4">
                   <div>
-                    <h3 className="font-display text-xl tracking-tight text-neutral-900 md:text-2xl">
+                    <h3 className="font-display text-xl tracking-tight text-silver-50 md:text-2xl">
                       {project.title}
                     </h3>
-                    <p className="mt-1 text-sm text-neutral-500">
+                    <p className="mt-1.5 text-sm text-silver-300">
                       {project.client}
                     </p>
                   </div>

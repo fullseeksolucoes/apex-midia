@@ -12,7 +12,7 @@ export function Manifesto() {
       <Container size="reading">
         <Reveal className="flex flex-col gap-8">
           <Eyebrow>{copy.sobre.manifesto.eyebrow}</Eyebrow>
-          <h2 className="font-display text-4xl leading-[1.1] text-silver-50 md:text-6xl">
+          <h2 className="font-display text-4xl leading-[1.08] text-silver-50 md:text-6xl">
             {copy.sobre.manifesto.title}
           </h2>
 

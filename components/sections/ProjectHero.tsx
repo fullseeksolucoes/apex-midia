@@ -26,14 +26,14 @@ export function ProjectHero({ project }: ProjectHeroProps) {
 
       <div
         aria-hidden
-        className="absolute inset-0 -z-10 bg-gradient-to-b from-ink/50 via-ink/20 to-ink"
+        className="absolute inset-0 -z-10 bg-linear-to-b from-ink/50 via-ink/20 to-ink"
       />
 
       <Container size="wide" className="relative pb-20 pt-(--navbar-height) md:pb-28">
         <div className="flex flex-col gap-6">
           <Link
             href="/portfolio"
-            className="inline-flex items-center gap-3 text-[10px] uppercase tracking-[0.32em] text-silver-200 transition-colors duration-300 hover:text-silver-50"
+            className="inline-flex items-center gap-3 text-[10px] uppercase tracking-[0.32em] text-silver-300 transition-colors duration-300 hover:text-silver-50"
           >
             <span className="block h-px w-8 bg-current" />
             {copy.portfolio.detail.back}

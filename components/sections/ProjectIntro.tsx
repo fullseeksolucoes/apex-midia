@@ -35,19 +35,19 @@ export function ProjectIntro({ project }: ProjectIntroProps) {
             <Eyebrow className="mb-8">{copy.portfolio.detail.credits}</Eyebrow>
             <dl className="divide-y divide-(--hairline)">
               <div className="flex items-baseline justify-between gap-6 py-4">
-                <dt className="text-[10px] uppercase tracking-[0.28em] text-silver-300">
+                <dt className="text-[10px] uppercase tracking-[0.28em] text-silver-400">
                   {copy.portfolio.detail.client}
                 </dt>
                 <dd className="text-sm text-silver-50">{project.client}</dd>
               </div>
               <div className="flex items-baseline justify-between gap-6 py-4">
-                <dt className="text-[10px] uppercase tracking-[0.28em] text-silver-300">
+                <dt className="text-[10px] uppercase tracking-[0.28em] text-silver-400">
                   {copy.portfolio.detail.year}
                 </dt>
                 <dd className="text-sm text-silver-50">{project.year}</dd>
               </div>
               <div className="flex items-baseline justify-between gap-6 py-4">
-                <dt className="text-[10px] uppercase tracking-[0.28em] text-silver-300">
+                <dt className="text-[10px] uppercase tracking-[0.28em] text-silver-400">
                   {copy.portfolio.detail.category}
                 </dt>
                 <dd className="text-sm text-silver-50">
@@ -59,7 +59,7 @@ export function ProjectIntro({ project }: ProjectIntroProps) {
                   key={`${c.role}-${c.name}`}
                   className="flex items-baseline justify-between gap-6 py-4"
                 >
-                  <dt className="text-[10px] uppercase tracking-[0.28em] text-silver-300">
+                  <dt className="text-[10px] uppercase tracking-[0.28em] text-silver-400">
                     {c.role}
                   </dt>
                   <dd className="text-sm text-silver-50">{c.name}</dd>

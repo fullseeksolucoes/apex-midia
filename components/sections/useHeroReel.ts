@@ -2,27 +2,85 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 
-import { useReducedMotion } from "@/hooks/useReducedMotion";
-
 export function useHeroReel() {
   const videoRef = useRef<HTMLVideoElement | null>(null);
-  const [manuallyPaused, setManuallyPaused] = useState(false);
-  const reduce = useReducedMotion();
-  const isPlaying = !manuallyPaused && !reduce;
+
+  const [hasStarted, setHasStarted] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  const startedRef = useRef(false);
 
   useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-    if (reduce || manuallyPaused) {
-      video.pause();
-    } else {
-      void video.play().catch(() => undefined);
-    }
-  }, [reduce, manuallyPaused]);
+    const startVideo = async () => {
+      if (startedRef.current) return;
 
-  const togglePlay = useCallback(() => {
-    setManuallyPaused((prev) => !prev);
+      const video = videoRef.current;
+
+      if (!video) return;
+
+      try {
+        video.muted = true;
+
+        await video.play();
+
+        startedRef.current = true;
+
+        setHasStarted(true);
+        setIsPlaying(true);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    const handleScroll = () => {
+      startVideo();
+    };
+
+    window.addEventListener("wheel", handleScroll, {
+      passive: true,
+    });
+
+    window.addEventListener("touchmove", handleScroll, {
+      passive: true,
+    });
+
+    window.addEventListener("scroll", handleScroll, {
+      passive: true,
+    });
+
+    return () => {
+      window.removeEventListener("wheel", handleScroll);
+
+      window.removeEventListener("touchmove", handleScroll);
+
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
 
-  return { videoRef, isPlaying, togglePlay };
+  const togglePlay = useCallback(async () => {
+    const video = videoRef.current;
+
+    if (!video) return;
+
+    if (video.paused) {
+      await video.play();
+
+      setIsPlaying(true);
+
+      startedRef.current = true;
+
+      setHasStarted(true);
+    } else {
+      video.pause();
+
+      setIsPlaying(false);
+    }
+  }, []);
+
+  return {
+    videoRef,
+    hasStarted,
+    isPlaying,
+    togglePlay,
+  };
 }

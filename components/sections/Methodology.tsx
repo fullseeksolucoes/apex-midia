@@ -32,7 +32,7 @@ export function Methodology() {
                 <h3 className="font-display text-3xl text-silver-50 md:text-4xl">
                   {step.title}
                 </h3>
-                <p className="col-start-2 max-w-xl text-base text-silver-200 md:text-lg">
+                <p className="col-start-2 max-w-xl text-base text-silver-300 md:text-lg">
                   {step.body}
                 </p>
               </Reveal>

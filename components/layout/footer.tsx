@@ -19,7 +19,7 @@ const navLinks = [
 
 export function Footer() {
   return (
-    <footer       className="relative mt-20 border-t border-(--hairline) bg-ink pt-20 pb-8">
+    <footer       className="relative border-t border-(--hairline) bg-ink pt-20 pb-8">
       <Container size="wide">
         <div className="grid gap-16 md:grid-cols-[1.4fr_1fr_1fr]">
           <div>

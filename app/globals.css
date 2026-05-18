@@ -1,70 +1,64 @@
 @import "tailwindcss";
 
-/*
- * Light theme — off-white + white surfaces.
- * Token NAMES kept for backwards compatibility with existing classes
- * (bg-ink, text-silver-50, etc.). Values inverted from the previous
- * dark cinematic palette: "ink" tones became light surfaces; "silver"
- * tones became dark text.
- */
-
 @theme {
-  /* Page surfaces (light) */
-  --color-ink: #f7f7f5;             /* paper — page bg */
-  --color-ink-soft: #ffffff;        /* surface — cards / nav */
-  --color-graphite: #efefec;        /* panel */
-  --color-graphite-soft: #e7e7e3;
-  --color-graphite-medium: #d9d9d4;
-  --color-charcoal: #8a8a85;        /* muted accent */
+  --color-ink: #F4F0EA;
+  --color-ink-soft: #FBF9F6;
+  --color-graphite: #EDE8E0;
+  --color-graphite-soft: #E5DFD6;
+  --color-graphite-medium: #D6CFC4;
+  --color-charcoal: #9C9488;
 
-  /* Foreground (dark, used as text) */
-  --color-silver-50: #1a1a1a;       /* primary text */
-  --color-silver-100: #2a2a28;
-  --color-silver-200: #555552;
-  --color-silver-300: #7a7a76;
-  --color-silver-400: #a8a8a3;
+  --color-silver-50: #1A1816;
+  --color-silver-100: #2C2926;
+  --color-silver-200: #5C5854;
+  --color-silver-300: #8A8580;
+  --color-silver-400: #B2ACA6;
 
-  --color-accent: #201e42;
+  --color-accent: #1E1C3A;
+  --color-accent-warm: #2C2844;
 
   --font-display: var(--font-display);
   --font-sans: var(--font-sans);
 }
 
 :root {
-  --background: #f7f7f5;
-  --foreground: #1a1a1a;
+  --background: #F4F0EA;
+  --foreground: #1A1816;
 
-  --ink: #f7f7f5;
-  --ink-soft: #ffffff;
-  --graphite: #efefec;
-  --graphite-soft: #e7e7e3;
-  --graphite-medium: #d9d9d4;
-  --charcoal: #8a8a85;
-  --accent: #201e42;
+  --ink: #F4F0EA;
+  --ink-soft: #FBF9F6;
+  --graphite: #EDE8E0;
+  --graphite-soft: #E5DFD6;
+  --graphite-medium: #D6CFC4;
+  --charcoal: #9C9488;
+  --accent: #1E1C3A;
+  --accent-warm: #2C2844;
 
-  --silver-50: #1a1a1a;
-  --silver-100: #2a2a28;
-  --silver-200: #555552;
-  --silver-300: #7a7a76;
-  --silver-400: #a8a8a3;
+  --silver-50: #1A1816;
+  --silver-100: #2C2926;
+  --silver-200: #5C5854;
+  --silver-300: #8A8580;
+  --silver-400: #B2ACA6;
 
-  --overlay-glass: rgba(255, 255, 255, 0.65);
-  --overlay-deep: rgba(255, 255, 255, 0.82);
+  --overlay-glass: rgba(244, 240, 234, 0.7);
+  --overlay-deep: rgba(244, 240, 234, 0.88);
   --overlay-veil: linear-gradient(
     180deg,
-    rgba(247, 247, 245, 0) 0%,
-    rgba(247, 247, 245, 0.35) 60%,
-    rgba(247, 247, 245, 0.95) 100%
+    rgba(244, 240, 234, 0) 0%,
+    rgba(244, 240, 234, 0.3) 50%,
+    rgba(244, 240, 234, 0.92) 100%
   );
 
-  --hairline: rgba(26, 26, 26, 0.08);
-  --hairline-strong: rgba(26, 26, 26, 0.16);
+  --hairline: rgba(26, 24, 22, 0.07);
+  --hairline-strong: rgba(26, 24, 22, 0.14);
 
-  --text-soft: rgba(26, 26, 26, 0.72);
-  --text-muted: rgba(26, 26, 26, 0.5);
-  --text-faint: rgba(26, 26, 26, 0.32);
+  --text-soft: rgba(26, 24, 22, 0.72);
+  --text-muted: rgba(26, 24, 22, 0.5);
+  --text-faint: rgba(26, 24, 22, 0.32);
 
-  --shadow-cinematic: 0 30px 80px -20px rgba(0, 0, 0, 0.15);
+  --shadow-editorial: 0 20px 60px -16px rgba(26, 24, 22, 0.12);
+  --shadow-cinematic: 0 30px 80px -20px rgba(26, 24, 22, 0.10);
+  --shadow-lift: 0 4px 20px rgba(26, 24, 22, 0.06);
 
   --navbar-height: 88px;
   --container-width: 1440px;
@@ -73,6 +67,7 @@
   --duration-fast: 220ms;
   --duration-base: 420ms;
   --duration-slow: 720ms;
+  --duration-lift: 1600ms;
 }
 
 html {
@@ -88,6 +83,20 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
   font-feature-settings: "ss01", "ss02", "cv11";
+  position: relative;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.025;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
 }
 
 * {
@@ -109,6 +118,13 @@ video {
   outline: 1px solid var(--silver-100);
   outline-offset: 3px;
   border-radius: 2px;
+}
+
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+button:focus-visible {
+  outline: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
