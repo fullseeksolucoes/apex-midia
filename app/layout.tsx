@@ -1,6 +1,6 @@
 import { ClerkProvider } from "@clerk/nextjs";
 import type { Metadata } from "next";
-import { Inter, Instrument_Serif } from "next/font/google";
+import { Montserrat } from "next/font/google";
 import { Suspense } from "react";
 
 import { AttributionTracker } from "@/components/attribution-tracker";
@@ -9,15 +9,14 @@ import { TRPCProvider } from "@/lib/trpc/client";
 
 import "./globals.css";
 
-const sans = Inter({
+const sans = Montserrat({
   subsets: ["latin"],
   variable: "--font-sans",
   display: "swap",
 });
 
-const display = Instrument_Serif({
+const display = Montserrat({
   subsets: ["latin"],
-  weight: "400",
   variable: "--font-display",
   display: "swap",
 });
