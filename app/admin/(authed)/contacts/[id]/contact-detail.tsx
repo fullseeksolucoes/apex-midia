@@ -87,7 +87,7 @@ export function ContactDetail({ id }: { id: string }) {
 
   return (
     <div className="grid gap-8 lg:grid-cols-[1.5fr_1fr]">
-      <article className="space-y-6 rounded-2xl border border-silver-50/10 bg-ink-2/40 p-6 lg:p-8">
+      <article className="min-w-0 space-y-6 rounded-2xl border border-silver-50/10 bg-ink-2/40 p-6 lg:p-8">
         <header className="space-y-1">
           <h2 className="font-display text-3xl text-silver-50">{c.name}</h2>
           {c.company ? (
@@ -116,7 +116,9 @@ export function ContactDetail({ id }: { id: string }) {
           <p className="text-xs uppercase tracking-[0.22em] text-silver-50/50">
             Mensagem
           </p>
-          <p className="whitespace-pre-wrap text-silver-50/85">{c.message}</p>
+          <p className="wrap-anywhere whitespace-pre-wrap text-silver-50/85">
+            {c.message}
+          </p>
         </div>
 
         {hasAttribution ? (
@@ -153,7 +155,7 @@ export function ContactDetail({ id }: { id: string }) {
         )}
       </article>
 
-      <aside className="space-y-6 rounded-2xl border border-silver-50/10 bg-ink-2/40 p-6 lg:p-8">
+      <aside className="min-w-0 space-y-6 rounded-2xl border border-silver-50/10 bg-ink-2/40 p-6 lg:p-8">
         <div className="space-y-3">
           <label
             htmlFor="contact-status"
@@ -252,7 +254,7 @@ function Field({
       <dt className="text-[10px] uppercase tracking-[0.22em] text-silver-50/50">
         {label}
       </dt>
-      <dd className="mt-1 break-words text-silver-50/85">{children}</dd>
+      <dd className="mt-1 wrap-anywhere text-silver-50/85">{children}</dd>
     </div>
   );
 }
