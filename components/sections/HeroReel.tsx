@@ -12,7 +12,7 @@ export function HeroReel() {
   return (
     <section
       aria-label={copy.a11y.sectionHero}
-      className="relative isolate flex min-h-svh w-full items-end overflow-hidden bg-ink"
+      className="relative isolate flex min-h-svh w-full items-end overflow-hidden bg-black"
     >
       {/* <video
         ref={videoRef}
@@ -38,11 +38,11 @@ export function HeroReel() {
 
       <div
         aria-hidden
-        className="absolute inset-0 z-2 bg-[radial-gradient(ellipse_at_center,rgba(244,240,234,0.08)_0%,rgba(244,240,234,0.4)_75%)]"
+        className="absolute inset-0 z-2 bg-black/30"
       />
       <div
         aria-hidden
-        className="absolute inset-x-0 bottom-0 z-2 h-2/3 bg-linear-to-b from-transparent via-ink/30 to-ink"
+        className="absolute inset-x-0 bottom-0 z-2 h-1/2 bg-linear-to-b from-transparent to-black"
       />
 
       <Container
@@ -51,20 +51,20 @@ export function HeroReel() {
       >
         <div className="grid gap-10 md:grid-cols-[1.4fr_1fr] md:items-end">
           <div className="flex flex-col gap-6">
-            <span className="text-[11px] font-medium uppercase tracking-[0.4em] text-accent">
+            <span className="text-[11px] font-medium uppercase tracking-[0.4em] text-white/60">
               {copy.home.hero.eyebrow}
             </span>
-            <h1 className="font-display text-[3rem] font-light leading-[0.94] text-silver-50 md:text-[5.5rem] lg:text-[7.5rem]">
+            <h1 className="font-display text-[2.8rem] font-light leading-[0.94] text-white md:text-[5rem] lg:text-[6.5rem]">
               {copy.home.hero.headline}
             </h1>
-            <p className="max-w-xl text-base leading-relaxed text-silver-100 md:text-lg">
+            <p className="max-w-xl text-base leading-relaxed text-white/70 md:text-lg">
               {copy.home.hero.sub}
             </p>
 
             <div className="mt-1 flex flex-wrap items-center justify-center gap-3 md:justify-start">
               <Button
                 href="/portfolio"
-                variant="primary"
+                variant="primary-light"
                 size="lg"
                 className="w-full md:w-auto"
               >
@@ -72,7 +72,7 @@ export function HeroReel() {
               </Button>
               <Button
                 href="/contato"
-                variant="outline"
+                variant="outline-light"
                 size="lg"
                 className="w-full md:w-auto"
               >
@@ -90,7 +90,7 @@ export function HeroReel() {
                   ? copy.home.hero.playPauseLabel
                   : copy.home.hero.resumeLabel
               }
-              className="group flex h-12 w-12 items-center justify-center rounded-full border border-(--hairline-strong) bg-ink/20 text-silver-50 backdrop-blur-sm transition-all duration-300 hover:bg-silver-50 hover:text-ink"
+              className="group flex h-12 w-12 items-center justify-center rounded-full border border-white/20 text-white/70 backdrop-blur-sm transition-all duration-300 hover:bg-white hover:text-black"
             >
               <span aria-hidden className="flex gap-0.75">
                 {isPlaying ? (
@@ -104,8 +104,8 @@ export function HeroReel() {
               </span>
             </button>
 
-            <div className="flex items-center gap-3 text-[10px] uppercase tracking-[0.4em] text-silver-300">
-              <span className="block h-px w-12 bg-silver-300/50" />
+            <div className="flex items-center gap-3 text-[10px] uppercase tracking-[0.4em] text-white/40">
+              <span className="block h-px w-12 bg-white/30" />
               {copy.home.hero.scrollCue}
             </div>
           </div>

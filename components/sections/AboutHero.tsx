@@ -8,29 +8,26 @@ const heroImage =
 
 export function AboutHero() {
   return (
-    <section className="relative isolate flex min-h-[80svh] w-full items-end overflow-hidden bg-ink">
+    <section className="relative isolate flex min-h-[80svh] w-full items-end overflow-hidden bg-black">
       <Image
         src={heroImage}
         alt=""
         fill
         priority
         sizes="100vw"
-        className="-z-10 object-cover opacity-70"
+        className="-z-10 object-cover"
       />
-      <div
-        aria-hidden
-        className="absolute inset-0 -z-10 bg-linear-to-b from-ink/50 via-ink/30 to-ink/95"
-      />
+      <div aria-hidden className="absolute inset-0 -z-10 bg-black/50" />
 
       <Container size="wide" className="relative pb-20 pt-40 md:pb-28 md:pt-48">
         <div className="flex flex-col gap-6 md:max-w-4xl">
-          <span className="text-[11px] uppercase tracking-[0.32em] text-silver-300">
+          <span className="text-[11px] uppercase tracking-[0.32em] text-white/70">
             {copy.sobre.hero.eyebrow}
           </span>
-          <h1 className="font-display text-5xl font-light leading-[0.95] text-silver-50 md:text-8xl lg:text-[8.5rem]">
+          <h1 className="font-display text-5xl font-light leading-[0.95] text-white md:text-7xl lg:text-[7rem]">
             {copy.sobre.hero.title}
           </h1>
-          <p className="max-w-2xl text-base text-silver-100 md:text-lg">
+          <p className="max-w-2xl text-base text-white/80 md:text-lg">
             {copy.sobre.hero.sub}
           </p>
         </div>

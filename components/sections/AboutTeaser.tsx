@@ -19,7 +19,7 @@ export function AboutTeaser() {
         <div className="grid items-start gap-12 md:grid-cols-12 md:gap-20">
           <div className="relative md:col-span-5">
             <Reveal>
-              <div className="relative overflow-hidden rounded-[1.75rem] bg-graphite shadow-(--shadow-editorial)">
+              <div className="relative overflow-hidden rounded-2xl bg-graphite shadow-(--shadow-editorial)">
                 <div className="absolute -left-4 top-8 hidden h-32 w-32 rounded-full border border-(--hairline-strong) md:block" />
                 <Image
                   src={studioImage}

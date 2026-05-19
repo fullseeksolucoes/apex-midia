@@ -10,7 +10,7 @@ export function ResultsStats() {
       className="relative border-t border-(--hairline) py-20 md:py-32"
     >
       <Container size="wide">
-        <Eyebrow className="mb-10 md:mb-16">{copy.sobre.results.eyebrow}</Eyebrow>
+        <Eyebrow className="mb-8 md:mb-12">{copy.sobre.results.eyebrow}</Eyebrow>
 
         <ul className="grid gap-12 md:grid-cols-4">
           {copy.sobre.results.stats.map((stat) => (

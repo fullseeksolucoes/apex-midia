@@ -18,7 +18,7 @@ export async function BrandsStrip() {
       <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-linear-to-l from-ink via-ink/90 to-transparent md:w-40" />
 
       <Container size="wide">
-        <Reveal className="mb-12 flex flex-col items-start gap-4 md:mb-16 md:flex-row md:items-end md:justify-between">
+        <Reveal className="mb-10 flex flex-col items-start gap-3 md:mb-14 md:flex-row md:items-end md:justify-between">
           <Eyebrow>{copy.home.brands.eyebrow}</Eyebrow>
 
           <p className="max-w-lg text-sm leading-relaxed text-silver-300">
@@ -36,9 +36,9 @@ export async function BrandsStrip() {
             <span
               key={`${brand.name}-sep`}
               aria-hidden
-              className="select-none text-lg leading-none text-silver-300"
+              className="select-none text-sm leading-none text-silver-500"
             >
-              •
+              —
             </span>,
           ])}
         </Marquee>

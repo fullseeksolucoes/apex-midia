@@ -3,7 +3,7 @@ import type { AnchorHTMLAttributes, ButtonHTMLAttributes, ReactNode } from "reac
 
 import { cn } from "@/utils/cn";
 
-type Variant = "primary" | "ghost" | "outline";
+type Variant = "primary" | "primary-light" | "ghost" | "outline" | "outline-light";
 type Size = "md" | "lg";
 
 interface BaseProps {
@@ -19,10 +19,14 @@ const base =
 const variants: Record<Variant, string> = {
   primary:
     "bg-silver-50 text-ink hover:bg-silver-100 active:bg-silver-100 shadow-(--shadow-lift) hover:shadow-(--shadow-editorial)",
+  "primary-light":
+    "bg-ink text-silver-50 hover:bg-ink-soft active:bg-ink-soft shadow-(--shadow-lift) hover:shadow-(--shadow-editorial)",
   ghost:
     "border border-transparent text-silver-50/70 hover:text-silver-50 hover:border-(--hairline-strong)",
   outline:
     "border border-(--hairline-strong) text-silver-50 hover:bg-silver-50 hover:text-ink",
+  "outline-light":
+    "border border-white/30 text-white/85 hover:bg-white hover:text-silver-50",
 };
 
 const sizes: Record<Size, string> = {

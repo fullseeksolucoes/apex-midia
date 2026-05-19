@@ -27,7 +27,7 @@ export function CtaBlock({
       <Container size="narrow">
         <Reveal className="flex flex-col items-start gap-6">
           <Eyebrow>{eyebrow}</Eyebrow>
-          <h2 className="font-display text-5xl font-light leading-[1.04] text-silver-50 md:text-7xl lg:text-[6rem]">
+          <h2 className="font-display text-4xl font-light leading-[1.04] text-silver-50 md:text-6xl lg:text-[5rem]">
             {title}
           </h2>
           <div className="mt-4">

@@ -35,21 +35,21 @@ export function EditorialGallery() {
       className="relative border-t border-(--hairline) py-20 md:py-32"
     >
       <Container size="wide">
-        <div className="mb-10 flex flex-col gap-3 md:mb-16">
+        <div className="mb-8 flex flex-col gap-3 md:mb-12">
           <Eyebrow>{copy.sobre.gallery.eyebrow}</Eyebrow>
-          <h2 className="font-display text-4xl leading-[1.05] text-silver-50 md:text-6xl">
+          <h2 className="font-display text-3xl leading-[1.05] text-silver-50 md:text-5xl">
             {copy.sobre.gallery.title}
           </h2>
         </div>
 
-        <div className="columns-1 gap-8 sm:columns-2 xl:columns-3">
+        <div className="columns-1 gap-6 sm:columns-2 xl:columns-3">
           {tiles.map((tile, idx) => (
             <Reveal
               key={tile.src}
               delay={idx * 60}
-              className="mb-8 break-inside-avoid"
+              className="mb-6 break-inside-avoid"
             >
-              <div className="overflow-hidden rounded-[1.75rem] bg-graphite shadow-(--shadow-lift)">
+              <div className="overflow-hidden rounded-2xl bg-graphite shadow-(--shadow-lift)">
                 <Image
                   src={tile.src}
                   alt=""

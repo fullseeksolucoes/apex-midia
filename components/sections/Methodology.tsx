@@ -13,7 +13,7 @@ export function Methodology() {
         <div className="grid gap-10 md:grid-cols-12">
           <Reveal className="md:col-span-4">
             <Eyebrow>{copy.sobre.methodology.eyebrow}</Eyebrow>
-            <h2 className="mt-8 font-display text-4xl leading-[1.05] text-silver-50 md:text-6xl">
+            <h2 className="mt-6 font-display text-4xl leading-[1.05] text-silver-50 md:text-5xl">
               {copy.sobre.methodology.title}
             </h2>
           </Reveal>
@@ -24,12 +24,12 @@ export function Methodology() {
                 as="li"
                 key={step.number}
                 delay={idx * 100}
-                className="grid grid-cols-[auto_1fr] gap-x-8 gap-y-3 border-b border-(--hairline) py-8 last:border-b-0"
+                className="grid grid-cols-[auto_1fr] gap-x-6 gap-y-2 py-6 md:py-8"
               >
-                <span className="font-display text-2xl text-silver-300 md:text-3xl">
-                  {step.number}
+                <span className="font-display text-xl text-silver-300 md:text-2xl">
+                  {String(step.number).padStart(2, "0")}
                 </span>
-                <h3 className="font-display text-3xl text-silver-50 md:text-4xl">
+                <h3 className="font-display text-2xl text-silver-50 md:text-3xl">
                   {step.title}
                 </h3>
                 <p className="col-start-2 max-w-xl text-base text-silver-300 md:text-lg">
