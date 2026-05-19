@@ -24,9 +24,9 @@ export async function SelectedWork() {
 
           <Link
             href="/portfolio"
-            className="group inline-flex items-center gap-4 text-[11px] uppercase tracking-[0.28em] text-silver-200 transition-colors duration-300 hover:text-silver-50"
+            className="group inline-flex items-center gap-4 text-[11px] uppercase tracking-[0.28em] text-silver-200 hover:text-silver-50"
           >
-            <span className="h-px w-10 bg-current transition-all duration-500 group-hover:w-16" />
+            <span className="h-px w-10 bg-silver-50 transition-all duration-500 group-hover:w-16" />
 
             {copy.home.selectedWork.cta}
           </Link>

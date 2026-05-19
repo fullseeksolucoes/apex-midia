@@ -258,7 +258,7 @@ export function ContactForm() {
                   <button
                     type="submit"
                     disabled={status === "submitting"}
-                    className="group inline-flex h-14 items-center justify-center gap-3 rounded-full bg-silver-50 px-10 text-[12px] font-medium uppercase tracking-[0.28em] text-ink transition-all duration-500 ease-(--ease-cinema) hover:bg-silver-100 focus:outline-none focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-60"
+                    className="group inline-flex h-14 cursor-pointer items-center justify-center gap-3 rounded-full bg-silver-50 px-10 text-[12px] font-medium uppercase tracking-[0.28em] text-ink transition-all duration-500 ease-(--ease-cinema) hover:bg-silver-100 focus:outline-none focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-60"
                   >
                     {status === "submitting"
                       ? copy.contato.form.submitting

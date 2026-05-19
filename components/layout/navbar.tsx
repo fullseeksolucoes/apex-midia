@@ -15,7 +15,7 @@ const navLinks = [
 ];
 
 export function Navbar() {
-  const { isScrolled, isMenuOpen, isHome, pathname, toggleMenu, closeMenu } =
+  const { isScrolled, isMenuOpen, isHome, isTransparent, pathname, toggleMenu, closeMenu } =
     useNavbar();
 
   return (
@@ -38,7 +38,7 @@ export function Navbar() {
           aria-hidden
           className={cn(
             "absolute inset-0 border-b transition-all duration-500 ease-(--ease-cinema)",
-            isScrolled || !isHome || isMenuOpen
+            isScrolled || !isTransparent || isMenuOpen
               ? "bg-ink/88 backdrop-blur-2xl border-(--hairline) opacity-100"
               : "bg-transparent border-transparent opacity-0",
           )}
@@ -63,7 +63,7 @@ export function Navbar() {
                 priority
                 className={cn(
                   "transition-[filter] duration-300",
-                  isHome && !isScrolled && !isMenuOpen && "brightness-0 invert",
+                  isTransparent && !isScrolled && !isMenuOpen && "brightness-0 invert",
                 )}
               />
             </Link>
@@ -78,15 +78,28 @@ export function Navbar() {
                     <Link
                       href={link.href}
                       className={cn(
-                        "text-[11px] font-medium uppercase tracking-[0.28em] transition-colors duration-300",
-                        active
-                          ? "text-accent"
-                          : isHome && !isScrolled && !isMenuOpen
-                            ? "text-white/75 hover:text-white"
-                            : "text-silver-200 hover:text-accent",
+                        "group relative text-[11px] font-medium uppercase tracking-[0.28em] transition-colors duration-300",
+                        active && isTransparent && !isScrolled && !isMenuOpen
+                          ? "text-white"
+                          : active
+                            ? "text-accent"
+                            : isTransparent && !isScrolled && !isMenuOpen
+                              ? "text-white/75 hover:text-white"
+                              : "text-silver-200 hover:text-accent",
                       )}
                     >
                       {link.label}
+                      <span
+                        className={cn(
+                          "absolute -bottom-1 left-0 h-px transition-all duration-500 group-hover:w-full",
+                          active
+                            ? "w-full"
+                            : "w-0",
+                          isTransparent && !isScrolled && !isMenuOpen
+                            ? "bg-white"
+                            : "bg-accent",
+                        )}
+                      />
                     </Link>
                   </li>
                 );
@@ -98,7 +111,7 @@ export function Navbar() {
                 href="/contato"
                 className={cn(
                   "hidden h-10 items-center rounded-full border px-5 text-[10px] font-medium uppercase tracking-[0.28em] transition-all duration-300 md:inline-flex",
-                  isHome && !isScrolled && !isMenuOpen
+                  isTransparent && !isScrolled && !isMenuOpen
                     ? "border-white/20 text-white/85 hover:border-white/50 hover:text-white"
                     : "border-(--hairline-strong) text-silver-50 hover:bg-silver-50 hover:text-ink",
                 )}

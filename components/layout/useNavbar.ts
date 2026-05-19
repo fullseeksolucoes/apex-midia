@@ -32,11 +32,16 @@ export function useNavbar() {
   }, [isMenuOpen]);
 
   const isHome = pathname === "/";
+  const isProjectDetail =
+    pathname.startsWith("/portfolio/") && pathname !== "/portfolio";
+  const isTransparent = isHome || isProjectDetail;
 
   return {
     isScrolled,
     isMenuOpen,
     isHome,
+    isProjectDetail,
+    isTransparent,
     pathname,
     toggleMenu,
     closeMenu,

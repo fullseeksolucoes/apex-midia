@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { Container } from "@/components/layout/container";
 import { Button } from "@/components/ui/button";
 import { useHeroReel } from "@/components/sections/useHeroReel";
@@ -13,7 +14,7 @@ export function HeroReel() {
       aria-label={copy.a11y.sectionHero}
       className="relative isolate flex min-h-svh w-full items-end overflow-hidden bg-ink"
     >
-      <video
+      {/* <video
         ref={videoRef}
         className="absolute inset-0 h-full w-full object-cover"
         muted
@@ -24,7 +25,16 @@ export function HeroReel() {
       >
         <source src="/hero-reel.webm" type="video/webm" />
         <source src="/hero-reel.mp4" type="video/mp4" />
-      </video>
+      </video> */}
+
+      <Image
+        src="/banner3.png"
+        alt=""
+        fill
+        priority
+        sizes="100vw"
+        className="absolute inset-0 h-full w-full object-cover"
+      />
 
       <div
         aria-hidden
@@ -41,7 +51,7 @@ export function HeroReel() {
       >
         <div className="grid gap-10 md:grid-cols-[1.4fr_1fr] md:items-end">
           <div className="flex flex-col gap-6">
-            <span className="text-[11px] font-medium uppercase tracking-[0.4em] text-silver-300">
+            <span className="text-[11px] font-medium uppercase tracking-[0.4em] text-accent">
               {copy.home.hero.eyebrow}
             </span>
             <h1 className="font-display text-[3rem] font-light leading-[0.94] text-silver-50 md:text-[5.5rem] lg:text-[7.5rem]">
@@ -51,11 +61,21 @@ export function HeroReel() {
               {copy.home.hero.sub}
             </p>
 
-            <div className="mt-1 flex flex-wrap items-center gap-3">
-              <Button href="/portfolio" variant="primary" size="lg">
+            <div className="mt-1 flex flex-wrap items-center justify-center gap-3 md:justify-start">
+              <Button
+                href="/portfolio"
+                variant="primary"
+                size="lg"
+                className="w-full md:w-auto"
+              >
                 {copy.home.hero.cta}
               </Button>
-              <Button href="/contato" variant="outline" size="lg">
+              <Button
+                href="/contato"
+                variant="outline"
+                size="lg"
+                className="w-full md:w-auto"
+              >
                 {copy.home.hero.ctaSecondary}
               </Button>
             </div>

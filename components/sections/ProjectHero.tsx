@@ -13,7 +13,7 @@ export function ProjectHero({ project }: ProjectHeroProps) {
   return (
     <section
       aria-label={copy.a11y.sectionProjectHero}
-      className="relative isolate flex min-h-svh w-full items-end overflow-hidden bg-ink"
+      className="relative isolate flex min-h-svh w-full items-end overflow-hidden bg-black"
     >
       <Image
         src={project.hero.src}
@@ -24,26 +24,26 @@ export function ProjectHero({ project }: ProjectHeroProps) {
         className="-z-10 object-cover"
       />
 
-      <div
-        aria-hidden
-        className="absolute inset-0 -z-10 bg-linear-to-b from-ink/50 via-ink/20 to-ink"
-      />
+      <div aria-hidden className="absolute inset-0 -z-10 bg-black/50" />
 
-      <Container size="wide" className="relative pb-20 pt-(--navbar-height) md:pb-28">
+      <Container
+        size="wide"
+        className="relative pb-20 pt-(--navbar-height) md:pb-28"
+      >
         <div className="flex flex-col gap-6">
           <Link
             href="/portfolio"
-            className="inline-flex items-center gap-3 text-[10px] uppercase tracking-[0.32em] text-silver-300 transition-colors duration-300 hover:text-silver-50"
+            className="group inline-flex items-center gap-3 text-[10px] uppercase tracking-[0.32em] text-white/80 hover:text-white"
           >
-            <span className="block h-px w-8 bg-current" />
+            <span className="block h-px w-10 bg-white transition-all duration-500 group-hover:w-16" />
             {copy.portfolio.detail.back}
           </Link>
 
-          <span className="text-[11px] uppercase tracking-[0.32em] text-silver-200">
+          <span className="text-[11px] uppercase tracking-[0.32em] text-white/80">
             {project.client} · {project.year}
           </span>
 
-          <h1 className="font-display text-5xl font-light leading-[1] text-silver-50 md:text-8xl lg:text-[9rem]">
+          <h1 className="font-display text-5xl font-light leading-none text-white md:text-8xl lg:text-[9rem]">
             {project.title}
           </h1>
         </div>
