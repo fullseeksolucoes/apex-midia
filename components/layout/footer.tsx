@@ -5,10 +5,10 @@ import { Container } from "@/components/layout/container";
 import { copy } from "@/lib/i18n";
 
 const socials: Array<{ label: string; href: string }> = [
-  { label: copy.footer.social.instagram, href: "https://instagram.com" },
-  { label: copy.footer.social.vimeo, href: "https://vimeo.com" },
-  { label: copy.footer.social.linkedin, href: "https://linkedin.com" },
-  { label: copy.footer.social.behance, href: "https://behance.net" },
+  {
+    label: copy.footer.social.instagram,
+    href: "https://www.instagram.com/apex.midias/",
+  },
 ];
 
 const navLinks = [
@@ -19,7 +19,7 @@ const navLinks = [
 
 export function Footer() {
   return (
-    <footer       className="relative border-t border-(--hairline) bg-ink pt-20 pb-8">
+    <footer className="relative border-t border-(--hairline) bg-ink pt-20 pb-8">
       <Container size="wide">
         <div className="grid gap-16 md:grid-cols-[1.4fr_1fr_1fr]">
           <div>

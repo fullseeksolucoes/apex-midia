@@ -183,9 +183,6 @@ export const copy = {
     builtBy: "Desenvolvido por",
     social: {
       instagram: "Instagram",
-      vimeo: "Vimeo",
-      linkedin: "LinkedIn",
-      behance: "Behance",
     },
   },
   a11y: {
