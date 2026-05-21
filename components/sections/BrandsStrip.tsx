@@ -13,10 +13,6 @@ export async function BrandsStrip() {
       aria-label={copy.a11y.sectionBrands}
       className="relative overflow-hidden border-y border-(--hairline) py-14 md:py-16"
     >
-      <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-linear-to-r from-ink via-ink/90 to-transparent md:w-40" />
-
-      <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-linear-to-l from-ink via-ink/90 to-transparent md:w-40" />
-
       <Container size="wide">
         <Reveal className="mb-10 flex flex-col items-start gap-3 md:mb-14 md:flex-row md:items-end md:justify-between">
           <Eyebrow>{copy.home.brands.eyebrow}</Eyebrow>

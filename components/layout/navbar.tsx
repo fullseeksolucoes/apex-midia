@@ -129,19 +129,28 @@ export function Navbar() {
               >
                 <span
                   className={cn(
-                    "absolute h-0.5 w-6 bg-silver-50 transition-all duration-300",
+                    "absolute h-0.5 w-6 transition-all duration-300",
+                    isTransparent && !isScrolled && !isMenuOpen
+                      ? "bg-white/85"
+                      : "bg-silver-50",
                     isMenuOpen ? "translate-y-0 rotate-45" : "-translate-y-[7px]",
                   )}
                 />
                 <span
                   className={cn(
-                    "absolute h-0.5 w-6 bg-silver-50 transition-all duration-300",
+                    "absolute h-0.5 w-6 transition-all duration-300",
+                    isTransparent && !isScrolled && !isMenuOpen
+                      ? "bg-white/85"
+                      : "bg-silver-50",
                     isMenuOpen ? "opacity-0" : "opacity-100",
                   )}
                 />
                 <span
                   className={cn(
-                    "absolute h-0.5 w-6 bg-silver-50 transition-all duration-300",
+                    "absolute h-0.5 w-6 transition-all duration-300",
+                    isTransparent && !isScrolled && !isMenuOpen
+                      ? "bg-white/85"
+                      : "bg-silver-50",
                     isMenuOpen ? "translate-y-0 -rotate-45" : "translate-y-[7px]",
                   )}
                 />

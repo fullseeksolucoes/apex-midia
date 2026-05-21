@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { Container } from "@/components/layout/container";
 import { Select } from "@/components/ui/select";
 import { useContactForm } from "@/components/sections/useContactForm";
+import { useIsMobile } from "@/hooks/useIsMobile";
 import { copy } from "@/lib/i18n";
 import { cn } from "@/utils/cn";
 
@@ -26,6 +27,7 @@ const fadeUp = {
 };
 
 export function ContactForm() {
+  const isMobile = useIsMobile();
   const { payload, errors, status, projectTypes, setField, onSubmit, reset } =
     useContactForm();
 
@@ -69,8 +71,8 @@ export function ContactForm() {
       <Container size="default">
         <div className="grid gap-16 md:grid-cols-[1fr_1.3fr] md:gap-20 lg:gap-28">
           <motion.div
-            initial="hidden"
-            whileInView="visible"
+            initial={isMobile ? false : "hidden"}
+            whileInView={isMobile ? undefined : "visible"}
             viewport={{ once: true, margin: "-80px" }}
             variants={{ visible: { transition: { staggerChildren: 0.07 } } }}
             className="flex flex-col gap-6 md:sticky md:top-32 md:self-start"
@@ -131,8 +133,8 @@ export function ContactForm() {
               className="flex flex-col gap-8"
             >
               <motion.div
-                initial="hidden"
-                whileInView="visible"
+                initial={isMobile ? false : "hidden"}
+                whileInView={isMobile ? undefined : "visible"}
                 viewport={{ once: true, margin: "-40px" }}
                 variants={{
                   visible: { transition: { staggerChildren: 0.05 } },
@@ -210,8 +212,8 @@ export function ContactForm() {
               </motion.div>
 
               <motion.div
-                initial="hidden"
-                whileInView="visible"
+                initial={isMobile ? false : "hidden"}
+                whileInView={isMobile ? undefined : "visible"}
                 viewport={{ once: true, margin: "-40px" }}
                 variants={{
                   visible: { transition: { staggerChildren: 0.05 } },
@@ -246,8 +248,8 @@ export function ContactForm() {
               </motion.div>
 
               <motion.div
-                initial="hidden"
-                whileInView="visible"
+                initial={isMobile ? false : "hidden"}
+                whileInView={isMobile ? undefined : "visible"}
                 viewport={{ once: true, margin: "-40px" }}
                 variants={{
                   visible: { transition: { staggerChildren: 0.05 } },
