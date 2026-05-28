@@ -122,7 +122,7 @@ export const copy = {
       eyebrow: "Em números",
       stats: [
         { value: 200, suffix: "+", label: "Filmes entregues" },
-        { value: "BR/EUA", suffix: "", label: "Atuação Internacional" },
+        { value: 100, suffix: "", label: "Atuação Internacional" },
         { value: 500, suffix: "+", label: "Em Visualizações" },
         { value: 50, suffix: "+", label: "Clientes Satisfeitos" },
       ],
