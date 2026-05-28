@@ -3,7 +3,7 @@
 import { useResultStat } from "@/components/sections/useResultStat";
 
 interface ResultStatItemProps {
-  value: number;
+  value: string | number;
   suffix?: string;
   label: string;
 }
@@ -13,7 +13,7 @@ export function ResultStatItem({ value, suffix, label }: ResultStatItemProps) {
 
   return (
     <div ref={ref} className="flex flex-col gap-3">
-      <span className="font-display text-6xl leading-none text-silver-50 md:text-7xl lg:text-8xl">
+      <span className="font-display text-4xl leading-none text-silver-50 md:text-5xl lg:text-6xl">
         {animated}
         {suffix ?? ""}
       </span>
