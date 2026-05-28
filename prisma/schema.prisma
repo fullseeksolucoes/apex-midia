@@ -60,8 +60,9 @@ model Project {
   category  ProjectCategory
   excerpt   String
   brief     String
-  featured  Boolean         @default(false)
-  order     Int             @default(0)
+  featured         Boolean         @default(false)
+  featuredOnAbout  Boolean         @default(false)
+  order            Int             @default(0)
   createdAt DateTime        @default(now())
   updatedAt DateTime        @updatedAt
 
@@ -70,6 +71,7 @@ model Project {
 
   @@index([category])
   @@index([featured])
+  @@index([featuredOnAbout])
 }
 
 model ProjectMedia {

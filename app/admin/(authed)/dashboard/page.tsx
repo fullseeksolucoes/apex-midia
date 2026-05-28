@@ -45,6 +45,11 @@ export default async function AdminDashboardPage() {
             title="Novo projeto"
             description="Cadastrar um novo trabalho."
           />
+          <ShortcutLink
+            href="/admin/brands"
+            title="Gerenciar marcas"
+            description="Listar, editar e adicionar marcas parceiras."
+          />
         </div>
       </section>
     </div>

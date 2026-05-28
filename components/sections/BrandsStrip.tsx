@@ -1,5 +1,4 @@
 import { Container } from "@/components/layout/container";
-import { Eyebrow } from "@/components/ui/eyebrow";
 import { Marquee } from "@/components/ui/marquee";
 import { Reveal } from "@/components/ui/reveal";
 import { copy } from "@/lib/i18n";
@@ -14,9 +13,7 @@ export async function BrandsStrip() {
       className="relative overflow-hidden border-y border-(--hairline) py-14 md:py-16"
     >
       <Container size="wide">
-        <Reveal className="mb-10 flex flex-col items-start gap-3 md:mb-14 md:flex-row md:items-end md:justify-between">
-          <Eyebrow>{copy.home.brands.eyebrow}</Eyebrow>
-
+        <Reveal className="mb-10 flex flex-col items-start gap-3 md:mb-14 md:flex-row md:items-end md:justify-end">
           <p className="max-w-lg text-sm leading-relaxed text-silver-300">
             {copy.home.brands.title}
           </p>
@@ -38,8 +35,6 @@ export async function BrandsStrip() {
             </span>,
           ])}
         </Marquee>
-
-        <div aria-hidden className="mt-14 h-px w-full md:mt-16" />
       </Container>
     </section>
   );

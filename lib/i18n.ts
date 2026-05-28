@@ -18,8 +18,8 @@ export const copy = {
   home: {
     hero: {
       eyebrow: "APEX · MMXXVI",
-      headline: "Transformamos imagens em impacto.",
-      sub: "Direção, produção e pós cinematográfica para marcas que falam baixo e ressoam alto.",
+      headline: "Transformamos imagens em valor.",
+      sub: "Filmes e projetos visuais contruídos com direção cinematográfica e identidade visual forte.",
       cta: "Ver portfólio",
       ctaSecondary: "Iniciar projeto",
       scrollCue: "Role",
@@ -27,19 +27,18 @@ export const copy = {
       resumeLabel: "Reproduzir vídeo do reel",
     },
     brands: {
-      eyebrow: "Colaborações",
       title: "Marcas que confiaram na nossa visão.",
     },
     about: {
       eyebrow: "Sobre",
-      title: "Cinema como linguagem comercial.",
-      body: "Um coletivo enxuto de diretores, produtores e finalizadores dedicados a campanhas, filmes de marca e narrativas editoriais de alto valor de produção.",
+      title: "Filmes que posicionam marcas.",
+      body: "Equipe especializada em entregar o melhor do audiovisual em cada projeto, visando inovação, qualidade e identidade.",
       bodyExtra:
-        "Every frame is built with intention — combining storytelling, atmosphere and visual precision to create films that feel timeless and emotionally grounded.",
+        "Cada vídeo possui uma história e intenção, na Apex entendemos isso e valorizamos cada detalhe necessário para uma produção impecável.",
       stats: [
-        { value: "8+", label: "Anos de Experiência" },
-        { value: "120+", label: "Projetos Entregues" },
-        { value: "15", label: "Parceiros Criativos" },
+        { value: "4+", label: "Anos de Experiência" },
+        { value: "200+", label: "Projetos Entregues" },
+        { value: "BR/EUA", label: "Atuação Internacional" },
       ],
       cta: "Conhecer o estúdio",
     },
@@ -83,7 +82,7 @@ export const copy = {
     hero: {
       eyebrow: "Estúdio",
       title: "Imagens que carregam intenção.",
-      sub: "Trabalhamos no espaço entre cinema, moda e branding — onde a imagem precisa funcionar como narrativa e como objeto.",
+      sub: "Trabalhamos com imagens que contam histórias, geram desejo e convertem resultados.",
     },
     manifesto: {
       eyebrow: "Manifesto",

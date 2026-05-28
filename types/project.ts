@@ -33,6 +33,7 @@ export interface Project {
   gallery: ProjectMedia[];
   credits: ProjectCredit[];
   featured?: boolean;
+  featuredOnAbout?: boolean;
   order?: number;
 }
 
@@ -41,4 +42,5 @@ export interface Brand {
   logo: string;
   width: number;
   height: number;
+  order?: number;
 }

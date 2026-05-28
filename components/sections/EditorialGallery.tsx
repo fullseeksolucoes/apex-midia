@@ -4,31 +4,20 @@ import { Container } from "@/components/layout/container";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { Reveal } from "@/components/ui/reveal";
 import { copy } from "@/lib/i18n";
+import { getAboutFeaturedProjects } from "@/services/portfolio";
 
-const tiles = [
-  {
-    src: "https://images.unsplash.com/photo-1517423440428-a5a00ad493e8?auto=format&fit=crop&w=1600&q=80",
-    w: 800,
-    h: 1000,
-  },
-  {
-    src: "https://images.unsplash.com/photo-1493238792000-8113da705763?auto=format&fit=crop&w=1600&q=80",
-    w: 800,
-    h: 500,
-  },
-  {
-    src: "https://images.unsplash.com/photo-1454944338482-a69bb95894af?auto=format&fit=crop&w=1600&q=80",
-    w: 800,
-    h: 600,
-  },
-  {
-    src: "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1600&q=80",
-    w: 800,
-    h: 1000,
-  },
-];
+export async function EditorialGallery() {
+  const projects = await getAboutFeaturedProjects();
 
-export function EditorialGallery() {
+  const tiles = projects.flatMap((p) => [
+    ...p.gallery.map((m) => ({ src: m.src, w: m.width, h: m.height })),
+    ...(p.gallery.length === 0
+      ? [{ src: p.cover.src, w: p.cover.width, h: p.cover.height }]
+      : []),
+  ]);
+
+  if (tiles.length === 0) return null;
+
   return (
     <section
       aria-label={copy.a11y.sectionGallery}

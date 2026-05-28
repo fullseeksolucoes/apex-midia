@@ -6,8 +6,7 @@ import { Eyebrow } from "@/components/ui/eyebrow";
 import { Reveal } from "@/components/ui/reveal";
 import { copy } from "@/lib/i18n";
 
-const studioImage =
-  "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=1200&q=80";
+const studioImage = "/about-hero.webp";
 
 export function AboutTeaser() {
   return (
@@ -16,17 +15,16 @@ export function AboutTeaser() {
       className="relative py-24 md:py-40"
     >
       <Container size="wide">
-        <div className="grid items-start gap-12 md:grid-cols-12 md:gap-20">
+        <div className="grid items-center gap-12 md:grid-cols-12 md:gap-20">
           <div className="relative md:col-span-5">
             <Reveal>
-              <div className="relative overflow-hidden rounded-2xl bg-graphite shadow-(--shadow-editorial)">
-                <div className="absolute -left-4 top-8 hidden h-32 w-32 rounded-full border border-(--hairline-strong) md:block" />
+              <div className="relative overflow-hidden rounded-2xl">
                 <Image
                   src={studioImage}
                   alt=""
                   width={700}
                   height={900}
-                  className="aspect-4/5 w-full object-cover"
+                  className="w-full"
                 />
               </div>
             </Reveal>

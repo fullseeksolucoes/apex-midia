@@ -43,6 +43,7 @@ export const projectInputSchema = z.object({
   excerpt: z.string().min(1).max(280),
   brief: z.string().min(1).max(4000),
   featured: z.boolean().default(false),
+  featuredOnAbout: z.boolean().default(false),
   order: z.number().int().min(0).max(9999).default(0),
   cover: projectMediaSchema,
   hero: projectMediaSchema,

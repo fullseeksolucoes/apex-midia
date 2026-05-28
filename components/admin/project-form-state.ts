@@ -20,6 +20,7 @@ export type FormState = {
   excerpt: string;
   brief: string;
   featured: boolean;
+  featuredOnAbout: boolean;
   order: number;
   cover: MediaState | null;
   hero: MediaState | null;
@@ -36,6 +37,7 @@ export const emptyFormState = (): FormState => ({
   excerpt: "",
   brief: "",
   featured: false,
+  featuredOnAbout: false,
   order: 0,
   cover: null,
   hero: null,
@@ -52,6 +54,7 @@ export const fromProject = (p: Project): FormState => ({
   excerpt: p.excerpt,
   brief: p.brief,
   featured: p.featured ?? false,
+  featuredOnAbout: p.featuredOnAbout ?? false,
   order: p.order ?? 0,
   cover: {
     src: p.cover.src,

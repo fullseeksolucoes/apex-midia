@@ -10,6 +10,15 @@ export async function getProjects(): Promise<Project[]> {
   return rows.map(toApiProject);
 }
 
+export async function getAboutFeaturedProjects(): Promise<Project[]> {
+  const rows = await db.project.findMany({
+    where: { featuredOnAbout: true },
+    include,
+    orderBy,
+  });
+  return rows.map(toApiProject);
+}
+
 export async function getFeaturedProjects(): Promise<Project[]> {
   const rows = await db.project.findMany({
     where: { featured: true },

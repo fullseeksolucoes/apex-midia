@@ -77,6 +77,7 @@ export function ProjectForm({
       excerpt: state.excerpt.trim(),
       brief: state.brief.trim(),
       featured: state.featured,
+      featuredOnAbout: state.featuredOnAbout,
       order: state.order,
       cover: { type: "image", ...state.cover },
       hero: { type: "image", ...state.hero },
@@ -147,6 +148,19 @@ export function ProjectForm({
           />
           <label htmlFor="featured" className="text-sm text-silver-50/80">
             Destacar na home
+          </label>
+        </div>
+
+        <div className="flex items-center gap-3">
+          <input
+            id="featuredOnAbout"
+            type="checkbox"
+            checked={state.featuredOnAbout}
+            onChange={(e) => set("featuredOnAbout", e.target.checked)}
+            className="h-4 w-4 rounded border-silver-50/30 bg-ink-2 accent-silver-50"
+          />
+          <label htmlFor="featuredOnAbout" className="text-sm text-silver-50/80">
+            Destacar no sobre
           </label>
         </div>
 

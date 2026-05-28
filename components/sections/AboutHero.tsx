@@ -3,8 +3,7 @@ import Image from "next/image";
 import { Container } from "@/components/layout/container";
 import { copy } from "@/lib/i18n";
 
-const heroImage =
-  "https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=2400&q=80";
+const heroImage = "/banner-about.webp";
 
 export function AboutHero() {
   return (
@@ -15,7 +14,7 @@ export function AboutHero() {
         fill
         priority
         sizes="100vw"
-        className="-z-10 object-cover"
+        className="-z-10 object-cover object-top"
       />
       <div aria-hidden className="absolute inset-0 -z-10 bg-black/50" />
 

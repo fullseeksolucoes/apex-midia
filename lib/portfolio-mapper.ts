@@ -20,6 +20,7 @@ type DbProjectWithRelations = {
   excerpt: string;
   brief: string;
   featured: boolean;
+  featuredOnAbout: boolean;
   order: number;
   media: Array<{
     slot: MediaSlot;
@@ -120,6 +121,7 @@ export const toApiProject = (db: DbProjectWithRelations): Project => {
       .sort((a, b) => a.order - b.order)
       .map(({ role, name }) => ({ role, name })),
     featured: db.featured || undefined,
+    featuredOnAbout: db.featuredOnAbout || undefined,
     order: db.order || undefined,
   };
 };

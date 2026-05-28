@@ -99,6 +99,15 @@ export const portfolioRouter = createTRPCRouter({
     return rows.map(toApiProject);
   }),
 
+  featuredOnAbout: publicProcedure.query(async ({ ctx }) => {
+    const rows = await ctx.db.project.findMany({
+      where: { featuredOnAbout: true },
+      include: projectInclude,
+      orderBy: [{ order: "asc" }, { createdAt: "desc" }],
+    });
+    return rows.map(toApiProject);
+  }),
+
   bySlug: publicProcedure
     .input(z.object({ slug: z.string().min(1) }))
     .query(async ({ ctx, input }) => {
@@ -201,6 +210,7 @@ export const portfolioRouter = createTRPCRouter({
           excerpt: input.excerpt,
           brief: input.brief,
           featured: input.featured,
+          featuredOnAbout: input.featuredOnAbout,
           order: input.order,
           media: { create: buildMediaCreate(input) },
           credits: { create: buildCreditsCreate(input) },
@@ -244,6 +254,7 @@ export const portfolioRouter = createTRPCRouter({
             excerpt: input.data.excerpt,
             brief: input.data.brief,
             featured: input.data.featured,
+            featuredOnAbout: input.data.featuredOnAbout,
             order: input.data.order,
             media: { create: buildMediaCreate(input.data) },
             credits: { create: buildCreditsCreate(input.data) },

@@ -12,7 +12,8 @@ export const projectsData: Project[] = [
     category: "fashion",
     featured: true,
     order: 1,
-    excerpt: "Filme editorial em movimento — silhuetas, asfalto e luz tungstênio.",
+    excerpt:
+      "Filme editorial em movimento — silhuetas, asfalto e luz tungstênio.",
     brief:
       "Um exercício de luz e velocidade. Câmera baixa, neon refletido, decupagem em quatro tempos. O filme abre a coleção outono/inverno da Lumen Atelier explorando a tensão entre o luxo da alfaiataria e a aspereza do concreto noturno.",
     cover: {
@@ -266,7 +267,8 @@ export const projectsData: Project[] = [
     year: 2024,
     category: "brand",
     order: 6,
-    excerpt: "Filme institucional minimalista — duas locações, um único narrador.",
+    excerpt:
+      "Filme institucional minimalista — duas locações, um único narrador.",
     brief:
       "Apresentação da nova identidade visual da Casa Verdi. Aposta no silêncio: locução discreta, contemplação do produto, finalização em preto e branco com detalhes pontuais em cor.",
     cover: {
@@ -303,9 +305,19 @@ export const brandsData: Brand[] = [
   { name: "Lumen Atelier", logo: "/brands/lumen.svg", width: 140, height: 32 },
   { name: "Banco Solar", logo: "/brands/solar.svg", width: 140, height: 32 },
   { name: "MGN Records", logo: "/brands/mgn.svg", width: 140, height: 32 },
-  { name: "Mover Mobilidade", logo: "/brands/mover.svg", width: 140, height: 32 },
+  {
+    name: "Mover Mobilidade",
+    logo: "/brands/mover.svg",
+    width: 140,
+    height: 32,
+  },
   { name: "Casa Verdi", logo: "/brands/verdi.svg", width: 140, height: 32 },
   { name: "Sereno Hotel", logo: "/brands/sereno.svg", width: 140, height: 32 },
   { name: "Norte Filmes", logo: "/brands/norte.svg", width: 140, height: 32 },
-  { name: "Estúdio Pluvial", logo: "/brands/pluvial.svg", width: 140, height: 32 },
+  {
+    name: "Estúdio Pluvial",
+    logo: "/brands/pluvial.svg",
+    width: 140,
+    height: 32,
+  },
 ];

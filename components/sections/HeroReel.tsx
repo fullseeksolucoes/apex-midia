@@ -28,7 +28,7 @@ export function HeroReel() {
       </video> */}
 
       <Image
-        src="/banner3.png"
+        src="/banner-home.webp"
         alt=""
         fill
         priority
@@ -36,10 +36,7 @@ export function HeroReel() {
         className="absolute inset-0 h-full w-full object-cover"
       />
 
-      <div
-        aria-hidden
-        className="absolute inset-0 z-2 bg-black/30"
-      />
+      <div aria-hidden className="absolute inset-0 z-2 bg-black/30" />
       <div
         aria-hidden
         className="absolute inset-x-0 bottom-0 z-2 h-1/2 bg-linear-to-b from-transparent to-black"
