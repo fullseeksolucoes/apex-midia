@@ -86,9 +86,12 @@ export function ContactForm() {
 
             <motion.h1
               variants={fadeUp}
-              className="font-display text-5xl font-light leading-[0.92] text-silver-50 md:text-7xl lg:text-[6.5rem]"
+              className="font-display text-5xl font-light leading-[0.92] text-silver-50 md:text-6xl lg:text-7xl"
             >
               {copy.contato.hero.title}
+              <span className="block text-[1.2em] lg:text-[1.45em]">
+                {copy.contato.hero.titleAccent}
+              </span>
             </motion.h1>
 
             <motion.p
@@ -205,7 +208,9 @@ export function ContactForm() {
                     label={copy.contato.form.projectType}
                     options={projectTypes}
                     value={payload.projectType}
-                    onChange={(v) => setField("projectType", v as typeof payload.projectType)}
+                    onChange={(v) =>
+                      setField("projectType", v as typeof payload.projectType)
+                    }
                     error={errors.projectType}
                   />
                 </motion.div>

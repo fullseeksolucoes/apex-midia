@@ -27,7 +27,7 @@ export const copy = {
       resumeLabel: "Reproduzir vídeo do reel",
     },
     brands: {
-      title: "Marcas que confiaram na nossa visão.",
+      title: "Clientes que confiaram na nossa visão.",
     },
     about: {
       eyebrow: "Sobre",
@@ -139,7 +139,8 @@ export const copy = {
   contato: {
     hero: {
       eyebrow: "Contato",
-      title: "Vamos criar algo memorável.",
+      title: "Vamos criar algo",
+      titleAccent: "memorável.",
       sub: "Conte sobre o projeto. Respondemos em até 48 horas úteis.",
     },
     form: {

@@ -23,7 +23,7 @@ export function AboutHero() {
           <span className="text-[11px] uppercase tracking-[0.32em] text-white/70">
             {copy.sobre.hero.eyebrow}
           </span>
-          <h1 className="font-display text-5xl font-light leading-[0.95] text-white md:text-7xl lg:text-[7rem]">
+          <h1 className="font-display text-5xl font-light leading-[0.95] text-white md:text-6xl lg:text-7xl">
             {copy.sobre.hero.title}
           </h1>
           <p className="max-w-2xl text-base text-white/80 md:text-lg">
