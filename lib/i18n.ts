@@ -3,7 +3,7 @@ export const DEFAULT_LOCALE = "pt-BR" as const;
 export const copy = {
   brand: {
     name: "Apex Mídias",
-    tagline: "Estúdio cinematográfico de imagem em movimento.",
+    tagline: "Produtora Audiovisual",
     domain: "apexmidias.com",
   },
   nav: {
@@ -56,8 +56,8 @@ export const copy = {
   portfolio: {
     intro: {
       eyebrow: "Portfólio",
-      title: "Filmes, campanhas e fragmentos.",
-      sub: "Uma seleção curatorial — direção, produção e pós-produção.",
+      title: "Uma seleção dos nossos projetos.",
+      sub: "Filmes, eventos e produções visuais do nosso dia a dia.",
     },
     filters: {
       all: "Tudo",
@@ -86,10 +86,10 @@ export const copy = {
     },
     manifesto: {
       eyebrow: "Manifesto",
-      title: "Menos elementos. Mais impacto.",
+      title: "Filmes bem feitos comunicam diferente.",
       body: [
-        "Acreditamos em silêncio. Em planos longos. Em luz que constrói lugar antes de revelar pessoa. Em decupagem que respeita o ritmo do espectador.",
-        "Cada filme que assinamos passa por uma diretoria criativa única — um ponto de vista autoral, defendido até a entrega final. Não fazemos volume. Fazemos memória.",
+        "Na Apex, cada projeto é desenvolvido com direção cinematográfica, atenção aos detalhehs e identidade visual forte.",
+        "Acreditamos que a forma como uma marca é vista influencia diretamente a forma como ela é percebida.",
       ],
     },
     methodology: {
@@ -99,32 +99,32 @@ export const copy = {
         {
           number: "01",
           title: "Imersão",
-          body: "Escuta atenta da marca, do contexto e do público. Mapeamento de referências e tensão criativa.",
+          body: "Escutamos as expectativas e dores para contextualizar, mapear e definir a estratégia.",
         },
         {
           number: "02",
-          title: "Direção",
-          body: "Tratamento autoral, decupagem visual, casting e definição de paleta cinematográfica.",
+          title: "Pré Produção",
+          body: "Produção de roteiro e preparação de equipamentos, equipe e alinhamento final.",
         },
         {
           number: "03",
           title: "Produção",
-          body: "Equipe enxuta, foco no que entra em quadro. Cada decisão de set responde ao tratamento.",
+          body: "Hora da ação, equipe focada em cada detalhe buscando capturar o melhor de cada momento.",
         },
         {
           number: "04",
           title: "Pós",
-          body: "Montagem, color, som e finalização sob a mesma diretoria — coerência da primeira à última frame.",
+          body: "Processo de montagem, color grading, som e finalização do projeto.",
         },
       ],
     },
     results: {
       eyebrow: "Em números",
       stats: [
-        { value: 120, suffix: "+", label: "Filmes entregues" },
-        { value: 38, suffix: "", label: "Marcas atendidas" },
-        { value: 14, suffix: "", label: "Premiações" },
-        { value: 9, suffix: "", label: "Países" },
+        { value: 200, suffix: "+", label: "Filmes entregues" },
+        { value: "BR/EUA", suffix: "", label: "Atuação Internacional" },
+        { value: 500, suffix: "+", label: "Em Visualizações" },
+        { value: 50, suffix: "+", label: "Clientes Satisfeitos" },
       ],
     },
     gallery: {
