@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useState } from "react";
 
-import { probeImageSize } from "@/components/admin/media-picker";
+import { AboutGalleryImageSource } from "@/components/admin/about-gallery-image-source";
 import {
   ABOUT_GALLERY_LAYOUTS,
   ABOUT_GALLERY_VISIBLE_OPTIONS,
@@ -11,7 +11,6 @@ import {
   type AboutGallerySaveInput,
 } from "@/lib/about-gallery-schemas";
 import { trpc } from "@/lib/trpc/client";
-import { UploadDropzone } from "@/lib/uploadthing";
 import type { AboutGalleryConfig, AboutGalleryImage } from "@/types/about-gallery";
 import { cn } from "@/utils/cn";
 
@@ -57,6 +56,13 @@ export function AboutGalleryForm({ initial }: { initial: AboutGalleryConfig }) {
 
   const removeImage = (index: number) =>
     setImages((current) => current.filter((_, i) => i !== index));
+
+  const addImage = (image: AboutGalleryImage) =>
+    setImages((current) =>
+      current.some((existing) => existing.src === image.src)
+        ? current
+        : [...current, image],
+    );
 
   const handleSave = () => {
     setError(null);
@@ -163,32 +169,9 @@ export function AboutGalleryForm({ initial }: { initial: AboutGalleryConfig }) {
           </span>
         </div>
 
-        <UploadDropzone
-          endpoint="projectGallery"
-          onClientUploadComplete={async (res) => {
-            if (!res) return;
-            const uploaded = await Promise.all(
-              res.map(async (file) => {
-                const dims = await probeImageSize(file.ufsUrl);
-                return {
-                  src: file.ufsUrl,
-                  width: dims.width,
-                  height: dims.height,
-                  visible: true,
-                } satisfies AboutGalleryImage;
-              }),
-            );
-            setImages((current) => [...current, ...uploaded]);
-          }}
-          onUploadError={(e) => alert(`Erro: ${e.message}`)}
-          appearance={{
-            container:
-              "rounded-xl border border-dashed border-silver-50/15 bg-ink-2/30 p-6",
-            label: "text-silver-50/70",
-            allowedContent: "text-xs text-silver-50/50",
-            button:
-              "ut-ready:bg-silver-50 ut-ready:text-ink ut-uploading:opacity-60 rounded-md px-4 py-2 text-sm",
-          }}
+        <AboutGalleryImageSource
+          existingSrcs={new Set(images.map((image) => image.src))}
+          onAdd={addImage}
         />
 
         {images.length === 0 ? (
