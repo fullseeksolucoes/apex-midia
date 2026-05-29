@@ -1,22 +1,17 @@
-import Image from "next/image";
-
+import { AboutGalleryGrid } from "@/components/sections/AboutGalleryLayouts";
 import { Container } from "@/components/layout/container";
 import { Eyebrow } from "@/components/ui/eyebrow";
-import { Reveal } from "@/components/ui/reveal";
 import { copy } from "@/lib/i18n";
-import { getAboutFeaturedProjects } from "@/services/portfolio";
+import {
+  getAboutGallery,
+  selectVisibleAboutGalleryImages,
+} from "@/services/aboutGallery";
 
 export async function EditorialGallery() {
-  const projects = await getAboutFeaturedProjects();
+  const config = await getAboutGallery();
+  const images = selectVisibleAboutGalleryImages(config);
 
-  const tiles = projects.flatMap((p) => [
-    ...p.gallery.map((m) => ({ src: m.src, w: m.width, h: m.height })),
-    ...(p.gallery.length === 0
-      ? [{ src: p.cover.src, w: p.cover.width, h: p.cover.height }]
-      : []),
-  ]);
-
-  if (tiles.length === 0) return null;
+  if (images.length === 0) return null;
 
   return (
     <section
@@ -31,25 +26,7 @@ export async function EditorialGallery() {
           </h2>
         </div>
 
-        <div className="columns-1 gap-6 sm:columns-2 xl:columns-3">
-          {tiles.map((tile, idx) => (
-            <Reveal
-              key={tile.src}
-              delay={idx * 60}
-              className="mb-6 break-inside-avoid"
-            >
-              <div className="overflow-hidden rounded-2xl bg-graphite shadow-(--shadow-lift)">
-                <Image
-                  src={tile.src}
-                  alt=""
-                  width={tile.w}
-                  height={tile.h}
-                  className="h-auto w-full object-cover"
-                />
-              </div>
-            </Reveal>
-          ))}
-        </div>
+        <AboutGalleryGrid layout={config.layout} images={images} />
       </Container>
     </section>
   );

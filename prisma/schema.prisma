@@ -183,3 +183,34 @@ enum AboutGalleryLayout {
   DUO
   FILMSTRIP
 }
+
+enum AboutGalleryLayout {
+  STAGGERED
+  MOSAIC
+  DUO
+  FILMSTRIP
+}
+
+model AboutGallery {
+  id           String             @id @default(cuid())
+  layout       AboutGalleryLayout @default(STAGGERED)
+  visibleCount Int                @default(6)
+  createdAt    DateTime           @default(now())
+  updatedAt    DateTime           @updatedAt
+
+  images AboutGalleryImage[]
+}
+
+model AboutGalleryImage {
+  id        String       @id @default(cuid())
+  galleryId String
+  gallery   AboutGallery @relation(fields: [galleryId], references: [id], onDelete: Cascade)
+  src       String
+  width     Int
+  height    Int
+  caption   String?
+  visible   Boolean      @default(true)
+  order     Int          @default(0)
+
+  @@index([galleryId])
+}
