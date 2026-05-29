@@ -1,3 +1,5 @@
+import { revalidatePath } from "next/cache";
+
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 
@@ -72,6 +74,13 @@ const buildCreditsCreate = (input: ProjectInput) =>
     name: c.name,
     order: i,
   }));
+
+const revalidatePublicProjectPages = () => {
+  revalidatePath("/");
+  revalidatePath("/sobre");
+  revalidatePath("/portfolio");
+  revalidatePath("/portfolio/[slug]", "page");
+};
 
 export const portfolioRouter = createTRPCRouter({
   list: publicProcedure.query(async ({ ctx }) => {
@@ -219,6 +228,7 @@ export const portfolioRouter = createTRPCRouter({
         },
         include: projectInclude,
       });
+      revalidatePublicProjectPages();
       return toApiProjectWithId(row);
     }),
 
@@ -265,6 +275,7 @@ export const portfolioRouter = createTRPCRouter({
         });
       });
 
+      revalidatePublicProjectPages();
       return toApiProjectWithId(row);
     }),
 
@@ -272,6 +283,7 @@ export const portfolioRouter = createTRPCRouter({
     .input(z.object({ id: z.string().min(1) }))
     .mutation(async ({ ctx, input }) => {
       await ctx.db.project.delete({ where: { id: input.id } });
+      revalidatePublicProjectPages();
       return { ok: true };
     }),
 

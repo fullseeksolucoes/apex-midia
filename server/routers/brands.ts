@@ -1,9 +1,15 @@
+import { revalidatePath } from "next/cache";
+
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 
 import { brandInputSchema } from "@/lib/portfolio-schemas";
 
 import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
+
+const revalidatePublicBrandPages = () => {
+  revalidatePath("/");
+};
 
 export const brandsRouter = createTRPCRouter({
   list: publicProcedure.query(async ({ ctx }) => {
@@ -35,18 +41,28 @@ export const brandsRouter = createTRPCRouter({
 
   create: protectedProcedure
     .input(brandInputSchema)
-    .mutation(({ ctx, input }) => ctx.db.brand.create({ data: input })),
+    .mutation(async ({ ctx, input }) => {
+      const row = await ctx.db.brand.create({ data: input });
+      revalidatePublicBrandPages();
+      return row;
+    }),
 
   update: protectedProcedure
     .input(z.object({ id: z.string().min(1), data: brandInputSchema }))
-    .mutation(({ ctx, input }) =>
-      ctx.db.brand.update({ where: { id: input.id }, data: input.data }),
-    ),
+    .mutation(async ({ ctx, input }) => {
+      const row = await ctx.db.brand.update({
+        where: { id: input.id },
+        data: input.data,
+      });
+      revalidatePublicBrandPages();
+      return row;
+    }),
 
   delete: protectedProcedure
     .input(z.object({ id: z.string().min(1) }))
     .mutation(async ({ ctx, input }) => {
       await ctx.db.brand.delete({ where: { id: input.id } });
+      revalidatePublicBrandPages();
       return { ok: true };
     }),
 });
