@@ -116,7 +116,7 @@ export function ContactForm() {
                 {copy.contato.direct.phone}
               </span>
               <a
-                href="https://wa.me/5511900000000"
+                href="https://wa.me/5531971841550"
                 target="_blank"
                 rel="noreferrer"
                 className="inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.28em] text-silver-300 transition-colors duration-500 ease-(--ease-cinema) hover:text-silver-50"

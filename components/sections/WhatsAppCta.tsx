@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/ui/reveal";
 import { copy } from "@/lib/i18n";
 
-const whatsappHref = "https://wa.me/5511900000000";
+const whatsappHref = "https://wa.me/5531971841550";
 
 export function WhatsAppCta() {
   return (

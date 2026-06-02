@@ -177,7 +177,7 @@ export const copy = {
     direct: {
       label: "Direto",
       email: "contato@apexmidias.com.br",
-      phone: "+55 11 9 0000 0000",
+      phone: "+55 31 9 7184 1550",
     },
   },
   footer: {

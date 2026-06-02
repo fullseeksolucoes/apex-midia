@@ -16,7 +16,7 @@ export function AboutTeaser() {
     >
       <Container size="wide">
         <div className="grid items-center gap-12 md:grid-cols-12 md:gap-20">
-          <div className="relative md:col-span-5">
+          <div className="relative md:col-span-4">
             <Reveal>
               <div className="relative overflow-hidden rounded-2xl">
                 <Image

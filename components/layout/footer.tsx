@@ -69,9 +69,14 @@ export function Footer() {
                 </a>
               </li>
               <li>
-                <span className="text-sm text-silver-100">
+                <a
+                  href="https://wa.me/5531971841550"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-sm text-silver-100 hover:text-accent"
+                >
                   {copy.contato.direct.phone}
-                </span>
+                </a>
               </li>
             </ul>
             <ul className="mt-8 flex flex-wrap gap-x-5 gap-y-2">
