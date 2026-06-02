@@ -174,9 +174,11 @@ export const portfolioRouter = createTRPCRouter({
       const map = {
         BRAND: "brand",
         FASHION: "fashion",
-        SHORT_FILM: "shortFilm",
-        COMMERCIAL: "commercial",
         MUSIC: "music",
+        CAR: "car",
+        EVENT: "event",
+        INSTITUTIONAL: "institutional",
+        OTHER: "other",
       } as const;
       return map[r.category];
     });

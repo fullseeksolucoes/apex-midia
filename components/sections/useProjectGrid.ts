@@ -25,9 +25,11 @@ export function useProjectGrid(projects: Project[]) {
     const categoryOptions: Array<{ value: ProjectCategory; label: string }> = [
       { value: "brand", label: copy.portfolio.filters.brand },
       { value: "fashion", label: copy.portfolio.filters.fashion },
-      { value: "shortFilm", label: copy.portfolio.filters.shortFilm },
-      { value: "commercial", label: copy.portfolio.filters.commercial },
       { value: "music", label: copy.portfolio.filters.music },
+      { value: "car", label: copy.portfolio.filters.car },
+      { value: "event", label: copy.portfolio.filters.event },
+      { value: "institutional", label: copy.portfolio.filters.institutional },
+      { value: "other", label: copy.portfolio.filters.other },
     ];
     return [
       { value: "all", label: copy.portfolio.filters.all },

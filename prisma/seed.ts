@@ -22,12 +22,16 @@ const toDbCategory = (api: string) => {
       return "BRAND" as const;
     case "fashion":
       return "FASHION" as const;
-    case "shortFilm":
-      return "SHORT_FILM" as const;
-    case "commercial":
-      return "COMMERCIAL" as const;
     case "music":
       return "MUSIC" as const;
+    case "car":
+      return "CAR" as const;
+    case "event":
+      return "EVENT" as const;
+    case "institutional":
+      return "INSTITUTIONAL" as const;
+    case "other":
+      return "OTHER" as const;
     default:
       throw new Error(`Categoria desconhecida: ${api}`);
   }

@@ -8,9 +8,11 @@ import { trpc } from "@/lib/trpc/client";
 const CATEGORY_LABEL: Record<string, string> = {
   brand: "Marca",
   fashion: "Moda",
-  shortFilm: "Curta",
-  commercial: "Comercial",
   music: "Música",
+  car: "Carro",
+  event: "Evento",
+  institutional: "Institucional",
+  other: "Outro",
 };
 
 export function ProjectsTable() {

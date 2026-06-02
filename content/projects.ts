@@ -181,7 +181,7 @@ export const projectsData: Project[] = [
     title: "Ciclo",
     client: "Mover Mobilidade",
     year: 2025,
-    category: "commercial",
+    category: "brand",
     order: 4,
     excerpt: "Campanha em três filmes — manhã, tarde e madrugada.",
     brief:
@@ -219,7 +219,7 @@ export const projectsData: Project[] = [
     title: "Vértice",
     client: "Curta independente",
     year: 2024,
-    category: "shortFilm",
+    category: "other",
     order: 5,
     excerpt: "Curta-metragem de 12 minutos — selecionado em quatro festivais.",
     brief:

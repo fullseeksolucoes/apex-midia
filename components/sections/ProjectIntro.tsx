@@ -7,9 +7,11 @@ import type { Project } from "@/types/project";
 const CATEGORY_LABEL: Record<Project["category"], string> = {
   brand: copy.portfolio.filters.brand,
   fashion: copy.portfolio.filters.fashion,
-  shortFilm: copy.portfolio.filters.shortFilm,
-  commercial: copy.portfolio.filters.commercial,
   music: copy.portfolio.filters.music,
+  car: copy.portfolio.filters.car,
+  event: copy.portfolio.filters.event,
+  institutional: copy.portfolio.filters.institutional,
+  other: copy.portfolio.filters.other,
 };
 
 interface ProjectIntroProps {

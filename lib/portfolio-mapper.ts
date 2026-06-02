@@ -39,17 +39,21 @@ type DbProjectWithRelations = {
 const dbCategoryMap: Record<DbProjectCategory, ProjectCategory> = {
   BRAND: "brand",
   FASHION: "fashion",
-  SHORT_FILM: "shortFilm",
-  COMMERCIAL: "commercial",
   MUSIC: "music",
+  CAR: "car",
+  EVENT: "event",
+  INSTITUTIONAL: "institutional",
+  OTHER: "other",
 };
 
 const apiCategoryMap: Record<ProjectCategory, DbProjectCategory> = {
   brand: "BRAND",
   fashion: "FASHION",
-  shortFilm: "SHORT_FILM",
-  commercial: "COMMERCIAL",
   music: "MUSIC",
+  car: "CAR",
+  event: "EVENT",
+  institutional: "INSTITUTIONAL",
+  other: "OTHER",
 };
 
 export const toApiCategory = (db: DbProjectCategory): ProjectCategory =>

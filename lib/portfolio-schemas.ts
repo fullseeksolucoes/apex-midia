@@ -3,9 +3,11 @@ import { z } from "zod";
 export const projectCategorySchema = z.enum([
   "brand",
   "fashion",
-  "shortFilm",
-  "commercial",
   "music",
+  "car",
+  "event",
+  "institutional",
+  "other",
 ]);
 
 export const mediaTypeSchema = z.enum(["image", "video"]);

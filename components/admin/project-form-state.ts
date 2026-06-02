@@ -86,7 +86,9 @@ export const fromProject = (p: Project): FormState => ({
 export const CATEGORIES: { value: ProjectCategory; label: string }[] = [
   { value: "brand", label: "Marca" },
   { value: "fashion", label: "Moda" },
-  { value: "shortFilm", label: "Curta" },
-  { value: "commercial", label: "Comercial" },
   { value: "music", label: "Música" },
+  { value: "car", label: "Carro" },
+  { value: "event", label: "Evento" },
+  { value: "institutional", label: "Institucional" },
+  { value: "other", label: "Outro" },
 ];

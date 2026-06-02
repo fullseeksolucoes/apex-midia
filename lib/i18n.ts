@@ -4,7 +4,7 @@ export const copy = {
   brand: {
     name: "Apex Mídias",
     tagline: "Produtora Audiovisual",
-    domain: "apexmidias.com",
+    domain: "https://apexmidias.com.br",
   },
   nav: {
     sobre: "Sobre",
@@ -63,9 +63,11 @@ export const copy = {
       all: "Tudo",
       brand: "Marca",
       fashion: "Moda",
-      shortFilm: "Curta",
-      commercial: "Comercial",
       music: "Música",
+      car: "Carro",
+      event: "Evento",
+      institutional: "Institucional",
+      other: "Outro",
     },
     detail: {
       back: "Voltar ao portfólio",
@@ -156,7 +158,7 @@ export const copy = {
       successBody: "Entraremos em contato em breve. Obrigado pela confiança.",
       errorTitle: "Não foi possível enviar.",
       errorBody:
-        "Tente novamente em instantes ou escreva diretamente para contato@apexmidias.com.",
+        "Tente novamente em instantes ou escreva diretamente para contato@https://apexmidias.com.br.",
       required: "Campo obrigatório",
       invalidEmail: "Informe um e-mail válido",
       types: {
@@ -174,7 +176,7 @@ export const copy = {
     },
     direct: {
       label: "Direto",
-      email: "contato@apexmidias.com",
+      email: "contato@apexmidias.com.br",
       phone: "+55 11 9 0000 0000",
     },
   },

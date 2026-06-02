@@ -22,7 +22,7 @@ const display = Montserrat({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://apexmidias.com"),
+  metadataBase: new URL("https://apexmidias.com.br"),
   title: {
     default: `${copy.brand.name} — ${copy.brand.tagline}`,
     template: `%s · ${copy.brand.name}`,
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     siteName: copy.brand.name,
     title: `${copy.brand.name} — ${copy.brand.tagline}`,
     description: copy.brand.tagline,
-    url: "https://apexmidias.com",
+    url: "https://apexmidias.com.br",
   },
   twitter: {
     card: "summary_large_image",

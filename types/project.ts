@@ -1,9 +1,11 @@
 export type ProjectCategory =
   | "brand"
   | "fashion"
-  | "shortFilm"
-  | "commercial"
-  | "music";
+  | "music"
+  | "car"
+  | "event"
+  | "institutional"
+  | "other";
 
 export interface ProjectMedia {
   type: "image" | "video";
