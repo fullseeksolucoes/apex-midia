@@ -11,7 +11,7 @@ export async function SelectedWork() {
   const projects = await getFeaturedProjects();
 
   return (
-    <section aria-label={copy.a11y.sectionSelected} className="py-24 md:py-36">
+    <section aria-label={copy.a11y.sectionSelected} className="py-24 md:py-40">
       <Container size="wide">
         <Reveal className="mb-14 flex flex-col gap-6 md:mb-24 md:flex-row md:items-end md:justify-between">
           <div className="max-w-2xl">
@@ -46,6 +46,7 @@ export async function SelectedWork() {
                     alt={`${project.title} — ${project.client}`}
                     width={project.cover.width}
                     height={project.cover.height}
+                    sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
                     className="h-auto w-full object-cover transition-transform duration-(--duration-lift) ease-out group-hover:scale-[1.03]"
                   />
                 </div>

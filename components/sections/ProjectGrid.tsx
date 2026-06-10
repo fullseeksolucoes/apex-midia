@@ -20,7 +20,7 @@ export function ProjectGrid({ projects }: ProjectGridProps) {
   return (
     <section
       aria-label={copy.a11y.sectionPortfolio}
-      className="relative py-24 md:py-36"
+      className="relative py-24 md:py-32"
     >
       <Container size="wide">
         <div className="mb-12 flex flex-wrap items-center gap-x-6 gap-y-2 md:mb-14">
@@ -45,7 +45,7 @@ export function ProjectGrid({ projects }: ProjectGridProps) {
         {visible.length === 0 ? (
           <p className="py-24 text-center text-sm text-silver-400">—</p>
         ) : (
-          <div className="columns-1 gap-6 sm:columns-2 xl:columns-3">
+          <div className="columns-1 gap-8 sm:columns-2 xl:columns-3">
             {visible.map((project, idx) => (
               <Reveal
                 key={project.slug}
@@ -56,23 +56,24 @@ export function ProjectGrid({ projects }: ProjectGridProps) {
                   href={`/portfolio/${project.slug}`}
                   className="group block"
                 >
-                  <div className="overflow-hidden rounded-2xl bg-graphite shadow-(--shadow-lift) transition-shadow duration-500 group-hover:shadow-(--shadow-editorial)">
+                  <div className="overflow-hidden rounded-[1.75rem] bg-graphite shadow-(--shadow-lift) transition-shadow duration-500 group-hover:shadow-(--shadow-editorial)">
                     <Image
                       src={project.cover.src}
                       alt={`${project.title} — ${project.client}`}
                       width={project.cover.width}
                       height={project.cover.height}
+                      sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
                       className="h-auto w-full object-cover transition-transform duration-(--duration-lift) ease-out group-hover:scale-[1.03]"
                     />
                   </div>
 
-                  <div className="mt-4 flex items-start justify-between gap-4">
+                  <div className="mt-5 flex items-start justify-between gap-4">
                     <div>
                       <h3 className="font-display text-lg tracking-tight text-silver-50 md:text-xl">
                         {project.title}
                       </h3>
 
-                      <p className="mt-1 text-sm text-silver-300">
+                      <p className="mt-1.5 text-sm text-silver-300">
                         {project.client}
                       </p>
                     </div>

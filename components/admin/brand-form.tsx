@@ -123,7 +123,7 @@ export function BrandForm({
                 unoptimized
               />
             </div>
-            <div className="grid gap-3 md:grid-cols-2">
+            <div className="grid gap-5 md:grid-cols-2">
               <NumberField
                 label="Largura (px)"
                 value={width}

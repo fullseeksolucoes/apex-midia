@@ -40,10 +40,11 @@ export async function generateMetadata({
 
 export default async function ProjectDetailPage({ params }: PageProps) {
   const { slug } = await params;
-  const project = await getProjectBySlug(slug);
+  const [project, related] = await Promise.all([
+    getProjectBySlug(slug),
+    getRelatedProjects(slug, 3),
+  ]);
   if (!project) notFound();
-
-  const related = await getRelatedProjects(slug, 3);
 
   return (
     <>

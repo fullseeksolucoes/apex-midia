@@ -24,6 +24,7 @@ export function AboutTeaser() {
                   alt=""
                   width={700}
                   height={900}
+                  sizes="(max-width: 768px) 100vw, 33vw"
                   className="w-full"
                 />
               </div>

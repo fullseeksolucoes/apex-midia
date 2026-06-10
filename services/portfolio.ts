@@ -47,6 +47,7 @@ export async function getRelatedProjects(
     where: { id: { not: current.id }, category: current.category },
     include,
     orderBy,
+    take: limit,
   });
 
   if (same.length >= limit) return same.slice(0, limit).map(toApiProject);
@@ -58,6 +59,7 @@ export async function getRelatedProjects(
     },
     include,
     orderBy,
+    take: limit,
   });
 
   return [...same, ...fallback].slice(0, limit).map(toApiProject);

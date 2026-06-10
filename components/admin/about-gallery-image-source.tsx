@@ -78,7 +78,7 @@ function UploadTab({ onAdd }: { onAdd: (image: AboutGalleryImage) => void }) {
       }}
       onUploadError={(e) => alert(`Erro: ${e.message}`)}
       appearance={{
-        container: "border border-dashed border-silver-50/15 rounded-lg p-6",
+        container: "border border-dashed border-silver-50/15 rounded-xl p-6",
         label: "text-silver-50/70",
         allowedContent: "text-xs text-silver-50/50",
         button:

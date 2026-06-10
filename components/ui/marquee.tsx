@@ -32,8 +32,7 @@ export function Marquee({
         }
         @media (prefers-reduced-motion: reduce) {
           [style*="--apex-marquee-duration"] {
-            animation-duration: var(--apex-marquee-duration) !important;
-            animation-iteration-count: infinite !important;
+            animation: none !important;
           }
         }
       `}</style>

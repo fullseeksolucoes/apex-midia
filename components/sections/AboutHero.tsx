@@ -7,7 +7,10 @@ const heroImage = "/banner-about.webp";
 
 export function AboutHero() {
   return (
-    <section className="relative isolate flex min-h-[80svh] w-full items-end overflow-hidden bg-black">
+    <section
+      aria-label={copy.sobre.hero.eyebrow}
+      className="relative isolate flex min-h-[80svh] w-full items-end overflow-hidden bg-black"
+    >
       <Image
         src={heroImage}
         alt=""

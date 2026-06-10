@@ -41,6 +41,7 @@ export function RelatedProjects({ projects }: RelatedProjectsProps) {
                     alt={`${project.title} — ${project.client}`}
                     width={project.cover.width}
                     height={project.cover.height}
+                    sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
                     className="h-auto w-full object-cover transition-transform duration-(--duration-lift) ease-out group-hover:scale-[1.03]"
                   />
                 </div>

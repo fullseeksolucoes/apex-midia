@@ -187,7 +187,7 @@ export function ProjectForm({
         <h2 className="text-xs uppercase tracking-[0.22em] text-silver-50/60">
           Mídias principais
         </h2>
-        <div className="grid gap-6 md:grid-cols-2">
+        <div className="grid gap-5 md:grid-cols-2">
           <MediaPicker
             label="Cover (proporção livre)"
             endpoint="projectImage"

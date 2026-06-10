@@ -116,7 +116,12 @@ function DuoLayout({ images }: LayoutProps) {
 
 function FilmstripLayout({ images }: LayoutProps) {
   return (
-    <div className="-mx-6 flex snap-x snap-mandatory gap-5 overflow-x-auto px-6 pb-4 [-ms-overflow-style:none] [scrollbar-width:none] md:-mx-10 md:px-10 [&::-webkit-scrollbar]:hidden">
+    <div
+      role="region"
+      aria-label="Galeria em faixa"
+      tabIndex={0}
+      className="-mx-6 flex snap-x snap-mandatory gap-5 overflow-x-auto px-6 pb-4 [-ms-overflow-style:none] [scrollbar-width:none] md:-mx-10 md:px-10 [&::-webkit-scrollbar]:hidden"
+    >
       {images.map((image, idx) => (
         <div
           key={image.src}

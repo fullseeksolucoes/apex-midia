@@ -156,6 +156,7 @@ export const portfolioRouter = createTRPCRouter({
         where: { id: { not: current.id }, category: current.category },
         include: projectInclude,
         orderBy: [{ order: "asc" }, { createdAt: "desc" }],
+        take: input.limit,
       });
 
       let pool = sameCategory;
@@ -167,6 +168,7 @@ export const portfolioRouter = createTRPCRouter({
           },
           include: projectInclude,
           orderBy: [{ order: "asc" }, { createdAt: "desc" }],
+          take: input.limit,
         });
         pool = [...sameCategory, ...fallback];
       }
