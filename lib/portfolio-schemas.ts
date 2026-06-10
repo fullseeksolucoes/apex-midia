@@ -1,5 +1,7 @@
 import { z } from "zod";
 
+import { httpUrl } from "@/lib/url-schema";
+
 export const projectCategorySchema = z.enum([
   "brand",
   "fashion",
@@ -15,8 +17,8 @@ export const mediaAspectSchema = z.enum(["wide", "tall", "square"]);
 
 export const projectMediaSchema = z.object({
   type: mediaTypeSchema,
-  src: z.url(),
-  poster: z.url().optional(),
+  src: httpUrl,
+  poster: httpUrl.optional(),
   caption: z.string().max(280).optional(),
   width: z.number().int().positive(),
   height: z.number().int().positive(),

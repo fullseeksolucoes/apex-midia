@@ -1,5 +1,7 @@
 import { z } from "zod";
 
+import { httpUrl } from "@/lib/url-schema";
+
 export const aboutGalleryLayoutSchema = z.enum([
   "staggered",
   "mosaic",
@@ -10,7 +12,7 @@ export const aboutGalleryLayoutSchema = z.enum([
 export type AboutGalleryLayout = z.infer<typeof aboutGalleryLayoutSchema>;
 
 export const aboutGalleryImageSchema = z.object({
-  src: z.url(),
+  src: httpUrl,
   width: z.number().int().positive(),
   height: z.number().int().positive(),
   caption: z.string().max(280).optional(),

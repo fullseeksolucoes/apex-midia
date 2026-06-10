@@ -19,6 +19,15 @@ const FILE_EXTENSION = /\.(mp4|webm|mov|m4v|ogv)$/i;
 const withAutoplayParam = (url: string, param: string): string =>
   `${url}${url.includes("?") ? "&" : "?"}${param}`;
 
+function isPandaUrl(url: string): boolean {
+  try {
+    const host = new URL(url).hostname.toLowerCase();
+    return host === "pandavideo.com.br" || host.endsWith(".pandavideo.com.br");
+  } catch {
+    return false;
+  }
+}
+
 export function parseVideoUrl(rawUrl: string): ParsedVideo {
   const url = rawUrl.trim();
 
@@ -49,7 +58,7 @@ export function parseVideoUrl(rawUrl: string): ParsedVideo {
     };
   }
 
-  if (/pandavideo\.com\.br/i.test(url)) {
+  if (isPandaUrl(url)) {
     return {
       provider: "panda",
       isEmbed: true,

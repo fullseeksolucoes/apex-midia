@@ -4,9 +4,9 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 
 import {
+  isHttpUrl,
   parseVideoUrl,
   VIDEO_PROVIDER_LABEL,
-  videoThumbnail,
   type ParsedVideo,
 } from "@/lib/video-providers";
 import { cn } from "@/utils/cn";
@@ -26,7 +26,7 @@ export function VideoPlayer({
 }) {
   const [playing, setPlaying] = useState(false);
   const parsed = parseVideoUrl(src);
-  const thumbnail = videoThumbnail({ src, poster });
+  const thumbnail = poster ?? parsed.thumbnailUrl;
 
   return (
     <div
@@ -65,6 +65,19 @@ function PlayingView({
   thumbnail: string | null;
   onClose: () => void;
 }) {
+  if (!isHttpUrl(parsed.embedUrl)) {
+    return thumbnail ? (
+      <Image
+        src={thumbnail}
+        alt=""
+        fill
+        unoptimized
+        sizes="(max-width: 768px) 100vw, 33vw"
+        className="object-cover"
+      />
+    ) : null;
+  }
+
   if (!parsed.isEmbed) {
     return (
       <video
