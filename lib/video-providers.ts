@@ -22,7 +22,9 @@ export function parseVideoUrl(rawUrl: string): ParsedVideo {
   const youtube = url.match(YOUTUBE_ID);
   if (youtube) {
     const id = youtube[1];
-    const embedUrl = `https://www.youtube-nocookie.com/embed/${id}?rel=0&modestbranding=1&playsinline=1`;
+    const minimalParams =
+      "controls=0&rel=0&playsinline=1&iv_load_policy=3&modestbranding=1&disablekb=1&fs=0";
+    const embedUrl = `https://www.youtube-nocookie.com/embed/${id}?${minimalParams}`;
     return {
       provider: "youtube",
       isEmbed: true,
