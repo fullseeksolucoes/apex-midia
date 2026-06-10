@@ -8,10 +8,13 @@ export interface ParsedVideo {
   autoplayUrl: string;
 }
 
-const YOUTUBE_ID =
-  /(?:youtu\.be\/|youtube(?:-nocookie)?\.com\/(?:watch\?v=|embed\/|shorts\/|v\/|live\/))([A-Za-z0-9_-]{11})/;
-const VIMEO_ID = /vimeo\.com\/(?:.*\/)?(\d+)/;
-const FILE_EXTENSION = /\.(mp4|webm|mov|m4v|ogv)(\?.*)?$/i;
+const YOUTUBE_PATH_ID =
+  /(?:youtu\.be\/|youtube(?:-nocookie)?\.com\/(?:embed\/|shorts\/|v\/|live\/))([A-Za-z0-9_-]{11})/;
+const YOUTUBE_QUERY_ID =
+  /youtube(?:-nocookie)?\.com\/watch\?(?:[^#]*&)?v=([A-Za-z0-9_-]{11})/;
+const VIMEO_ID =
+  /vimeo\.com\/(?:video\/|channels\/[\w-]+\/|groups\/[\w-]+\/videos\/)?(\d+)(?=$|[/?#])/;
+const FILE_EXTENSION = /\.(mp4|webm|mov|m4v|ogv)$/i;
 
 const withAutoplayParam = (url: string, param: string): string =>
   `${url}${url.includes("?") ? "&" : "?"}${param}`;
@@ -19,7 +22,7 @@ const withAutoplayParam = (url: string, param: string): string =>
 export function parseVideoUrl(rawUrl: string): ParsedVideo {
   const url = rawUrl.trim();
 
-  const youtube = url.match(YOUTUBE_ID);
+  const youtube = url.match(YOUTUBE_PATH_ID) ?? url.match(YOUTUBE_QUERY_ID);
   if (youtube) {
     const id = youtube[1];
     const minimalParams =
@@ -65,12 +68,20 @@ export function parseVideoUrl(rawUrl: string): ParsedVideo {
   };
 }
 
+export function isHttpUrl(rawUrl: string): boolean {
+  try {
+    const { protocol } = new URL(rawUrl.trim());
+    return protocol === "http:" || protocol === "https:";
+  } catch {
+    return false;
+  }
+}
+
 export function isSupportedVideoUrl(rawUrl: string): boolean {
   const url = rawUrl.trim();
-  if (!url) return false;
-  const parsed = parseVideoUrl(url);
-  if (parsed.provider === "file") return FILE_EXTENSION.test(url);
-  return true;
+  if (!url || !isHttpUrl(url)) return false;
+  if (parseVideoUrl(url).provider !== "file") return true;
+  return FILE_EXTENSION.test(new URL(url).pathname);
 }
 
 export const VIDEO_PROVIDER_LABEL: Record<VideoProvider, string> = {

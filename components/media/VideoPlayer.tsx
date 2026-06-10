@@ -30,7 +30,9 @@ export function VideoPlayer({
   return (
     <div
       className={cn("relative w-full overflow-hidden bg-graphite", className)}
-      style={{ aspectRatio: ratio && ratio > 0 ? ratio : 16 / 9 }}
+      style={{
+        aspectRatio: ratio && Number.isFinite(ratio) && ratio > 0 ? ratio : 16 / 9,
+      }}
     >
       {playing ? (
         parsed.isEmbed ? (
@@ -93,7 +95,7 @@ export function VideoPlayer({
 
           {thumbnail ? null : (
             <span className="absolute bottom-4 text-[10px] uppercase tracking-[0.24em] text-silver-50/55">
-              {VIDEO_PROVIDER_LABEL[parseVideoUrl(src).provider]}
+              {VIDEO_PROVIDER_LABEL[parsed.provider]}
             </span>
           )}
         </button>

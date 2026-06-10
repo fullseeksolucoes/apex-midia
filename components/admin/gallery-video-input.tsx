@@ -3,6 +3,7 @@
 import { useState } from "react";
 
 import {
+  isHttpUrl,
   isSupportedVideoUrl,
   parseVideoUrl,
   VIDEO_PROVIDER_LABEL,
@@ -41,11 +42,16 @@ export function GalleryVideoInput({
       );
       return;
     }
+    const trimmedPoster = poster.trim();
+    if (trimmedPoster && !isHttpUrl(trimmedPoster)) {
+      setError("A capa precisa ser uma URL de imagem válida (https://...).");
+      return;
+    }
     const dimensions = ORIENTATIONS.find((o) => o.value === orientation)!;
     onAdd({
       type: "video",
       src: trimmedUrl,
-      poster: poster.trim() || undefined,
+      poster: trimmedPoster || undefined,
       width: dimensions.width,
       height: dimensions.height,
       aspect: orientation,
