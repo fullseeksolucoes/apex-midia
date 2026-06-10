@@ -7,14 +7,17 @@ import { useState } from "react";
 import { UploadDropzone } from "@/lib/uploadthing";
 import { trpc } from "@/lib/trpc/client";
 import type { ProjectInput } from "@/lib/portfolio-schemas";
+import { VIDEO_PROVIDER_LABEL, parseVideoUrl, videoThumbnail } from "@/lib/video-providers";
 import type { Project } from "@/types/project";
 
+import { GalleryVideoInput } from "./gallery-video-input";
 import { inferAspect, probeImageSize } from "./media-picker";
 import { MediaPicker } from "./media-picker";
 import {
   CATEGORIES,
   emptyFormState,
   fromProject,
+  toMediaInput,
   type FormState,
   type MediaState,
 } from "./project-form-state";
@@ -79,9 +82,9 @@ export function ProjectForm({
       featured: state.featured,
       featuredOnAbout: state.featuredOnAbout,
       order: state.order,
-      cover: { type: "image", ...state.cover },
-      hero: { type: "image", ...state.hero },
-      gallery: state.gallery.map((m) => ({ type: "image" as const, ...m })),
+      cover: toMediaInput(state.cover),
+      hero: toMediaInput(state.hero),
+      gallery: state.gallery.map(toMediaInput),
       credits: state.credits.filter((c) => c.role && c.name),
     };
 
@@ -238,6 +241,12 @@ export function ProjectForm({
           }}
         />
 
+        <GalleryVideoInput
+          onAdd={(media) =>
+            setState((s) => ({ ...s, gallery: [...s.gallery, media] }))
+          }
+        />
+
         {state.gallery.length > 0 ? (
           <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
             {state.gallery.map((m, i) => (
@@ -374,17 +383,32 @@ function GalleryItem({
   onCaptionChange: (caption: string) => void;
   onRemove: () => void;
 }) {
+  const isVideo = item.type === "video";
+  const thumbnail = isVideo ? videoThumbnail(item) : item.src;
+  const providerLabel = isVideo
+    ? VIDEO_PROVIDER_LABEL[parseVideoUrl(item.src).provider]
+    : null;
+
   return (
     <div className="space-y-2 rounded-xl border border-silver-50/10 bg-ink-2/40 p-3">
       <div className="relative aspect-video w-full overflow-hidden rounded-lg bg-ink-2">
-        <Image
-          src={item.src}
-          alt={item.caption ?? ""}
-          fill
-          sizes="(max-width: 768px) 100vw, 33vw"
-          className="object-cover"
-          unoptimized
-        />
+        {thumbnail ? (
+          <Image
+            src={thumbnail}
+            alt={item.caption ?? ""}
+            fill
+            sizes="(max-width: 768px) 100vw, 33vw"
+            className="object-cover"
+            unoptimized
+          />
+        ) : (
+          <div className="absolute inset-0 bg-gradient-to-br from-graphite to-ink" />
+        )}
+        {isVideo ? (
+          <span className="absolute left-2 top-2 rounded bg-ink/70 px-2 py-0.5 text-[9px] uppercase tracking-[0.18em] text-silver-50 backdrop-blur">
+            ▶ {providerLabel}
+          </span>
+        ) : null}
       </div>
       <input
         placeholder="Legenda (opcional)"
@@ -393,9 +417,7 @@ function GalleryItem({
         className="w-full rounded-md border border-silver-50/15 bg-ink/60 px-2.5 py-1.5 text-xs text-silver-50 outline-none focus:border-silver-50/40"
       />
       <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.16em] text-silver-50/50">
-        <span>
-          {item.width} × {item.height}
-        </span>
+        <span>{isVideo ? "Vídeo" : `${item.width} × ${item.height}`}</span>
         <button
           type="button"
           onClick={onRemove}

@@ -1,6 +1,8 @@
+import type { ProjectInput } from "@/lib/portfolio-schemas";
 import type { Project, ProjectCategory } from "@/types/project";
 
 export type MediaState = {
+  type?: "image" | "video";
   src: string;
   width: number;
   height: number;
@@ -8,6 +10,16 @@ export type MediaState = {
   caption?: string;
   aspect?: "wide" | "tall" | "square";
 };
+
+export const toMediaInput = (m: MediaState): ProjectInput["cover"] => ({
+  type: m.type ?? "image",
+  src: m.src,
+  poster: m.poster,
+  caption: m.caption,
+  width: m.width,
+  height: m.height,
+  aspect: m.aspect,
+});
 
 export type CreditState = { role: string; name: string };
 
@@ -57,6 +69,7 @@ export const fromProject = (p: Project): FormState => ({
   featuredOnAbout: p.featuredOnAbout ?? false,
   order: p.order ?? 0,
   cover: {
+    type: p.cover.type,
     src: p.cover.src,
     width: p.cover.width,
     height: p.cover.height,
@@ -65,6 +78,7 @@ export const fromProject = (p: Project): FormState => ({
     aspect: p.cover.aspect,
   },
   hero: {
+    type: p.hero.type,
     src: p.hero.src,
     width: p.hero.width,
     height: p.hero.height,
@@ -73,6 +87,7 @@ export const fromProject = (p: Project): FormState => ({
     aspect: p.hero.aspect,
   },
   gallery: p.gallery.map((m) => ({
+    type: m.type,
     src: m.src,
     width: m.width,
     height: m.height,
