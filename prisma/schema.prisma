@@ -111,29 +111,6 @@ model ReceivedEmail {
   @@index([createdAt])
 }
 
-model AboutGallery {
-  id                String              @id
-  layout            AboutGalleryLayout  @default(STAGGERED)
-  visibleCount      Int                 @default(6)
-  createdAt         DateTime            @default(now())
-  updatedAt         DateTime
-  AboutGalleryImage AboutGalleryImage[]
-}
-
-model AboutGalleryImage {
-  id           String       @id
-  galleryId    String
-  src          String
-  width        Int
-  height       Int
-  caption      String?
-  visible      Boolean      @default(true)
-  order        Int          @default(0)
-  AboutGallery AboutGallery @relation(fields: [galleryId], references: [id], onDelete: Cascade)
-
-  @@index([galleryId])
-}
-
 enum ProjectCategory {
   BRAND
   FASHION
@@ -175,13 +152,6 @@ enum ContactStatus {
   CONTACTED
   QUALIFIED
   ARCHIVED
-}
-
-enum AboutGalleryLayout {
-  STAGGERED
-  MOSAIC
-  DUO
-  FILMSTRIP
 }
 
 enum AboutGalleryLayout {
