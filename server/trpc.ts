@@ -33,9 +33,17 @@ const t = initTRPC.context<Context>().create({
 export const createTRPCRouter = t.router;
 export const publicProcedure = t.procedure;
 
+const adminUserIds = (process.env.ADMIN_USER_IDS ?? "")
+  .split(",")
+  .map((id) => id.trim())
+  .filter(Boolean);
+
 export const protectedProcedure = t.procedure.use(({ ctx, next }) => {
   if (!ctx.session.userId) {
     throw new TRPCError({ code: "UNAUTHORIZED" });
+  }
+  if (adminUserIds.length > 0 && !adminUserIds.includes(ctx.session.userId)) {
+    throw new TRPCError({ code: "FORBIDDEN" });
   }
   return next({
     ctx: {
