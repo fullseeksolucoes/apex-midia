@@ -3,7 +3,11 @@
 import Image from "next/image";
 import { useState } from "react";
 
-import { parseVideoUrl, videoThumbnail } from "@/lib/video-providers";
+import {
+  parseVideoUrl,
+  VIDEO_PROVIDER_LABEL,
+  videoThumbnail,
+} from "@/lib/video-providers";
 import { cn } from "@/utils/cn";
 
 export function VideoPlayer({
@@ -66,13 +70,18 @@ export function VideoPlayer({
           ) : (
             <span
               aria-hidden
-              className="absolute inset-0 bg-gradient-to-br from-graphite to-ink"
+              className="absolute inset-0 bg-gradient-to-br from-graphite-medium to-graphite"
             />
           )}
 
           <span
             aria-hidden
-            className="absolute inset-0 bg-ink/30 transition-colors duration-300 group-hover:bg-ink/15"
+            className={cn(
+              "absolute inset-0 transition-colors duration-300",
+              thumbnail
+                ? "bg-ink/30 group-hover:bg-ink/15"
+                : "bg-transparent",
+            )}
           />
 
           <span
@@ -81,6 +90,12 @@ export function VideoPlayer({
           >
             <PlayGlyph />
           </span>
+
+          {thumbnail ? null : (
+            <span className="absolute bottom-4 text-[10px] uppercase tracking-[0.24em] text-silver-50/55">
+              {VIDEO_PROVIDER_LABEL[parseVideoUrl(src).provider]}
+            </span>
+          )}
         </button>
       )}
     </div>
