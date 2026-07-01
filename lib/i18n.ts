@@ -173,6 +173,8 @@ export const copy = {
     whatsapp: {
       title: "Prefere falar agora?",
       cta: "Conversar no WhatsApp",
+      message:
+        "Olá! Vim pelo site da Apex Mídias e gostaria de conversar sobre um projeto.",
     },
     direct: {
       label: "Direto",
@@ -204,6 +206,7 @@ export const copy = {
     sectionGallery: "Galeria editorial",
     sectionContactForm: "Formulário de contato",
     sectionWhatsapp: "Contato direto via WhatsApp",
+    whatsappFloat: "Falar no WhatsApp",
   },
 } as const;
 

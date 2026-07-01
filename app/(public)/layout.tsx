@@ -1,5 +1,6 @@
 import { Footer } from "@/components/layout/footer";
 import { Navbar } from "@/components/layout/navbar";
+import { WhatsappFloat } from "@/components/layout/whatsapp-float";
 
 export default function PublicLayout({
   children,
@@ -13,6 +14,7 @@ export default function PublicLayout({
         {children}
       </main>
       <Footer />
+      <WhatsappFloat />
     </>
   );
 }
