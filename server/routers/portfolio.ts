@@ -8,6 +8,7 @@ import {
   projectCategorySchema,
   projectInputSchema,
 } from "@/lib/portfolio-schemas";
+import { resolveMediaPoster } from "@/lib/video-thumbnail";
 
 import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
 import type { ProjectInput } from "@/lib/portfolio-schemas";
@@ -75,11 +76,31 @@ const buildCreditsCreate = (input: ProjectInput) =>
     order: i,
   }));
 
-const revalidatePublicProjectPages = () => {
+const withResolvedPosters = async (
+  input: ProjectInput,
+): Promise<ProjectInput> => {
+  const resolveMedia = async (media: ProjectInput["cover"]) => ({
+    ...media,
+    poster: await resolveMediaPoster(media),
+  });
+  const [cover, hero, gallery] = await Promise.all([
+    resolveMedia(input.cover),
+    resolveMedia(input.hero),
+    Promise.all(input.gallery.map(resolveMedia)),
+  ]);
+  return { ...input, cover, hero, gallery };
+};
+
+const revalidatePublicProjectPages = (
+  ...slugs: Array<string | undefined>
+) => {
   revalidatePath("/");
   revalidatePath("/sobre");
   revalidatePath("/portfolio");
   revalidatePath("/portfolio/[slug]", "page");
+  for (const slug of slugs) {
+    if (slug) revalidatePath(`/portfolio/${slug}`);
+  }
 };
 
 export const portfolioRouter = createTRPCRouter({
@@ -213,24 +234,25 @@ export const portfolioRouter = createTRPCRouter({
           message: "Já existe um projeto com este slug.",
         });
       }
+      const data = await withResolvedPosters(input);
       const row = await ctx.db.project.create({
         data: {
-          slug: input.slug,
-          title: input.title,
-          client: input.client,
-          year: input.year,
-          category: toDbCategory(input.category),
-          excerpt: input.excerpt,
-          brief: input.brief,
-          featured: input.featured,
-          featuredOnAbout: input.featuredOnAbout,
-          order: input.order,
-          media: { create: buildMediaCreate(input) },
-          credits: { create: buildCreditsCreate(input) },
+          slug: data.slug,
+          title: data.title,
+          client: data.client,
+          year: data.year,
+          category: toDbCategory(data.category),
+          excerpt: data.excerpt,
+          brief: data.brief,
+          featured: data.featured,
+          featuredOnAbout: data.featuredOnAbout,
+          order: data.order,
+          media: { create: buildMediaCreate(data) },
+          credits: { create: buildCreditsCreate(data) },
         },
         include: projectInclude,
       });
-      revalidatePublicProjectPages();
+      revalidatePublicProjectPages(row.slug);
       return toApiProjectWithId(row);
     }),
 
@@ -239,7 +261,7 @@ export const portfolioRouter = createTRPCRouter({
     .mutation(async ({ ctx, input }) => {
       const existing = await ctx.db.project.findUnique({
         where: { id: input.id },
-        select: { id: true },
+        select: { id: true, slug: true },
       });
       if (!existing) throw new TRPCError({ code: "NOT_FOUND" });
 
@@ -254,38 +276,41 @@ export const portfolioRouter = createTRPCRouter({
         });
       }
 
+      const data = await withResolvedPosters(input.data);
       const row = await ctx.db.$transaction(async (tx) => {
         await tx.projectMedia.deleteMany({ where: { projectId: input.id } });
         await tx.projectCredit.deleteMany({ where: { projectId: input.id } });
         return tx.project.update({
           where: { id: input.id },
           data: {
-            slug: input.data.slug,
-            title: input.data.title,
-            client: input.data.client,
-            year: input.data.year,
-            category: toDbCategory(input.data.category),
-            excerpt: input.data.excerpt,
-            brief: input.data.brief,
-            featured: input.data.featured,
-            featuredOnAbout: input.data.featuredOnAbout,
-            order: input.data.order,
-            media: { create: buildMediaCreate(input.data) },
-            credits: { create: buildCreditsCreate(input.data) },
+            slug: data.slug,
+            title: data.title,
+            client: data.client,
+            year: data.year,
+            category: toDbCategory(data.category),
+            excerpt: data.excerpt,
+            brief: data.brief,
+            featured: data.featured,
+            featuredOnAbout: data.featuredOnAbout,
+            order: data.order,
+            media: { create: buildMediaCreate(data) },
+            credits: { create: buildCreditsCreate(data) },
           },
           include: projectInclude,
         });
       });
 
-      revalidatePublicProjectPages();
+      revalidatePublicProjectPages(existing.slug, row.slug);
       return toApiProjectWithId(row);
     }),
 
   delete: protectedProcedure
     .input(z.object({ id: z.string().min(1) }))
     .mutation(async ({ ctx, input }) => {
-      await ctx.db.project.delete({ where: { id: input.id } });
-      revalidatePublicProjectPages();
+      const deleted = await ctx.db.project.delete({
+        where: { id: input.id },
+      });
+      revalidatePublicProjectPages(deleted.slug);
       return { ok: true };
     }),
 
