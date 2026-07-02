@@ -1,3 +1,5 @@
+import type { CSSProperties } from "react";
+
 import Image from "next/image";
 
 import { Container } from "@/components/layout/container";
@@ -18,44 +20,46 @@ export function ProjectGallery({ project }: ProjectGalleryProps) {
       className="relative border-t border-(--hairline) py-24 md:py-32"
     >
       <Container size="wide">
-        <div className="columns-1 gap-6 sm:columns-2 xl:columns-3">
-          {project.gallery.map((media, idx) => (
-            <Reveal
-              key={`${project.slug}-media-${idx}`}
-              delay={idx * 60}
-              className="mb-6 break-inside-avoid"
-            >
-              {media.type === "image" ? (
-                <ImageFrame
-                  ratio={media.width / media.height}
-                  className="rounded-[1.75rem]"
-                >
-                  <Image
+        <div className="gallery-justified">
+          {project.gallery.map((media, idx) => {
+            const ratio = media.width / media.height;
+            return (
+              <Reveal
+                key={`${project.slug}-media-${idx}`}
+                delay={idx * 60}
+                style={{ "--gallery-ratio": ratio } as CSSProperties}
+              >
+                {media.type === "image" ? (
+                  <ImageFrame ratio={ratio} className="rounded-[1.75rem]">
+                    <Image
+                      src={media.src}
+                      alt={
+                        media.caption ?? `${project.title} — frame ${idx + 1}`
+                      }
+                      width={media.width}
+                      height={media.height}
+                      quality={82}
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      className="h-full w-full object-cover"
+                    />
+                  </ImageFrame>
+                ) : (
+                  <VideoPlayer
                     src={media.src}
-                    alt={media.caption ?? `${project.title} — frame ${idx + 1}`}
-                    width={media.width}
-                    height={media.height}
-                    quality={82}
-                    sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
-                    className="h-auto w-full object-cover"
+                    poster={media.poster}
+                    title={media.caption ?? project.title}
+                    ratio={ratio}
+                    className="rounded-[1.75rem]"
                   />
-                </ImageFrame>
-              ) : (
-                <VideoPlayer
-                  src={media.src}
-                  poster={media.poster}
-                  title={media.caption ?? project.title}
-                  ratio={media.width / media.height}
-                  className="rounded-[1.75rem]"
-                />
-              )}
-              {media.caption ? (
-                <p className="mt-4 text-[11px] uppercase tracking-[0.24em] text-neutral-500">
-                  {media.caption}
-                </p>
-              ) : null}
-            </Reveal>
-          ))}
+                )}
+                {media.caption ? (
+                  <p className="mt-4 text-[11px] uppercase tracking-[0.24em] text-neutral-500">
+                    {media.caption}
+                  </p>
+                ) : null}
+              </Reveal>
+            );
+          })}
         </div>
       </Container>
     </section>
