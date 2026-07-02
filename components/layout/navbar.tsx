@@ -20,7 +20,7 @@ export function Navbar() {
 
   return (
     <>
-      <header className="fixed inset-x-0 top-0 z-50 transition-all duration-500 ease-(--ease-cinema)">
+      <header className="fixed inset-x-0 top-0 z-50 pt-[env(safe-area-inset-top)] transition-all duration-500 ease-(--ease-cinema)">
         <div
           aria-hidden
           className={cn(
@@ -166,7 +166,7 @@ export function Navbar() {
         aria-modal="true"
         aria-label="Menu"
         className={cn(
-          "fixed inset-0 z-40 flex flex-col bg-ink/98 backdrop-blur-2xl px-8 pt-8 pb-10 transition-all duration-500 ease-(--ease-cinema) md:hidden",
+          "fixed inset-0 z-40 flex flex-col bg-ink/98 backdrop-blur-2xl px-8 pt-[calc(2rem+env(safe-area-inset-top))] pb-[calc(2.5rem+env(safe-area-inset-bottom))] transition-all duration-500 ease-(--ease-cinema) md:hidden",
           isMenuOpen
             ? "opacity-100 pointer-events-auto"
             : "opacity-0 pointer-events-none",
