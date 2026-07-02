@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { Container } from "@/components/layout/container";
+import { ImageFrame } from "@/components/media/ImageFrame";
 import { Reveal } from "@/components/ui/reveal";
 import { useProjectGrid } from "@/components/sections/useProjectGrid";
 import { copy } from "@/lib/i18n";
@@ -56,7 +57,10 @@ export function ProjectGrid({ projects }: ProjectGridProps) {
                   href={`/portfolio/${project.slug}`}
                   className="group block"
                 >
-                  <div className="overflow-hidden rounded-[1.75rem] bg-graphite shadow-(--shadow-lift) transition-shadow duration-500 group-hover:shadow-(--shadow-editorial)">
+                  <ImageFrame
+                    ratio={project.cover.width / project.cover.height}
+                    className="rounded-[1.75rem] shadow-(--shadow-lift) transition-shadow duration-500 group-hover:shadow-(--shadow-editorial)"
+                  >
                     <Image
                       src={project.cover.src}
                       alt={`${project.title} — ${project.client}`}
@@ -65,7 +69,7 @@ export function ProjectGrid({ projects }: ProjectGridProps) {
                       sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
                       className="h-auto w-full object-cover transition-transform duration-(--duration-lift) ease-out group-hover:scale-[1.03]"
                     />
-                  </div>
+                  </ImageFrame>
 
                   <div className="mt-5 flex items-start justify-between gap-4">
                     <div>

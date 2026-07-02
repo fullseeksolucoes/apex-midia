@@ -1,5 +1,6 @@
 import Image from "next/image";
 
+import { ImageFrame } from "@/components/media/ImageFrame";
 import { Reveal } from "@/components/ui/reveal";
 import type { AboutGalleryLayout } from "@/lib/about-gallery-schemas";
 import type { AboutGalleryImage } from "@/types/about-gallery";
@@ -28,11 +29,8 @@ function CoverTile({
   sizes: string;
 }) {
   return (
-    <div
-      className={cn(
-        "relative overflow-hidden rounded-[1.5rem] bg-graphite shadow-(--shadow-lift)",
-        className,
-      )}
+    <ImageFrame
+      className={cn("rounded-[1.5rem] shadow-(--shadow-lift)", className)}
     >
       <Image
         src={image.src}
@@ -41,7 +39,7 @@ function CoverTile({
         sizes={sizes}
         className="object-cover transition-transform duration-(--duration-lift) ease-out hover:scale-[1.03]"
       />
-    </div>
+    </ImageFrame>
   );
 }
 
@@ -54,7 +52,10 @@ function StaggeredLayout({ images }: LayoutProps) {
           delay={idx * 60}
           className="mb-6 break-inside-avoid"
         >
-          <div className="overflow-hidden rounded-[1.5rem] bg-graphite shadow-(--shadow-lift)">
+          <ImageFrame
+            ratio={image.width / image.height}
+            className="rounded-[1.5rem] shadow-(--shadow-lift)"
+          >
             <Image
               src={image.src}
               alt={image.caption ?? ""}
@@ -63,7 +64,7 @@ function StaggeredLayout({ images }: LayoutProps) {
               sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
               className="h-auto w-full object-cover"
             />
-          </div>
+          </ImageFrame>
           <Caption text={image.caption} />
         </Reveal>
       ))}

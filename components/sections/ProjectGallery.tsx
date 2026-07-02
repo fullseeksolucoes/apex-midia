@@ -1,6 +1,7 @@
 import Image from "next/image";
 
 import { Container } from "@/components/layout/container";
+import { ImageFrame } from "@/components/media/ImageFrame";
 import { VideoPlayer } from "@/components/media/VideoPlayer";
 import { Reveal } from "@/components/ui/reveal";
 import { copy } from "@/lib/i18n";
@@ -25,16 +26,20 @@ export function ProjectGallery({ project }: ProjectGalleryProps) {
               className="mb-6 break-inside-avoid"
             >
               {media.type === "image" ? (
-                <div className="overflow-hidden rounded-[1.75rem] bg-neutral-100">
+                <ImageFrame
+                  ratio={media.width / media.height}
+                  className="rounded-[1.75rem]"
+                >
                   <Image
                     src={media.src}
                     alt={media.caption ?? `${project.title} — frame ${idx + 1}`}
                     width={media.width}
                     height={media.height}
+                    quality={82}
                     sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
                     className="h-auto w-full object-cover"
                   />
-                </div>
+                </ImageFrame>
               ) : (
                 <VideoPlayer
                   src={media.src}

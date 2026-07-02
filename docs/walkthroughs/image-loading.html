@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Walkthrough — Image loading performance</title>
+<style>
+  :root {
+    --ink: #17140f;
+    --cream: #f4efe7;
+    --card: #fffdf9;
+    --hair: #e5dfd6;
+    --accent: #b8863b;
+    --muted: #6f685d;
+    --good: #2f7d4f;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; }
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font: 16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    display: flex; align-items: center; justify-content: center;
+    min-height: 100%;
+  }
+  .deck { width: min(860px, 94vw); }
+  .slide {
+    display: none;
+    background: var(--card);
+    border: 1px solid var(--hair);
+    border-radius: 18px;
+    padding: 40px 44px;
+    box-shadow: 0 24px 60px -30px rgba(23,20,15,0.35);
+    min-height: 440px;
+  }
+  .slide.active { display: block; animation: fade .25s ease; }
+  @keyframes fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+  .kicker { text-transform: uppercase; letter-spacing: .22em; font-size: 11px; color: var(--accent); font-weight: 700; }
+  h1 { font-size: 30px; line-height: 1.15; margin: 12px 0 6px; }
+  h2 { font-size: 22px; margin: 10px 0 18px; }
+  p.lead { font-size: 18px; color: var(--ink); }
+  ul { padding-left: 0; list-style: none; margin: 14px 0 0; }
+  li { padding: 9px 0; border-top: 1px solid var(--hair); }
+  li:first-child { border-top: 0; }
+  code { background: #f0ebe2; border: 1px solid var(--hair); border-radius: 6px; padding: 1px 6px; font-size: 13px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+  .metric { display: flex; gap: 18px; flex-wrap: wrap; margin-top: 18px; }
+  .metric .box { flex: 1 1 180px; background: var(--cream); border: 1px solid var(--hair); border-radius: 12px; padding: 16px 18px; }
+  .metric .big { font-size: 26px; font-weight: 800; }
+  .metric .big .from { color: var(--muted); font-weight: 500; font-size: 15px; text-decoration: line-through; }
+  .metric .lbl { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .12em; }
+  .muted { color: var(--muted); }
+  .good { color: var(--good); font-weight: 700; }
+  .nav { display: flex; align-items: center; justify-content: space-between; margin-top: 18px; color: var(--muted); font-size: 13px; }
+  .dots { display: flex; gap: 7px; }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--hair); }
+  .dot.on { background: var(--accent); }
+  kbd { background: #fff; border: 1px solid var(--hair); border-bottom-width: 2px; border-radius: 5px; padding: 1px 6px; font-size: 12px; }
+  .tag { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--good); background: #e7f2ec; border: 1px solid #cfe6d8; border-radius: 999px; padding: 2px 10px; }
+</style>
+</head>
+<body>
+<div class="deck" id="deck">
+
+  <section class="slide active">
+    <div class="kicker">Flash session · 60s</div>
+    <h1>Making the portfolio images fast &amp; fluent</h1>
+    <p class="lead">For a photographer/videomaker site, image speed <em>is</em> the product. This change makes public images far smaller, cached hard, and load without blank flashes — no redesign.</p>
+    <div class="metric">
+      <div class="box"><div class="lbl">Home hero (LCP)</div><div class="big"><span class="from">3.65 MB</span> → 68 KB</div><div class="muted">served as AVIF @1920w</div></div>
+      <div class="box"><div class="lbl">Image cache</div><div class="big">1 year</div><div class="muted">was 60s default</div></div>
+      <div class="box"><div class="lbl">Dead assets removed</div><div class="big">~20 MB</div><div class="muted">unused banners</div></div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">The decision</div>
+    <h2>Optimizer + CSS placeholder — not a DB blur pipeline</h2>
+    <ul>
+      <li><strong>Serve AVIF/WebP via Next's optimizer, cached 1 year.</strong> Biggest byte win with zero per-image work. Safe to cache forever because image URLs are content-unique (UploadThing mints a new key per upload).</li>
+      <li><strong>Fluency via a CSS <code>ImageFrame</code></strong> that reserves the exact aspect box (zero layout shift) and shows a subtle cream shimmer behind opaque photos.</li>
+      <li class="muted"><strong>Rejected for now:</strong> true per-image <code>blurDataURL</code> LQIP — nicer blur-up, but needs a Prisma column + backfill. Deferred as its own reviewed migration (noted in <code>MEMORY.md</code>).</li>
+    </ul>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">What changed</div>
+    <h2>Five areas that matter</h2>
+    <ul>
+      <li><code>next.config.ts</code> — AVIF+WebP <code>formats</code>, <code>minimumCacheTTL</code> 1yr, <code>qualities [75,82]</code>, allowlist <code>*.vimeocdn.com</code> / <code>i.ytimg.com</code>.</li>
+      <li><code>components/media/ImageFrame.tsx</code> + <code>app/globals.css</code> — new LQIP frame + <code>prefers-reduced-motion</code>-aware shimmer.</li>
+      <li><code>ProjectGrid / ProjectGallery / SelectedWork / RelatedProjects / AboutGalleryLayouts</code> — photos wrapped in <code>ImageFrame</code>; gallery at <code>quality={82}</code>.</li>
+      <li><code>components/media/VideoPlayer.tsx</code> — posters drop <code>unoptimized</code>, go through the optimizer.</li>
+      <li><code>public/</code> — hero banners recompressed 3.5 MB → ~200 KB; deleted 4 unreferenced banner files.</li>
+    </ul>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">How it was verified</div>
+    <h2>Green gate + adversarial review</h2>
+    <ul>
+      <li><span class="tag">reviewer: approve</span> Separate agent tried to refute 7 ways — no blockers. Confirmed placeholder tone is cream (not dark), no <code>aspectRatio: NaN</code> path, quality allowlist complete, poster hosts covered.</li>
+      <li><strong>Build / typecheck / lint</strong> — <span class="good">green</span>. <code>tsc --noEmit</code> clean, <code>next build</code> generated all 30 routes, lint clean on every touched file.</li>
+      <li><strong>Measured live</strong> — <code>curl</code> against <code>next start</code>: hero returns <code>Content-Type: image/avif</code>, 68 KB, <code>Cache-Control: max-age=31536000</code>; WebP fallback for non-AVIF browsers.</li>
+      <li>Hero banner recompression visually checked — crisp logos, no banding on gradients.</li>
+    </ul>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">Risk / watch-out</div>
+    <h2>Two things to keep an eye on</h2>
+    <ul>
+      <li><strong>1-year cache assumes content-unique URLs.</strong> If a future flow ever reuses a stable URL for changed image content, it could serve stale for a year — lower <code>minimumCacheTTL</code> if that ever happens.</li>
+      <li><strong>Vimeo poster host.</strong> Broadened to <code>*.vimeocdn.com</code>; if an optimized poster ever renders broken, confirm its host is covered in <code>remotePatterns</code>.</li>
+      <li class="muted"><strong>Next win:</strong> real <code>blurDataURL</code> blur-up for an even more premium feel — deferred, tracked in <code>MEMORY.md</code>.</li>
+    </ul>
+    <p class="muted" style="margin-top:22px">Branch <code>perf/image-loading</code> · commit <code>1f9ff8a</code></p>
+  </section>
+
+  <div class="nav">
+    <span><kbd>←</kbd> <kbd>→</kbd> to navigate</span>
+    <div class="dots" id="dots"></div>
+    <span id="counter"></span>
+  </div>
+</div>
+
+<script>
+  const slides = [...document.querySelectorAll('.slide')];
+  const dotsWrap = document.getElementById('dots');
+  const counter = document.getElementById('counter');
+  let i = 0;
+  slides.forEach(() => { const d = document.createElement('div'); d.className = 'dot'; dotsWrap.appendChild(d); });
+  const dots = [...document.querySelectorAll('.dot')];
+  function show(n) {
+    i = Math.max(0, Math.min(slides.length - 1, n));
+    slides.forEach((s, k) => s.classList.toggle('active', k === i));
+    dots.forEach((d, k) => d.classList.toggle('on', k === i));
+    counter.textContent = (i + 1) + ' / ' + slides.length;
+  }
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === ' ') show(i + 1);
+    if (e.key === 'ArrowLeft') show(i - 1);
+  });
+  document.addEventListener('click', (e) => { if (!e.target.closest('a')) show(i + 1); });
+  show(0);
+</script>
+</body>
+</html>
