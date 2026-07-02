@@ -12,7 +12,7 @@ const requireAuth = async () => {
 
 export const ourFileRouter = {
   projectImage: f({
-    image: { maxFileSize: "8MB", maxFileCount: 1 },
+    image: { maxFileSize: "16MB", maxFileCount: 1 },
   })
     .middleware(requireAuth)
     .onUploadComplete(async ({ metadata, file }) => ({
@@ -21,7 +21,7 @@ export const ourFileRouter = {
     })),
 
   projectGallery: f({
-    image: { maxFileSize: "8MB", maxFileCount: 20 },
+    image: { maxFileSize: "16MB", maxFileCount: 40 },
   })
     .middleware(requireAuth)
     .onUploadComplete(async ({ metadata, file }) => ({

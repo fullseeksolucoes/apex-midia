@@ -22,6 +22,8 @@ import {
   type MediaState,
 } from "./project-form-state";
 
+const MAX_GALLERY_UPLOAD_BYTES = 16 * 1024 * 1024;
+
 export function ProjectForm({
   mode,
   id,
@@ -215,6 +217,21 @@ export function ProjectForm({
 
         <UploadDropzone
           endpoint="projectGallery"
+          onBeforeUploadBegin={(files) => {
+            const oversized = files.filter(
+              (f) => f.size > MAX_GALLERY_UPLOAD_BYTES,
+            );
+            if (oversized.length > 0) {
+              setError(
+                `${oversized.length} arquivo(s) acima de 16MB foram ignorados: ${oversized
+                  .map((f) => f.name)
+                  .join(", ")}. Reduza o tamanho e envie novamente.`,
+              );
+            } else {
+              setError(null);
+            }
+            return files.filter((f) => f.size <= MAX_GALLERY_UPLOAD_BYTES);
+          }}
           onClientUploadComplete={async (res) => {
             if (!res) return;
             const newItems: MediaState[] = await Promise.all(
@@ -230,7 +247,7 @@ export function ProjectForm({
             );
             setState((s) => ({ ...s, gallery: [...s.gallery, ...newItems] }));
           }}
-          onUploadError={(e) => alert(`Erro: ${e.message}`)}
+          onUploadError={(e) => setError(`Falha no upload: ${e.message}`)}
           appearance={{
             container:
               "rounded-xl border border-dashed border-silver-50/15 bg-ink-2/30 p-6",

@@ -8,6 +8,7 @@ import {
   projectCategorySchema,
   projectInputSchema,
 } from "@/lib/portfolio-schemas";
+import { deleteUploadThingFiles } from "@/lib/uploadthing-cleanup";
 import { resolveMediaPoster } from "@/lib/video-thumbnail";
 
 import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
@@ -261,7 +262,7 @@ export const portfolioRouter = createTRPCRouter({
     .mutation(async ({ ctx, input }) => {
       const existing = await ctx.db.project.findUnique({
         where: { id: input.id },
-        select: { id: true, slug: true },
+        select: { id: true, slug: true, media: { select: { src: true } } },
       });
       if (!existing) throw new TRPCError({ code: "NOT_FOUND" });
 
@@ -300,6 +301,16 @@ export const portfolioRouter = createTRPCRouter({
         });
       });
 
+      const nextSrcs = new Set([
+        data.cover.src,
+        data.hero.src,
+        ...data.gallery.map((m) => m.src),
+      ]);
+      const removedSrcs = existing.media
+        .map((m) => m.src)
+        .filter((src) => !nextSrcs.has(src));
+      await deleteUploadThingFiles(removedSrcs);
+
       revalidatePublicProjectPages(existing.slug, row.slug);
       return toApiProjectWithId(row);
     }),
@@ -309,7 +320,9 @@ export const portfolioRouter = createTRPCRouter({
     .mutation(async ({ ctx, input }) => {
       const deleted = await ctx.db.project.delete({
         where: { id: input.id },
+        include: projectInclude,
       });
+      await deleteUploadThingFiles(deleted.media.map((m) => m.src));
       revalidatePublicProjectPages(deleted.slug);
       return { ok: true };
     }),

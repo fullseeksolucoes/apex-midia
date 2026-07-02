@@ -51,7 +51,7 @@ export const projectInputSchema = z.object({
   order: z.number().int().min(0).max(9999).default(0),
   cover: projectMediaSchema,
   hero: projectMediaSchema,
-  gallery: z.array(projectMediaSchema).max(40).default([]),
+  gallery: z.array(projectMediaSchema).max(80).default([]),
   credits: z.array(projectCreditSchema).max(40).default([]),
 });
 
