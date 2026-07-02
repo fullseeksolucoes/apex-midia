@@ -6,7 +6,6 @@ export interface ParsedVideo {
   thumbnailUrl: string | null;
   embedUrl: string;
   autoplayUrl: string;
-  lightboxUrl: string;
 }
 
 const YOUTUBE_PATH_ID =
@@ -44,7 +43,6 @@ export function parseVideoUrl(rawUrl: string): ParsedVideo {
       thumbnailUrl: `https://i.ytimg.com/vi/${id}/hqdefault.jpg`,
       embedUrl,
       autoplayUrl: `${embedUrl}&autoplay=1`,
-      lightboxUrl: `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0&playsinline=1&modestbranding=1`,
     };
   }
 
@@ -57,19 +55,16 @@ export function parseVideoUrl(rawUrl: string): ParsedVideo {
       thumbnailUrl: null,
       embedUrl,
       autoplayUrl: `${embedUrl}&autoplay=1`,
-      lightboxUrl: `https://player.vimeo.com/video/${vimeo[1]}?autoplay=1&title=0&byline=0&portrait=0&dnt=1`,
     };
   }
 
   if (isPandaUrl(url)) {
-    const autoplayUrl = withAutoplayParam(url, "autoplay=true");
     return {
       provider: "panda",
       isEmbed: true,
       thumbnailUrl: null,
       embedUrl: url,
-      autoplayUrl,
-      lightboxUrl: autoplayUrl,
+      autoplayUrl: withAutoplayParam(url, "autoplay=true"),
     };
   }
 
@@ -79,7 +74,6 @@ export function parseVideoUrl(rawUrl: string): ParsedVideo {
     thumbnailUrl: null,
     embedUrl: url,
     autoplayUrl: url,
-    lightboxUrl: url,
   };
 }
 
