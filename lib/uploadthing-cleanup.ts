@@ -5,7 +5,7 @@ import { UTApi } from "uploadthing/server";
 const utapi = new UTApi();
 const UPLOADTHING_HOST = /(?:^|\.)(?:ufs\.sh|utfs\.io)$/i;
 
-function toUploadThingKey(src: string): string | null {
+export function toUploadThingKey(src: string): string | null {
   try {
     const url = new URL(src);
     if (!UPLOADTHING_HOST.test(url.hostname)) return null;
