@@ -140,6 +140,28 @@ video {
   }
 }
 
+.gallery-justified {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.gallery-justified > * {
+  flex-grow: var(--gallery-ratio);
+  flex-basis: 100%;
+  min-width: 0;
+  max-width: 100%;
+}
+
+@media (min-width: 768px) {
+  .gallery-justified > * {
+    flex-basis: calc(var(--gallery-ratio) * 22rem);
+    max-width: calc(var(--gallery-ratio) * 72vh);
+  }
+}
+
 ::selection {
   background: var(--silver-50);
   color: var(--ink);

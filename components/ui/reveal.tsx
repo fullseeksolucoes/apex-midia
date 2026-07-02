@@ -1,6 +1,6 @@
 "use client";
 
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 
 import { useIsMobile } from "@/hooks/useIsMobile";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
@@ -11,6 +11,7 @@ interface RevealProps {
   className?: string;
   delay?: number;
   as?: "div" | "section" | "article" | "header" | "footer" | "li";
+  style?: CSSProperties;
 }
 
 export function Reveal({
@@ -18,6 +19,7 @@ export function Reveal({
   className,
   delay = 0,
   as: Tag = "div",
+  style,
 }: RevealProps) {
   const { ref, isVisible } = useScrollReveal<HTMLDivElement>();
   const isMobile = useIsMobile();
@@ -31,7 +33,7 @@ export function Reveal({
         isMobile || isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8",
         className,
       )}
-      style={{ transitionDelay: !isMobile ? `${delay}ms` : undefined }}
+      style={{ transitionDelay: !isMobile ? `${delay}ms` : undefined, ...style }}
     >
       {children}
     </Tag>
