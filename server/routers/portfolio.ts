@@ -9,7 +9,7 @@ import {
   projectInputSchema,
 } from "@/lib/portfolio-schemas";
 import { deleteUploadThingFiles } from "@/lib/uploadthing-cleanup";
-import { resolveMediaPoster } from "@/lib/video-thumbnail";
+import { resolveVideoMedia } from "@/lib/video-thumbnail";
 
 import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
 import type { ProjectInput } from "@/lib/portfolio-schemas";
@@ -80,10 +80,16 @@ const buildCreditsCreate = (input: ProjectInput) =>
 const withResolvedPosters = async (
   input: ProjectInput,
 ): Promise<ProjectInput> => {
-  const resolveMedia = async (media: ProjectInput["cover"]) => ({
-    ...media,
-    poster: await resolveMediaPoster(media),
-  });
+  const resolveMedia = async (media: ProjectInput["cover"]) => {
+    const resolved = await resolveVideoMedia(media);
+    return {
+      ...media,
+      poster: resolved.poster ?? media.poster,
+      width: resolved.width ?? media.width,
+      height: resolved.height ?? media.height,
+      aspect: resolved.aspect ?? media.aspect,
+    };
+  };
   const [cover, hero, gallery] = await Promise.all([
     resolveMedia(input.cover),
     resolveMedia(input.hero),

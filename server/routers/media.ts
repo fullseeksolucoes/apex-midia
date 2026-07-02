@@ -1,7 +1,11 @@
+import { revalidatePath } from "next/cache";
+
 import { UTApi } from "uploadthing/server";
 import { z } from "zod";
 
+import { toDbAspect } from "@/lib/portfolio-mapper";
 import { toUploadThingKey } from "@/lib/uploadthing-cleanup";
+import { resolveVideoMedia } from "@/lib/video-thumbnail";
 
 import { createTRPCRouter, protectedProcedure } from "../trpc";
 
@@ -93,6 +97,72 @@ export const mediaRouter = createTRPCRouter({
         orphanCount: orphans.length,
         deleted: input.dryRun ? 0 : orphans.length,
         orphanNames: orphans.map((file) => file.name),
+      };
+    }),
+
+  backfillVideoAspect: protectedProcedure
+    .input(z.object({ dryRun: z.boolean().default(true) }))
+    .mutation(async ({ ctx, input }) => {
+      const videos = await ctx.db.projectMedia.findMany({
+        where: { type: "VIDEO" },
+        select: {
+          id: true,
+          src: true,
+          width: true,
+          height: true,
+          aspect: true,
+          projectId: true,
+        },
+      });
+
+      const corrections = [];
+      for (const video of videos) {
+        const resolved = await resolveVideoMedia({
+          type: "video",
+          src: video.src,
+        });
+        if (!resolved.width || !resolved.height || !resolved.aspect) continue;
+        if (resolved.width === video.width && resolved.height === video.height) {
+          continue;
+        }
+        corrections.push({
+          id: video.id,
+          projectId: video.projectId,
+          width: resolved.width,
+          height: resolved.height,
+          aspect: toDbAspect(resolved.aspect),
+          from: `${video.width}x${video.height} ${video.aspect}`,
+          to: `${resolved.width}x${resolved.height} ${resolved.aspect}`,
+        });
+      }
+
+      if (!input.dryRun && corrections.length > 0) {
+        await ctx.db.$transaction(
+          corrections.map((c) =>
+            ctx.db.projectMedia.update({
+              where: { id: c.id },
+              data: { width: c.width, height: c.height, aspect: c.aspect },
+            }),
+          ),
+        );
+        const projectIds = [...new Set(corrections.map((c) => c.projectId))];
+        const projects = await ctx.db.project.findMany({
+          where: { id: { in: projectIds } },
+          select: { slug: true },
+        });
+        revalidatePath("/portfolio");
+        revalidatePath("/portfolio/[slug]", "page");
+        for (const project of projects) {
+          revalidatePath(`/portfolio/${project.slug}`);
+        }
+      }
+
+      return {
+        dryRun: input.dryRun,
+        totalVideos: videos.length,
+        correctionCount: corrections.length,
+        updated: input.dryRun ? 0 : corrections.length,
+        corrections: corrections.map((c) => ({ from: c.from, to: c.to })),
       };
     }),
 });

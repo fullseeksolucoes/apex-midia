@@ -1,8 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
+import { VideoLightbox } from "@/components/media/VideoLightbox";
 import {
   isHttpUrl,
   parseVideoUrl,
@@ -10,6 +11,8 @@ import {
   type ParsedVideo,
 } from "@/lib/video-providers";
 import { cn } from "@/utils/cn";
+
+const INLINE_PLAYER_MAX_HEIGHT = "70vh";
 
 export function VideoPlayer({
   src,
@@ -25,15 +28,19 @@ export function VideoPlayer({
   className?: string;
 }) {
   const [playing, setPlaying] = useState(false);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const closeLightbox = useCallback(() => setLightboxOpen(false), []);
   const parsed = parseVideoUrl(src);
   const thumbnail = poster ?? parsed.thumbnailUrl;
+  const safeRatio = ratio && Number.isFinite(ratio) && ratio > 0 ? ratio : 16 / 9;
 
   return (
     <div
-      className={cn("relative w-full overflow-hidden bg-graphite", className)}
-      style={{
-        aspectRatio: ratio && Number.isFinite(ratio) && ratio > 0 ? ratio : 16 / 9,
-      }}
+      className={cn(
+        "group relative w-full overflow-hidden bg-graphite",
+        className,
+      )}
+      style={{ aspectRatio: safeRatio, maxHeight: INLINE_PLAYER_MAX_HEIGHT }}
     >
       {playing ? (
         <PlayingView
@@ -50,7 +57,59 @@ export function VideoPlayer({
           onPlay={() => setPlaying(true)}
         />
       )}
+
+      <ExpandButton playing={playing} onExpand={() => setLightboxOpen(true)} />
+
+      {lightboxOpen ? (
+        <VideoLightbox
+          src={src}
+          poster={thumbnail}
+          title={title}
+          ratio={safeRatio}
+          onClose={closeLightbox}
+        />
+      ) : null}
     </div>
+  );
+}
+
+function ExpandButton({
+  playing,
+  onExpand,
+}: {
+  playing: boolean;
+  onExpand: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onExpand}
+      aria-label="Abrir em tela cheia"
+      className={cn(
+        "absolute right-3 top-3 z-20 flex h-10 w-10 items-center justify-center rounded-full bg-ink/70 text-silver-50 backdrop-blur transition-all duration-300 hover:scale-105 hover:bg-ink/90 focus-visible:opacity-100",
+        playing ? "opacity-0 group-hover:opacity-100" : "opacity-100",
+      )}
+    >
+      <ExpandGlyph />
+    </button>
+  );
+}
+
+function ExpandGlyph() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={1.5}
+      className="h-4 w-4"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M9 4H4v5M15 4h5v5M9 20H4v-5M15 20h5v-5"
+      />
+    </svg>
   );
 }
 
