@@ -29,7 +29,7 @@ export function Footer() {
                 alt={copy.brand.name}
                 width={72}
                 height={48}
-                // className="brightness-0 invert"
+                sizes="72px"
               />
             </Link>
             <p className="mt-6 max-w-md font-display text-3xl leading-[1.1] text-silver-50">

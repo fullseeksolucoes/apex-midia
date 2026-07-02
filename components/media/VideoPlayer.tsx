@@ -71,7 +71,7 @@ function PlayingView({
         src={thumbnail}
         alt=""
         fill
-        unoptimized
+        quality={82}
         sizes="(max-width: 768px) 100vw, 33vw"
         className="object-cover"
       />
@@ -132,7 +132,7 @@ function StartupChromeMask({ poster }: { poster: string | null }) {
       src={poster}
       alt=""
       fill
-      unoptimized
+      quality={82}
       sizes="(max-width: 768px) 100vw, 33vw"
       className={cn(
         "pointer-events-none absolute inset-0 object-cover transition-opacity duration-700",
@@ -165,7 +165,7 @@ function PlayButton({
           src={thumbnail}
           alt=""
           fill
-          unoptimized
+          quality={82}
           sizes="(max-width: 768px) 100vw, 33vw"
           className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
         />
